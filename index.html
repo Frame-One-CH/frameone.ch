@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>Sergio Lavanga – Sapprise</title>
+
+
+
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+
+		<link rel="stylesheet" href="css/main.css">
+
+
+
+		<meta name="author" content="Sergio Lavanga">
+
+		<meta name="description" content="I’m a frontend developer from Switzerland.">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+		<script>
+
+			document.documentElement.className = 'js';
+
+		</script>
+
+	</head>
+
+	<body>
+
+		<header id="js-header" class="header">
+
+			<a href="http://sapprise.com" class="logo">
+
+				<img src="img/logo.png" alt="Sapprise" />
+
+			</a>
+
+		</header>
+
+
+
+		<section>
+
+			<div class="container">
+
+				<h1>Sergio Lavanga</h1>
+
+				<hr>
+
+
+
+				<div class="content">
+
+					<p>Hi there, I’m Sergio. I am a frontend developer from Switzerland. Fusing code and design is my passion. I also like to create user interfaces that delight people.</p>
+
+					<p>My current workplace is <a href="http://www.koch-k.ch">Koch&nbsp;Kommunikation</a> in Frauenfeld
+
+					where we craft high quality responsive websites. In my free time I mess around with <a href="https://soundcloud.com/joeylawish">music</a>.</p>
+
+				</div>
+
+
+
+				<div class="center social">
+
+					<a href="mailto:&#104;&#101;&#108;&#108;&#111;&#064;&#115;&#097;&#112;&#112;&#114;&#105;&#115;&#101;&#046;&#099;&#111;&#109;" class="button email">
+
+						<span>Email</span>
+
+					</a>
+
+					<a href="https://twitter.com/SergioLavanga" class="button twitter">
+
+						<span>Twitter</span>
+
+					</a>
+
+					<a href="https://github.com/slavanga" class="button github">
+
+						<span>GitHub</span>
+
+					</a>
+
+				</div>
+
+			</div>
+
+		</section>
+
+
+
+		<script src="js/trianglify.min.js"></script>
+
+		<script>
+
+			window.setTimeout(function() {
+
+				document.body.className += ' animated';
+
+			}, 300);
+
+
+
+			var header = document.getElementById('js-header');
+
+			var pattern = Trianglify({
+
+				height: header.offsetHeight,
+
+				width: header.offsetWidth,
+
+				cell_size: 50,
+
+				x_colors: [ '#fee6ce', '#fdae6b', '#e6550d' ]
+
+			});
+
+
+
+			header.style.backgroundImage = 'url(' + pattern.png() + ')';
+
+		</script>
+
+
+
+		<script>
+
+			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+
+			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+
+			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+
+			e.src='//www.google-analytics.com/analytics.js';
+
+			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+
+			ga('create','UA-8765653-4');ga('send','pageview');ga('set', 'anonymizeIp', true);
+
+		</script>
+
+	</body>
+
+</html>
