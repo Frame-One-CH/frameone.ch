@@ -340,6 +340,7 @@ a {
 
 .btn:focus,
 .btn:active {
+  outline: 0;
   background-color: #00e0b0;
   border-color: #00e0b0;
   color: #fff;

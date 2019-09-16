@@ -106,6 +106,7 @@ a {
 
 .btn:focus,
 .btn:active {
+    outline: 0;
     background-color: $color-primary;
     border-color: $color-primary;
     color: #fff;
