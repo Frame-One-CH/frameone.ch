@@ -1,0 +1,251 @@
+$font-family-base: 'Inter', sans-serif !default;
+$color-primary: #00e0b0;
+$color-secondary: #2b2e34;
+
+@import 'normalize';
+@import 'base';
+@import 'font';
+
+body {
+    display: flex;
+    font-family: $font-family-base;
+    font-size: 1.125rem;
+    font-size: calc(16px + 0.25vw);
+    line-height: 1.6;
+    background-color: #fff;
+    color: $color-secondary;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 800;
+    line-height: 1.2;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    color: $color-primary;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+    margin-top: 0;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+p a {
+    text-decoration: none;
+    border-bottom: 2px solid lighten($color-primary, 40%);
+    transition: all 0.15s ease;
+
+    &:hover,
+    &:focus {
+        border-bottom-color: $color-primary;
+    }
+}
+
+a {
+    color: $color-primary
+}
+
+.u-color-primary {
+    color: $color-primary;
+}
+
+.u-text-muted {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0.3em 1.2em;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    border: 2px solid lighten($color-primary, 40%);
+    border-radius: 2em;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background-color: transparent;
+    color: $color-primary;
+}
+
+.btn:hover {
+    outline: 0;
+    text-decoration: none;
+    border-color: $color-primary;
+}
+
+.btn:focus,
+.btn:active {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: #fff;
+}
+
+.title-main {
+    margin-bottom: 0.8em;
+    font-size: 1.7rem;
+
+    @supports (background-clip: text) {
+        background: radial-gradient($color-primary 0, #32DDDA 100%);
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+.header {
+    position: relative;
+    z-index: 1;
+
+    .container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        &::after {
+            content: '';
+            opacity: 0.4;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), $color-primary, rgba(0, 0, 0, 0));
+        }
+    }
+
+    .btn {
+        margin-left: auto;
+    }
+}
+
+.logo {
+    position: relative;
+    display: inline-block;
+    border: 2px solid transparent;
+    border-radius: 50%;
+
+    img {
+        display: block;
+    }
+}
+
+.container {
+    position: relative;
+    max-width: 44rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.section {
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.js .page {
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+.animated .page {
+    opacity: 1;
+}
+
+.content {
+    margin-bottom: 4rem;
+}
+
+.footer {
+    position: relative;
+    margin-top: auto;
+
+    &::before {
+        content: '';
+        display: block;
+        padding-bottom: percentage(130 / 1440);
+    }
+
+    svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (min-width: 44em) {
+    .title-main {
+        font-size: 2.6rem;
+    }
+
+    .section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+}
+
+.theme-dark {
+   body {
+        background-color: $color-secondary;
+        color: #fff;
+
+        a {
+            color: #fff;
+        }
+
+        p a {
+            border-bottom: 2px solid lighten($color-secondary, 30%);
+            transition: all 0.15s ease;
+
+            &:hover,
+            &:focus {
+                border-bottom-color: $color-primary;
+                color: $color-primary;
+            }
+        }
+
+        .logo {
+            border-color: lighten($color-secondary, 30%);
+        }
+
+        .btn:not(:hover):not(:focus):not(:active) {
+            border-color: lighten($color-secondary, 30%);
+            color: #fff;
+        }
+    }
+}
