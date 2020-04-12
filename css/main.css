@@ -242,7 +242,7 @@ body {
   display: flex;
   font-family: "Inter", sans-serif;
   font-size: 1.125rem;
-  font-size: calc(16px + 0.25vw);
+  font-size: calc(1rem + 0.25vw);
   line-height: 1.6;
   background-color: #fff;
   color: #2b2e34;
@@ -347,8 +347,8 @@ a {
 }
 
 .title-main {
+  font-size: calc(1.6rem + 6 * ((100vw - 320px) / 680));
   margin-bottom: 0.8em;
-  font-size: 1.7rem;
 }
 
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -447,9 +447,6 @@ a {
 }
 
 @media (min-width: 44em) {
-  .title-main {
-    font-size: 2.6rem;
-  }
   .section {
     padding-top: 4rem;
     padding-bottom: 4rem;
