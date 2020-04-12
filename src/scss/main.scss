@@ -1,6 +1,7 @@
 $font-family-base: 'Inter', sans-serif !default;
 $color-primary: #00e0b0;
-$color-secondary: #2b2e34;
+$color-secondary: #15395D;
+$color-grey: #eceff2;
 
 @import 'normalize';
 @import 'base';
@@ -77,7 +78,7 @@ a {
 
 .u-text-muted {
     font-size: 0.9rem;
-    color: #888;
+    color: #8a9cae;
 }
 
 .btn {
@@ -156,6 +157,7 @@ a {
     display: inline-block;
     border: 2px solid transparent;
     border-radius: 50%;
+    transition: all 0.3s ease;
 
     img {
         display: block;
@@ -218,7 +220,7 @@ a {
 
 .theme-dark {
    body {
-        background-color: $color-secondary;
+        background-color: darken($color-grey, 80%);
         color: #fff;
 
         a {
@@ -226,7 +228,7 @@ a {
         }
 
         a:not([class]) {
-            border-bottom: 2px solid lighten($color-secondary, 30%);
+            border-bottom: 2px solid $color-primary;
             transition: all 0.15s ease;
 
             &:hover,
@@ -237,12 +239,16 @@ a {
         }
 
         .logo {
-            border-color: lighten($color-secondary, 30%);
+            border-color: darken($color-grey, 60%);
         }
 
         .btn:not(:hover):not(:focus):not(:active) {
-            border-color: lighten($color-secondary, 30%);
+            border-color: darken($color-grey, 60%);
             color: #fff;
+        }
+
+        .footer__shape path {
+            fill: darken($color-grey, 82%);
         }
     }
 }
