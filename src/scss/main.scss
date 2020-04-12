@@ -56,7 +56,7 @@ p:last-child {
     margin-bottom: 0;
 }
 
-p a {
+a:not([class]) {
     text-decoration: none;
     border-bottom: 2px solid lighten($color-primary, 40%);
     transition: all 0.15s ease;
@@ -225,7 +225,7 @@ a {
             color: #fff;
         }
 
-        p a {
+        a:not([class]) {
             border-bottom: 2px solid lighten($color-secondary, 30%);
             transition: all 0.15s ease;
 

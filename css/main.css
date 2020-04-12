@@ -288,13 +288,13 @@ p:last-child {
   margin-bottom: 0;
 }
 
-p a {
+a:not([class]) {
   text-decoration: none;
   border-bottom: 2px solid #adffed;
   transition: all 0.15s ease;
 }
 
-p a:hover, p a:focus {
+a:not([class]):hover, a:not([class]):focus {
   border-bottom-color: #00e0b0;
 }
 
@@ -462,12 +462,12 @@ a {
   color: #fff;
 }
 
-.theme-dark body p a {
+.theme-dark body a:not([class]) {
   border-bottom: 2px solid #707888;
   transition: all 0.15s ease;
 }
 
-.theme-dark body p a:hover, .theme-dark body p a:focus {
+.theme-dark body a:not([class]):hover, .theme-dark body a:not([class]):focus {
   border-bottom-color: #00e0b0;
   color: #00e0b0;
 }
