@@ -247,7 +247,7 @@ body {
   background-color: #fff;
   color: #15395D;
   overflow-x: hidden;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .page {
@@ -296,6 +296,7 @@ a:not([class]) {
 
 a:not([class]):hover, a:not([class]):focus {
   border-bottom-color: #00e0b0;
+  color: #00e0b0;
 }
 
 a {
@@ -415,15 +416,6 @@ a {
   padding-bottom: 2rem;
 }
 
-.js .page {
-  opacity: 0;
-  transition: opacity 0.5s linear;
-}
-
-.animated .page {
-  opacity: 1;
-}
-
 .content {
   margin-bottom: 4rem;
 }
@@ -439,12 +431,16 @@ a {
   padding-bottom: 9.02777778%;
 }
 
-.footer svg {
+.footer__shape {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.footer__shape path {
+  transition: fill 0.3s ease;
 }
 
 @media (min-width: 44em) {
@@ -465,12 +461,6 @@ a {
 
 .theme-dark body a:not([class]) {
   border-bottom: 2px solid #00e0b0;
-  transition: all 0.15s ease;
-}
-
-.theme-dark body a:not([class]):hover, .theme-dark body a:not([class]):focus {
-  border-bottom-color: #00e0b0;
-  color: #00e0b0;
 }
 
 .theme-dark body .logo {
