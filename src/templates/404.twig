@@ -4,19 +4,25 @@
 
 {% block content %}
 
-    <section class="section">
-        <div class="container">
-            <h1 class="title-main">
-                Page not found
-            </h1>
+	<section class="section">
+		<div class="container">
+			<h1 class="title-main">
+				Page not found
+			</h1>
 
-            <div class="content">
-                <p>This isn’t the page you are looking for.</p>
-                <p><a href="https://sapprise.com">Take me home</a></p>
-            </div>
+			<div class="content">
+				<p>This isn’t the page you are looking for.</p>
+				<p>
+					<a href="https://www.frameone.ch">Take me home</a>
+				</p>
+			</div>
 
-            <p class="u-text-muted">&copy; {{ 'now' | date('Y') }} Sergio Lavanga <span class="js-typed"></span></p>
-        </div>
-    </section>
+			<p class="u-text-muted">&copy;
+				{{ 'now' | date('Y') }}
+				Sergio Lavanga
+				<span class="js-typed"></span>
+			</p>
+		</div>
+	</section>
 
 {% endblock %}

@@ -1,11 +1,11 @@
 {
-  "name": "Sapprise",
+  "name": "frame-one",
   "description": "",
   "version": "2.0.0",
   "keywords": [
     "portfolio"
   ],
-  "homepage": "https://sapprise.com",
+  "homepage": "https://frameone.ch",
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^9.7.6",
