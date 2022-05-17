@@ -10,6 +10,8 @@ var config = {
     'sourcemaps': false
 };
 
+const sass = require('gulp-sass')(require('sass'));
+
 
 // Template
 function twig() {
@@ -36,10 +38,10 @@ function validateHtml() {
 function styles() {
     return gulp.src(config.src + 'scss/**/!(_)*.scss')
         .pipe($.if(config.sourcemaps, $.sourcemaps.init()))
-        .pipe($.sass({
+        .pipe(sass({
             precision: 8,
             outputStyle: 'expanded'
-        }).on('error', $.sass.logError))
+        }).on('error', sass.logError))
         .pipe($.postcss([
             autoprefixer()
         ]))
