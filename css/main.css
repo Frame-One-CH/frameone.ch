@@ -241,8 +241,8 @@ body {
   font-size: 1.125rem;
   font-size: calc(1rem + 0.25vw);
   line-height: 1.6;
-  background-color: #fff;
-  color: #15395D;
+  background-color: #0133be;
+  color: #fff;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -264,7 +264,7 @@ h6 {
   line-height: 1.2;
   margin-top: 0.8em;
   margin-bottom: 0.4em;
-  color: #00e0b0;
+  color: #fff;
 }
 
 h1:first-child,
@@ -278,7 +278,7 @@ h6:first-child {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5;
 }
 
 p:last-child {
@@ -287,31 +287,34 @@ p:last-child {
 
 a:not([class]) {
   text-decoration: none;
-  border-bottom: 2px solid #adffed;
+  border-bottom: 1px solid;
   transition: all 0.15s ease;
 }
 a:not([class]):hover, a:not([class]):focus {
-  border-bottom-color: #00e0b0;
-  color: #00e0b0;
+  border-bottom-color: #fff;
+  color: #fff;
 }
 
 a {
-  color: #00e0b0;
+  color: #fff;
 }
 
 .u-color-primary {
-  color: #00e0b0;
+  color: #fff;
 }
 
 .u-text-muted {
   font-size: 0.9rem;
-  color: #8a9cae;
+  color: #5e7db2;
+}
+.u-text-muted a {
+  color: inherit;
 }
 
 .btn {
   display: inline-block;
   vertical-align: middle;
-  padding: 0.3em 1.2em;
+  padding: 0.25em 1.5em;
   transition: all 0.3s ease;
   text-align: center;
   text-decoration: none;
@@ -321,75 +324,38 @@ a {
       -ms-user-select: none;
           user-select: none;
   touch-action: manipulation;
-  border: 2px solid #adffed;
+  border: 1px solid white;
   border-radius: 2em;
-  font-weight: bold;
-  font-size: 0.9rem;
   background-color: transparent;
-  color: #00e0b0;
+  color: #fff;
 }
 
 .btn:hover {
   outline: 0;
   text-decoration: none;
-  border-color: #00e0b0;
+  background-color: #fff;
+  color: #0133be;
+  border-color: #fff;
 }
 
 .btn:focus,
 .btn:active {
   outline: 0;
-  background-color: #00e0b0;
-  border-color: #00e0b0;
-  color: #fff;
+  background-color: #fff;
+  border-color: #fff;
+  color: #0133be;
 }
 
 .title-main {
-  font-size: calc(1.6rem + 6 * (100vw - 320px) / 680);
-  margin-bottom: 0.8em;
-}
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .title-main {
-    background: radial-gradient(#00e0b0 0, #32DDDA 100%);
-    -webkit-background-clip: text;
-            background-clip: text;
-    color: transparent;
-  }
+  font-size: calc(2rem + 6 * (100vw - 320px) / 680);
+  margin-bottom: 0.2em;
 }
 
-.header {
-  position: relative;
-  z-index: 1;
-}
-.header .container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.header .container::after {
-  content: "";
-  opacity: 0.4;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+.hr {
+  border: 0;
   height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #00e0b0, rgba(0, 0, 0, 0));
-}
-.header .btn {
-  margin-left: auto;
-}
-
-.logo {
-  position: relative;
-  display: inline-block;
-  border: 2px solid transparent;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-.logo img {
-  display: block;
+  margin-bottom: 1.5em;
+  background-image: linear-gradient(to right, #fff, rgba(0, 0, 0, 0));
 }
 
 .container {
@@ -403,6 +369,7 @@ a {
 
 .section {
   position: relative;
+  margin: auto;
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
@@ -411,50 +378,9 @@ a {
   margin-bottom: 4rem;
 }
 
-.footer {
-  position: relative;
-  margin-top: auto;
-}
-.footer::before {
-  content: "";
-  display: block;
-  padding-bottom: 9.0277777778%;
-}
-
-.footer__shape {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.footer__shape path {
-  transition: fill 0.3s ease;
-}
-
 @media (min-width: 44em) {
   .section {
     padding-top: 4rem;
     padding-bottom: 4rem;
   }
-}
-.theme-dark body {
-  background-color: #1c232a;
-  color: #fff;
-}
-.theme-dark body a {
-  color: #fff;
-}
-.theme-dark body a:not([class]) {
-  border-bottom: 2px solid #00e0b0;
-}
-.theme-dark body .logo {
-  border-color: #465666;
-}
-.theme-dark body .btn:not(:hover):not(:focus):not(:active) {
-  border-color: #465666;
-  color: #fff;
-}
-.theme-dark body .footer__shape path {
-  fill: #181e24;
 }

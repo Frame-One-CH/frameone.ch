@@ -6,15 +6,9 @@
     </head>
     <body>
         <div class="page">
-            {% include "../includes/header.twig" %}
+            {% block content %}{% endblock %}
 
-            <div class="b-content">
-                {% block content %}{% endblock %}
-            </div>
-
-            {% include "../includes/footer.twig" %}
-
-            {% include "../includes/scripts.twig" %}
+            {# {% include "../includes/scripts.twig" %} #}
             {% block scripts %}{% endblock %}
         </div>
     </body>
