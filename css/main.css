@@ -367,8 +367,8 @@ a {
   max-width: 33em;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .section {
@@ -379,10 +379,14 @@ a {
 }
 
 .content {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
-@media (min-width: 44em) {
+@media (min-width: 38em) {
+  .content {
+    margin-bottom: 4rem;
+  }
+
   .section {
     padding-top: 4rem;
     padding-bottom: 4rem;
