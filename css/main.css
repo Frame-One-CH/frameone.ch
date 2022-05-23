@@ -235,23 +235,25 @@ hr {
   font-weight: 800;
   src: url("../font/inter/Inter-ExtraBold.woff2") format("woff2"), url("../font/inter/Inter-ExtraBold.woff") format("woff");
 }
+html {
+  height: 100%;
+}
+
 body {
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
   display: flex;
+  flex-direction: column;
+  border: 10px solid #fff;
   font-family: "Inter", sans-serif;
   font-size: 1.125rem;
   font-size: calc(1rem + 0.25vw);
   line-height: 1.6;
   background-color: #0133be;
   color: #fff;
-  overflow-x: hidden;
-}
-
-.page {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  border: 10px solid #fff;
 }
 
 h1,

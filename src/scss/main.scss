@@ -9,23 +9,25 @@ $color-grey: #eceff2;
 @import "base";
 @import "font";
 
+html {
+  height: 100%;
+}
+
 body {
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
   display: flex;
+  flex-direction: column;
+  border: 10px solid $color-primary;
   font-family: $font-family-base;
   font-size: 1.125rem;
   font-size: calc(1rem + 0.25vw);
   line-height: 1.6;
   background-color: $color-secondary;
   color: $color-primary;
-  overflow-x: hidden;
-}
-
-.page {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  border: 10px solid $color-primary;
 }
 
 h1,

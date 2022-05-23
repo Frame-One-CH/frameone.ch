@@ -5,11 +5,9 @@
         {% block styles %}{% endblock %}
     </head>
     <body>
-        <div class="page">
-            {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
 
-            {% include "../includes/scripts.twig" %}
-            {% block scripts %}{% endblock %}
-        </div>
+        {% include "../includes/scripts.twig" %}
+        {% block scripts %}{% endblock %}
     </body>
 </html>
