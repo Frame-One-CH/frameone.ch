@@ -278,7 +278,10 @@ h6:first-child {
 
 p {
   margin-top: 0;
-  margin-bottom: 1.5;
+  margin-bottom: 1.5em;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
 }
 
 p:last-child {
@@ -361,11 +364,11 @@ a {
 
 .container {
   position: relative;
-  max-width: 45rem;
+  max-width: 33em;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .section {
