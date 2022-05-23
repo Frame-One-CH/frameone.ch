@@ -244,7 +244,6 @@ body {
   background-color: #0133be;
   color: #fff;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .page {
@@ -252,6 +251,7 @@ body {
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
+  border: 10px solid #fff;
 }
 
 h1,
@@ -305,7 +305,7 @@ a {
 
 .u-text-muted {
   font-size: 0.9rem;
-  color: #5e7db2;
+  color: rgba(255, 255, 255, 0.3);
 }
 .u-text-muted a {
   color: inherit;
@@ -347,14 +347,15 @@ a {
 }
 
 .title-main {
-  font-size: calc(2rem + 6 * (100vw - 320px) / 680);
-  margin-bottom: 0.2em;
+  font-size: calc(3rem + 6 * (100vw - 320px) / 680);
+  margin-bottom: 0.5em;
 }
-
-.hr {
-  border: 0;
+.title-main::after {
+  content: "";
+  display: block;
+  margin-top: 0.2em;
   height: 1px;
-  margin-bottom: 1.5em;
+  opacity: 0.3;
   background-image: linear-gradient(to right, #fff, rgba(0, 0, 0, 0));
 }
 
