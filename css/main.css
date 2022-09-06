@@ -245,8 +245,8 @@ body {
   font-family: "Inter", sans-serif;
   font-size: 1.125rem;
   font-size: calc(1rem + 0.25vw);
-  line-height: 1.6;
-  background-color: #0133be;
+  line-height: 1.5;
+  background-color: #03a;
   color: #fff;
 }
 
@@ -333,7 +333,7 @@ a {
   outline: 0;
   text-decoration: none;
   background-color: #fff;
-  color: #0133be;
+  color: #03a;
   border-color: #fff;
 }
 
@@ -342,7 +342,7 @@ a {
   outline: 0;
   background-color: #fff;
   border-color: #fff;
-  color: #0133be;
+  color: #03a;
 }
 
 .title-main {
@@ -360,7 +360,7 @@ a {
 
 .container {
   position: relative;
-  max-width: 33em;
+  max-width: 26em;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.25rem;
