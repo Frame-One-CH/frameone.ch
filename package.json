@@ -18,7 +18,8 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
     "gh-pages": "^4.0.0",
-    "parcel": "^2.7.0"
+    "parcel": "^2.7.0",
+    "parcel-reporter-static-files-copy": "^1.4.0"
   },
   "dependencies": {
     "gsap": "^3.11.1",
