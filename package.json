@@ -17,6 +17,7 @@
   "homepage": "https://www.frameone.ch",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
+    "gh-pages": "^4.0.0",
     "parcel": "^2.7.0"
   },
   "dependencies": {
