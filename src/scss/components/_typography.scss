@@ -1,0 +1,24 @@
+.lead {
+  font-size: var(--font-size-lead);
+  font-weight: 300;
+  font-family: var(--font-family-serif);
+}
+
+.lead--narrow {
+  max-width: 22em;
+}
+
+.text-serif {
+  font-family: var(--font-family-serif);
+  font-weight: 300;
+}
+
+.text-serif--offset {
+  display: block !important;
+  margin-top: -0.13em;
+}
+
+.text-sans {
+  font-family: var(--font-family-base);
+  font-weight: 400;
+}

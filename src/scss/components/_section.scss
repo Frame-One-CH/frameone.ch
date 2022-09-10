@@ -1,0 +1,50 @@
+.section {
+  position: relative;
+  z-index: 10;
+  padding-top: var(--spacing-section);
+  padding-bottom: var(--spacing-section);
+}
+
+.section__sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.section__sticky--hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.section__fixed {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  right: 0;
+}
+
+.section__fixed--centered {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
+}
+
+.section--centered {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section--vh {
+  min-height: 100dvh;
+  min-height: 100vh;
+}
+
+.section--half-vh {
+  min-height: 50dvh;
+  min-height: 50vh;
+}

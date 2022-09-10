@@ -1,0 +1,14 @@
+.avatar {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  align-self: center;
+  width: 4em;
+  margin-right: 1em;
+  margin-top: -0.3em;
+  border-radius: 50%;
+}
+
+.avatar__image {
+  border-radius: 50%;
+}

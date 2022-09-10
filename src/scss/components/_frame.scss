@@ -1,0 +1,49 @@
+.frame {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+
+  .is-loaded:not(.is-scrolled) &.frame--onload {
+    transition: transform 1.5s var(--ease-in-out-expo);
+  }
+
+  .is-loaded & {
+    transform: none;
+  }
+}
+
+.frame--bottom {
+  left: calc(var(--spacing-frame-width) - 1px);
+  right: calc(var(--spacing-frame-width) - 1px);
+  bottom: 0;
+  border-bottom: var(--spacing-frame-width) solid var(--color-white);
+  transform-origin: bottom left;
+  transition: none;
+}
+
+.frame--top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-top: var(--spacing-frame-width) solid var(--color-white);
+  transform: scaleX(0);
+  transform-origin: top right;
+}
+
+.frame--right {
+  top: 0;
+  right: 0;
+  height: 100%;
+  border-right: var(--spacing-frame-width) solid var(--color-white);
+  transform: scaleY(0);
+  transform-origin: bottom right;
+}
+
+.frame--left {
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-left: var(--spacing-frame-width) solid var(--color-white);
+  transform: scaleY(0);
+  transform-origin: top left;
+}

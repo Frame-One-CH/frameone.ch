@@ -1,0 +1,103 @@
+@import '../../node_modules/normalize.css/normalize.css';
+
+@import 'fonts';
+@import 'base';
+@import 'variables';
+
+@import 'components/frame';
+@import 'components/heading';
+@import 'components/typography';
+@import 'components/button';
+@import 'components/link';
+@import 'components/list';
+@import 'components/section';
+@import 'components/intro';
+@import 'components/outro';
+@import 'components/services';
+@import 'components/media-grid';
+@import 'components/scroll-hint';
+@import 'components/line-grid';
+@import 'components/avatar';
+@import 'components/marquee';
+@import 'components/nav';
+@import 'components/cursor';
+
+::selection {
+  color: var(--theme-background);
+  background: var(--theme-foreground);
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+p,
+ul,
+ol,
+dl {
+  margin-top: 0;
+  margin-bottom: 1em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 87rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-base);
+  padding-right: var(--spacing-base);
+}
+
+.container--narrow {
+  max-width: 35em;
+}
+
+.content {
+  padding: 0 var(--spacing-frame-width);
+  background: var(--theme-background);
+  color: var(--theme-foreground);
+  transition: background-color 0.5s linear;
+}
+
+.bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  pointer-events: none;
+}
+
+.icon {
+  overflow: visible;
+  display: inline-block;
+  vertical-align: baseline;
+  width: 0.6em;
+  height: 0.6em;
+  color: currentColor;
+}
+
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+}
+
+.br-desktop {
+  display: none;
+
+  @media (--tablet) {
+    display: block;
+  }
+}

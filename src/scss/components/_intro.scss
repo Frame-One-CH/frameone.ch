@@ -1,0 +1,20 @@
+.intro-title {
+  position: relative;
+  margin-bottom: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-h1);
+  letter-spacing: -0.02em;
+}
+
+.intro-title__top,
+.intro-title__bottom {
+  display: block;
+}
+
+.intro-title__top {
+  font-weight: 500;
+}
+
+.intro-title__bottom {
+  font-weight: 400;
+}

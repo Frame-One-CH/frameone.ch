@@ -1,0 +1,26 @@
+.list {
+  list-style: none;
+  margin-left: 0.8em;
+  padding-left: 0;
+}
+
+.list li {
+  position: relative;
+  margin-left: 0;
+}
+
+.list li::before {
+  content: '';
+  position: absolute;
+  transform: translateX(-100%);
+}
+
+.list--unordered li::before {
+  top: 0.6em;
+  left: -0.8em;
+  margin-left: 0.4em;
+  width: 0.4em;
+  height: 0.4em;
+  border: 1px solid;
+  border-radius: 50%;
+}

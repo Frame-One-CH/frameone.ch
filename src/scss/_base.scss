@@ -1,11 +1,12 @@
-html {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 audio,
@@ -32,6 +33,30 @@ iframe {
   border: 0;
 }
 
+address {
+  font-style: inherit;
+}
+
+pre {
+  overflow: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+dd {
+  margin-left: 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid;
+  color: inherit;
+}
+
 button,
 input,
 optgroup,
@@ -51,24 +76,13 @@ fieldset {
   border: 0;
 }
 
-[type="button"]:not(:disabled),
-[type="reset"]:not(:disabled),
-[type="submit"]:not(:disabled),
+[type='button']:not(:disabled),
+[type='reset']:not(:disabled),
+[type='submit']:not(:disabled),
 button:not(:disabled) {
   cursor: pointer;
 }
 
-address {
-  font-style: inherit;
-}
-
-pre {
-  overflow: auto;
-}
-
-hr {
-  border: 0;
-  border-top: 1px solid;
-  color: inherit;
-  opacity: 0.2;
+a:focus:not(:focus-visible) {
+  outline: none;
 }

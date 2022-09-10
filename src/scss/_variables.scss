@@ -1,0 +1,56 @@
+@custom-media --desktop (min-width: 59.99em);
+@custom-media --below-desktop (max-width: 60em);
+@custom-media --tablet (min-width: 40em);
+@custom-media --below-tablet (max-width: 39.99em);
+
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-blue: #03a;
+
+  --theme-foreground: var(--color-white);
+  --theme-background: var(--color-blue);
+  --theme-dark: var(--color-black);
+  --theme-light: var(--color-blue);
+  --theme-transparent: rgba(255, 255, 255, 0.3);
+
+  // 10px - 20px / 320px – 1600px
+  --spacing-frame-width: clamp(0.625rem, 0.469rem + 0.78vw, 1.25rem);
+
+  // 18px - 32px / 320px – 1600px
+  --spacing-base: clamp(1.125rem, 0.906rem + 1.09vw, 2rem);
+
+  // 32px - 64px / 320px – 1600px
+  --spacing-section: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+
+  --ease-out-circ: cubic-bezier(0, 0.55, 0.45, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-custom-line: cubic-bezier(0.3, 0.3, 0, 1);
+
+  --font-family-base: 'Haffer', sans-serif;
+  --font-family-serif: 'Teodor', serif;
+
+  // 64px –  252px / 320px – 1600px
+  --font-size-h1: clamp(4rem, 1.063rem + 14.69vw, 15.75rem);
+
+  // 42px –  120px / 320px – 1600px
+  --font-size-h2: clamp(2.625rem, 1.406rem + 6.09vw, 7.5rem);
+
+  // 20px - 28px / 320px – 1600px
+  --font-size-lead: clamp(1.25rem, 1.125rem + 0.63vw, 1.75rem);
+
+  // 16px - 20px / 320px – 1600px
+  --font-size-base: clamp(1rem, 0.938rem + 0.31vw, 1.25rem);
+
+  color-scheme: light dark;
+
+  @media (prefers-color-scheme: dark) {
+    --color-blue: var(--color-black);
+  }
+}
+
+// https://min-max-calculator.9elements.com

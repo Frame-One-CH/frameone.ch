@@ -1,0 +1,51 @@
+.button {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.2em 0.6em;
+  border-radius: 2em;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.2;
+  white-space: normal;
+  background-color: transparent;
+  color: var(--theme-foreground);
+  transition: all 0.3s var(--ease-out-circ);
+  user-select: none;
+  touch-action: manipulation;
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    text-decoration: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--theme-foreground);
+  }
+}
+
+.button--contact {
+  margin: 2px !important; // make room for the border hover scale
+}
+
+.button__border {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--theme-transparent);
+  border-radius: inherit;
+  padding: inherit;
+  transition: inherit;
+
+  .button:hover & {
+    transform: scale3d(1.02, 1.02, 1);
+    backdrop-filter: blur(2px);
+    border-color: #fff;
+  }
+}

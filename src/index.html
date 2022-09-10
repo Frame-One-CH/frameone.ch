@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="scss/styles.scss" />
+
+    <title>Frame One – Creative Web Development Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="I unify technology and design to deliver polished and lasting web experiences for my clients."
+    />
+    <meta name="author" content="Sergio Lavanga" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:image" content="og-image.jpg" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  </head>
+  <body>
+    <svg width="0" height="0" class="sr-only">
+      <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" id="star">
+        <path
+          d="M7.41908 4.56679L6.13722 0L4.85418 4.92566L0 6L4.85418 7.25435L6.13722 12L7.3276 7.25435L12 6L7.41908 4.56679Z"
+          fill="currentColor"
+        ></path>
+      </symbol>
+
+      <symbol
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 4.149 4.149"
+        id="arrow-external"
+      >
+        <g fill="none" stroke="currentColor" stroke-width=".265">
+          <path d="M.094 4.055 4.017.132" />
+          <path d="M4.016 2.617V.132H1.531" />
+        </g>
+      </symbol>
+    </svg>
+
+    <nav class="nav">
+      <ul class="nav__list">
+        <li>
+          <a href="#intro" class="link nav__link js-scroll">
+            <span>Frame <span class="text-serif">One</span></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="content">
+      <section
+        id="intro"
+        class="section section--vh section--centered section--intro"
+        data-color="light"
+      >
+        <div class="section__fixed section__fixed--centered">
+          <div class="container">
+            <h1 class="intro-title js-scroll-reveal" data-start="true">
+              <span class="intro-title__top js-scroll-out-top">Frame</span>
+              <span
+                class="intro-title__bottom text-serif text-serif--offset js-scroll-out-bottom"
+              >
+                One
+              </span>
+            </h1>
+          </div>
+        </div>
+
+        <h2 class="sr-only">About</h2>
+        <div class="section__sticky section__sticky--hidden js-scroll-about">
+          <div class="container container--narrow">
+            <p class="lead">
+              Creative development studio based in Zurich.<br
+                class="br-desktop"
+              />
+              I unify technology and design to deliver polished and lasting web
+              experiences for my clients.
+            </p>
+            <p>
+              <a href="#services" class="link js-scroll">
+                <span>Discover Services</span>
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="scroll-hint js-scroll-hint">
+          <a href="#services" class="scroll-hint__link" aria-label="Scroll">
+            <svg
+              viewBox="0 0 100 100"
+              class="scroll-hint__icon"
+              aria-hidden="true"
+            >
+              <defs>
+                <path
+                  id="circle"
+                  d="
+                M 50, 50
+                m -37, 0
+                a 37,37 0 1,1 74,0
+                a 37,37 0 1,1 -74,0"
+                ></path>
+              </defs>
+              <text class="scroll-hint__text">
+                <textPath xlink:href="#circle">
+                  Scroll · Scroll · Scroll · Scroll · Scroll ·
+                </textPath>
+              </text>
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <section
+        id="services"
+        class="section section--vh section--centered section--services"
+        data-color="light"
+      >
+        <div class="container">
+          <h2 class="js-scroll-reveal">Services</h2>
+
+          <p class="lead lead--narrow js-scroll-reveal">
+            Smooth Animations, JavaScript, React, API’s, PageSpeed… I got you.
+            The important thing is us working together to find the right
+            solution for your challenge.
+          </p>
+
+          <div class="services">
+            <ul class="services__list js-scroll-reveal">
+              <li class="services__item"><span>Websites</span></li>
+              <li class="services__item"><span>Microsites</span></li>
+              <li class="services__item"><span>E-Commerce</span></li>
+              <li class="services__item"><span>User Interfaces</span></li>
+            </ul>
+
+            <ul class="services__list js-scroll-reveal">
+              <li class="services__item"><span>Design Systems</span></li>
+              <li class="services__item"><span>Interaction Design</span></li>
+              <li class="services__item"><span>Web Animations</span></li>
+              <li class="services__item"><span>Scroll Experiences</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="works"
+        class="section section--centered section--work"
+        data-color="dark"
+      >
+        <div class="container">
+          <h2 class="js-scroll-reveal">
+            Selected<br />
+            <span class="text-serif text-serif--offset">Works</span>
+          </h2>
+
+          <div class="media-grid">
+            <div class="media-grid__wrapper">
+              <figure class="media-grid__item media-grid__item--large">
+                <div class="media media--video">
+                  <video
+                    class="media__object"
+                    src="assets/cases/favorit-studio.mp4#t=0.1"
+                    width="918"
+                    height="656"
+                    preload="metadata"
+                    playsinline
+                    muted
+                  ></video>
+
+                  <!--<div class="progress">
+                    <div
+                      class="progress__bar"
+                      role="progressbar"
+                      aria-label="Video progress"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                --></div>
+                <figcaption class="media-grid__caption js-scroll-reveal">
+                  Favorit Studio ⏤ Website<br />
+                  Awwwards Site of the Day and Dev Award
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="media-grid__wrapper">
+              <figure class="media-grid__item media-grid__item--small">
+                <div class="media media--video">
+                  <video
+                    class="media__object"
+                    src="assets/cases/nftartday.mp4#t=0.1"
+                    width="720"
+                    height="720"
+                    preload="metadata"
+                    playsinline
+                    muted
+                  ></video>
+
+                  <!--<div class="progress">
+                    <div
+                      class="progress__bar"
+                      role="progressbar"
+                      aria-label="Video progress"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                --></div>
+                <figcaption class="media-grid__caption js-scroll-reveal">
+                  NFT ART DAY ⏤ Interactive Intro<br />
+                  Frame One x Favorit Studio
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="media-grid__wrapper">
+              <figure class="media-grid__item media-grid__item--small">
+                <div class="media media--video">
+                  <video
+                    class="media__object"
+                    src="assets/cases/friggeco.mp4#t=0.1"
+                    width="720"
+                    height="720"
+                    preload="metadata"
+                    playsinline
+                    muted
+                  ></video>
+
+                  <!--<div class="progress">
+                    <div
+                      class="progress__bar"
+                      role="progressbar"
+                      aria-label="Video progress"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                --></div>
+                <figcaption class="media-grid__caption js-scroll-reveal">
+                  Frigg.eco ⏤ Web App<br />
+                  Frame One x Favorit Studio
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="media-grid__wrapper">
+              <figure class="media-grid__item media-grid__item--large">
+                <div class="media media--video">
+                  <video
+                    class="media__object"
+                    src="assets/cases/bkpzh.mp4#t=0.1"
+                    width="918"
+                    height="656"
+                    preload="metadata"
+                    playsinline
+                    muted
+                  ></video>
+
+                  <!--<div class="progress">
+                    <div
+                      class="progress__bar"
+                      role="progressbar"
+                      aria-label="Video progress"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                --></div>
+                <figcaption class="media-grid__caption js-scroll-reveal">
+                  BK&P ⏤ Website <br />
+                  Made with Agentur Koch
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="media-grid__wrapper">
+              <figure class="media-grid__item media-grid__item--medium">
+                <div class="media media--video">
+                  <video
+                    class="media__object"
+                    src="assets/cases/newhome.mp4#t=0.1"
+                    width="1200"
+                    height="750"
+                    preload="metadata"
+                    playsinline
+                    muted
+                  ></video>
+
+                  <!--<div class="progress">
+                    <div
+                      class="progress__bar"
+                      role="progressbar"
+                      aria-label="Video progress"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                --></div>
+                <figcaption class="media-grid__caption js-scroll-reveal">
+                  newhome ⏤ Website and App<br />
+                  Further Development with Zeix
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="media-grid__wrapper">
+              <figure class="media-grid__item media-grid__item--medium">
+                <div class="media media--video">
+                  <video
+                    class="media__object"
+                    src="assets/cases/data-fabric.mp4#t=0.1"
+                    width="1200"
+                    height="750"
+                    preload="metadata"
+                    playsinline
+                    muted
+                  ></video>
+
+                  <!--<div class="progress">
+                    <div
+                      class="progress__bar"
+                      role="progressbar"
+                      aria-label="Video progress"
+                      aria-valuenow="0"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                --></div>
+                <figcaption class="media-grid__caption js-scroll-reveal">
+                  Netapp x Fujitsu ⏤ Animated Campaign<br />
+                  Made with Agentur Koch
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section section--half-vh section--centered"
+        data-color="light"
+      >
+        <div class="marquee">
+          <h2 class="marquee__item">
+            Frame <span class="text-serif">One</span>
+          </h2>
+        </div>
+
+        <div class="container container--narrow">
+          <p class="lead js-scroll-reveal">
+            One Frame could be enough to tell your story, or maybe<br />
+            Frame One is the start of an exciting journey.
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="contact"
+        class="section section--vh section--centered section--contact"
+        data-color="light"
+      >
+        <h2 class="sr-only">Contact</h2>
+
+        <div class="outro container">
+          <div class="outro__center js-scroll-reveal">
+            <a
+              href="mailto:sergio@frameone.ch"
+              class="button button--contact heading heading--h2"
+            >
+              <span class="button__label">Contact</span>
+              <span class="button__border" aria-hidden="true"></span>
+            </a>
+
+            <p class="lead outro__lead">
+              Let’s Build Together – Frame by Frame.
+            </p>
+          </div>
+
+          <div class="line-grid">
+            <div class="line-grid__item line-grid__item--flex">
+              <div class="avatar">
+                <img
+                  class="avatar__image"
+                  src="img/sergio.jpg"
+                  alt="Sergio Lavanga"
+                  width="200"
+                  height="200"
+                />
+              </div>
+              <ul class="outro__list">
+                <li>
+                  Frame <span class="text-serif">One</span><br />
+                  by Lavanga
+                </li>
+                <li>CHE-285.538.728</li>
+              </ul>
+            </div>
+
+            <div class="line-grid__item">
+              <ul class="outro__list">
+                <li>
+                  <a href="mailto:sergio@frameone.ch"><span>E-Mail</span></a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/sergio-lavanga/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>LinkedIn</span>
+                    <svg viewBox="0 0 4.149 4.149" class="icon">
+                      <use xlink:href="#arrow-external"></use>
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  Partner of
+                  <a
+                    href="https://favorit.studio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>Favorit Studio</span>
+                    <svg viewBox="0 0 4.149 4.149" class="icon">
+                      <use xlink:href="#arrow-external"></use>
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="frames" aria-hidden="true">
+      <div class="frame frame--onload frame--top"></div>
+      <div class="frame frame--onload frame--left"></div>
+      <div class="frame frame--onload frame--right"></div>
+      <div class="frame frame--bottom"></div>
+    </div>
+
+    <canvas id="js-bg-canvas" class="bg-canvas"></canvas>
+
+    <script type="module" src="js/app.js"></script>
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XZSQR3MHQ4"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-XZSQR3MHQ4');
+    </script>
+  </body>
+</html>

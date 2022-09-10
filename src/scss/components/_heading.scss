@@ -1,0 +1,36 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading {
+  font-family: var(--font-family-base);
+  font-weight: 400;
+  line-height: 1;
+  margin-top: 2em;
+  margin-bottom: 0.3em;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h1,
+.heading--h1 {
+  font-size: var(--font-size-h1);
+}
+
+h2,
+.heading--h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3,
+.heading--h3 {
+  font-size: var(--font-size-lead);
+}

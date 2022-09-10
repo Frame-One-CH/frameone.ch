@@ -1,0 +1,184 @@
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(var(--spacing-base) * 1.5);
+  margin-top: var(--spacing-section);
+
+  @media (--tablet) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.media-grid__wrapper {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+
+  &:nth-child(odd) .media-grid__item {
+    margin-left: auto;
+  }
+
+  &:nth-child(even) .media-grid__caption {
+    width: 150%;
+  }
+}
+
+.media-grid__item {
+  margin: 0;
+}
+
+.media-grid__item--small {
+  @media (--tablet) {
+    max-width: 25vw;
+  }
+
+  @media (--desktop) {
+    max-width: 50%;
+  }
+
+  .media {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+.media {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.2rem;
+    pointer-events: none;
+  }
+}
+
+.media--video {
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4em;
+    height: 4em;
+    margin-top: -2em;
+    margin-left: -2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-image: url(../img/icons/play.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    pointer-events: none;
+    transition: opacity 0.15s linear;
+  }
+
+  @media (pointer: fine) {
+    &:not(.is-playing, .is-paused):hover::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  &.is-playing::before,
+  &.is-hinting::before {
+    background-image: url(../img/icons/play.svg);
+    animation: pop-in-play 1s var(--ease-out-quart);
+  }
+
+  &.is-hinting::before {
+    animation: hint-play 1s var(--ease-out-quart);
+  }
+
+  &.is-playing::before {
+    animation: pop-in-play 1s var(--ease-out-quart);
+  }
+
+  &.is-paused::before {
+    background-image: url(../img/icons/pause.svg);
+    animation: pop-in-pause 1s var(--ease-out-quart);
+  }
+}
+
+@keyframes hint-play {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in-play {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in-pause {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.media__object {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.2rem;
+}
+
+.media-grid__caption {
+  margin-top: 0.8em;
+  font-size: 0.8em;
+}
+
+/*
+.progress {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0.4rem;
+  transition: opacity 0.15s linear;
+  mix-blend-mode: exclusion;
+  pointer-events: none;
+
+  .media--video:hover & {
+    opacity: 1;
+  }
+}
+
+.progress__bar {
+  height: 0.2rem;
+  border-radius: 2em;
+  background-color: var(--theme-foreground);
+
+  width: 0;
+  transition: width 0.3s linear;
+}
+*/

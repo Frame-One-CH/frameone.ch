@@ -1,0 +1,22 @@
+.nav {
+  position: fixed;
+  z-index: 20;
+  top: var(--spacing-frame-width);
+  right: var(--spacing-frame-width);
+  transform: rotate(90deg);
+  transform-origin: bottom;
+}
+
+.nav__list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  padding: 1.2em 0.8em;
+  transform: translateY(-100%);
+  color: var(--theme-foreground);
+  text-decoration: none;
+}

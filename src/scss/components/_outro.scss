@@ -1,0 +1,13 @@
+.outro__center {
+  text-align: center;
+}
+
+.outro__list {
+  li + li {
+    margin-top: 0.2em;
+  }
+}
+
+.outro__lead {
+  margin-top: var(--spacing-base);
+}
