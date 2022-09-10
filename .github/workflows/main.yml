@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+      - master
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: Use Node with nvm
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: 🔨 Build Project
+        run: |
+          npm install
+          npm run predeploy
+          npm run deploy
