@@ -2,10 +2,10 @@ on:
   push:
     branches:
       - master
-name: 🚀 Deploy website on push
+name: 🚀 Generate Page
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name: 🎉 Generate
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
