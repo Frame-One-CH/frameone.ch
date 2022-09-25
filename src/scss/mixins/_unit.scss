@@ -1,0 +1,60 @@
+////
+/// @group global
+////
+
+@use 'sass:math';
+@use 'sass:meta';
+
+/// Remove the unit of a length
+///
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if (meta.type-of($number) == 'number' and not math.is-unitless($number)) {
+    $number: math.div($number, ($number * 0 + 1));
+  }
+
+  @return $number;
+}
+
+/// Convert a value to rem
+///
+/// @param {Number} $value - Value to be converted
+/// @param {Number} $base [16px] - Base font size
+/// @example scss
+/// .component {
+///   font-size: to-rem(20px);
+/// }
+/// @return {Number} - Rem value
+@function to-rem($value, $base: 16px) {
+  @if (math.unit($value) == 'em') {
+    $value: strip-unit($value) * 1rem;
+  }
+
+  @if (math.unit($value) != 'rem') {
+    $value: math.div(strip-unit($value), strip-unit($base)) * 1rem;
+  }
+
+  @if (strip-unit($value) == 0) {
+    $value: 0;
+  }
+
+  @return $value;
+}
+
+/// Convert a value to em
+///
+/// @param {Number} $value - Value to be converted
+/// @param {Number} $base [16px] - Base font size
+/// @example scss
+/// .component {
+///   padding-bottom: to-em(20px);
+/// }
+/// @return {Number} - Em value
+@function to-em($value, $base: 16px) {
+  @if math.unit($value) == 'px' or math.is-unitless($value) {
+    $value: to-rem($value, $base);
+  }
+
+  @return strip-unit($value) * 1em;
+}

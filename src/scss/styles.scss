@@ -1,8 +1,11 @@
 @import '../../node_modules/normalize.css/normalize.css';
 
-@import 'fonts';
-@import 'base';
+@import 'mixins/unit';
+@import 'mixins/clamp-calc';
 @import 'variables';
+
+@import 'global/fonts';
+@import 'global/base';
 
 @import 'components/frame';
 @import 'components/heading';
