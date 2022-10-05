@@ -1,14 +1,20 @@
 /*
 Returns a CSS clamp function which resolves to
-$min-size when page width is below $min-viewport,
-$max-size when page width is above $max-viewport,
-and linearly scales between the two between $min-viewport and $max-viewport
+$min-size when page width is below $min-breakpoint,
+$max-size when page width is above $max-breakpoint,
+and linearly scales between the two between $min-breakpoint and $max-breakpoint
 */
 
-@function clamp-calc($min-size, $max-size, $min-viewport, $max-viewport) {
+@function clamp-calc(
+  $min-size,
+  $max-size,
+  $min-breakpoint: $clamp-min-breakpoint,
+  $max-breakpoint: $clamp-max-breakpoint
+) {
   $slope: (to-rem($max-size) - to-rem($min-size)) /
-    (to-rem($max-viewport) - to-rem($min-viewport));
-  $y-axis-intersection: -1 * to-rem($min-viewport) * $slope + to-rem($min-size);
+    (to-rem($max-breakpoint) - to-rem($min-breakpoint));
+  $y-axis-intersection: -1 * to-rem($min-breakpoint) * $slope +
+    to-rem($min-size);
 
   @return clamp(
     #{to-rem($min-size)},
