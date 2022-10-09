@@ -30,7 +30,7 @@
   span {
     background: linear-gradient(
       to right,
-      #fff 50%,
+      var(--theme-foreground) 50%,
       var(--theme-transparent) 50%
     );
     background-size: 200% 100%;
@@ -45,7 +45,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    mask-image: linear-gradient(to right, #fff 50%, #0000);
+    mask-image: linear-gradient(to right, var(--theme-foreground) 50%, #0000);
     transform: scaleX(var(--line-progress));
     transform-origin: top left;
     transition: transform 0.3s var(--ease-custom-line);

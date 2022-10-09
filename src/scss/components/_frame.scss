@@ -16,7 +16,8 @@
   left: calc(var(--spacing-frame-width) - 1px);
   right: calc(var(--spacing-frame-width) - 1px);
   bottom: 0;
-  border-bottom: var(--spacing-frame-width) solid var(--color-white);
+  border-bottom: solid var(--theme-foreground);
+  border-bottom-width: var(--spacing-frame-width);
   transform-origin: bottom left;
   transition: none;
 }
@@ -25,7 +26,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  border-top: var(--spacing-frame-width) solid var(--color-white);
+  border-top: var(--spacing-frame-width) solid var(--theme-foreground);
   transform: scaleX(0);
   transform-origin: top right;
 }
@@ -34,7 +35,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  border-right: var(--spacing-frame-width) solid var(--color-white);
+  border-right: var(--spacing-frame-width) solid var(--theme-foreground);
   transform: scaleY(0);
   transform-origin: bottom right;
 }
@@ -43,7 +44,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  border-left: var(--spacing-frame-width) solid var(--color-white);
+  border-left: var(--spacing-frame-width) solid var(--theme-foreground);
   transform: scaleY(0);
   transform-origin: top left;
 }
