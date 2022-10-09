@@ -5,14 +5,15 @@ $max-size when page width is above $max-breakpoint,
 and linearly scales between the two between $min-breakpoint and $max-breakpoint
 */
 
+@use "sass:math";
+
 @function clamp-calc(
   $min-size,
   $max-size,
   $min-breakpoint: $clamp-min-breakpoint,
   $max-breakpoint: $clamp-max-breakpoint
 ) {
-  $slope: (to-rem($max-size) - to-rem($min-size)) /
-    (to-rem($max-breakpoint) - to-rem($min-breakpoint));
+  $slope: math.div(to-rem($max-size) - to-rem($min-size), to-rem($max-breakpoint) - to-rem($min-breakpoint));
   $y-axis-intersection: -1 * to-rem($min-breakpoint) * $slope +
     to-rem($min-size);
 
