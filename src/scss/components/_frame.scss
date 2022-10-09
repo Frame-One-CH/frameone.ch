@@ -18,6 +18,9 @@
   bottom: 0;
   border-bottom: solid var(--theme-foreground);
   border-bottom-width: var(--spacing-frame-width);
+  border-bottom-width: calc(
+    var(--spacing-frame-width) + env(safe-area-inset-bottom)
+  );
   transform-origin: bottom left;
   transition: none;
 }
