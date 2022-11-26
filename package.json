@@ -16,16 +16,15 @@
   "license": "MIT",
   "homepage": "https://www.frameone.ch",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.7.0",
-    "gh-pages": "^4.0.0",
-    "parcel": "^2.7.0",
+    "@parcel/transformer-sass": "^2.8.0",
+    "parcel": "^2.8.0",
     "parcel-reporter-static-files-copy": "^1.4.0"
   },
   "dependencies": {
     "gsap": "^3.11.3",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
-    "split-type": "^0.3.2"
+    "split-type": "^0.3.3"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "@parcel/transformer-css": {
