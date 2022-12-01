@@ -16,9 +16,10 @@
 
 .scroll-hint__text {
   font-size: 12px;
+  text-rendering: geometricPrecision;
   word-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.007em;
 }
 
 .scroll-hint__icon {
