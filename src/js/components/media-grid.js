@@ -70,8 +70,9 @@ gsap.registerPlugin(ScrollTrigger);
     });
 
     /*
-      const progress = el.querySelector('.progress__bar');
+    const progress = videoWrapper.querySelector('.progress__bar');
 
+    if (progress) {
       video.addEventListener('timeupdate', () => {
         const value = Math.floor((video.currentTime / video.duration) * 100);
 
@@ -80,7 +81,8 @@ gsap.registerPlugin(ScrollTrigger);
           progress.style.width = `${value}%`;
         }
       });
-      */
+    }
+    */
 
     if (isTouchDevice) {
       videoObserver.observe(video);
