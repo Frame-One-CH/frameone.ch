@@ -2,9 +2,11 @@
   "name": "frame-one",
   "private": true,
   "scripts": {
-    "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html --no-source-maps --public-url ./",
-    "clean": "rm -rf dist"
+    "start": "parcel src/index.twig --open",
+    "build": "parcel build src/index.twig --no-source-maps --public-url ./",
+    "clean": "rm -rf dist",
+    "prettier": "prettier --write --ignore-path .gitignore .",
+    "stylelint": "stylelint --fix **/*.scss"
   },
   "repository": {
     "type": "git",
@@ -13,18 +15,26 @@
   "author": "Sergio Lavanga",
   "license": "MIT",
   "homepage": "https://www.frameone.ch",
-  "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.0",
-    "parcel": "^2.8.0",
-    "parcel-reporter-static-files-copy": "^1.4.0"
-  },
   "dependencies": {
+    "@studio-freight/lenis": "^0.2.26",
     "gsap": "^3.11.3",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "split-type": "^0.3.3"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "devDependencies": {
+    "@christian-beckmann/parcel-transformer-twig": "^0.1.0",
+    "@parcel/resolver-glob": "^2.8.1",
+    "@parcel/transformer-sass": "^2.8.1",
+    "parcel": "^2.8.1",
+    "parcel-reporter-static-files-copy": "^1.4.0",
+    "prettier": "^2.8.1",
+    "prettier-plugin-twig-melody": "^0.4.6",
+    "stylelint": "^14.16.0",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-config-standard-scss": "^6.1.0"
+  },
+  "browserslist": "> 1%, last 2 versions, not dead",
   "@parcel/transformer-css": {
     "drafts": {
       "customMedia": true

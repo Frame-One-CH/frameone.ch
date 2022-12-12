@@ -18,6 +18,7 @@
 @import 'components/outro';
 @import 'components/services';
 @import 'components/media-grid';
+@import 'components/awards';
 @import 'components/scroll-hint';
 @import 'components/line-grid';
 @import 'components/avatar';
@@ -84,7 +85,7 @@ dl {
   vertical-align: baseline;
   width: 0.6em;
   height: 0.6em;
-  color: currentColor;
+  color: currentcolor;
 }
 
 .sr-only {

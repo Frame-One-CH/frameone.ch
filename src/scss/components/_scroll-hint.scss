@@ -16,7 +16,7 @@
 
 .scroll-hint__text {
   font-size: 12px;
-  text-rendering: geometricPrecision;
+  text-rendering: geometricprecision;
   word-spacing: 0.2em;
   text-transform: uppercase;
   letter-spacing: 0.007em;
@@ -25,5 +25,5 @@
 .scroll-hint__icon {
   width: 8em;
   height: 8em;
-  fill: currentColor;
+  fill: currentcolor;
 }

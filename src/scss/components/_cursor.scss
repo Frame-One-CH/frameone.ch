@@ -29,7 +29,8 @@
       display: block;
       width: 1.8rem;
       height: 1.8rem;
-      background-image: url(../img/icons/cursor.svg);
+      background-size: contain;
+      background-image: url('../img/icons/cursor.svg');
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 

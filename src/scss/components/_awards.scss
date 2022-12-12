@@ -1,0 +1,21 @@
+.awards {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+
+  ul {
+    font-family: var(--font-family-serif);
+  }
+}
+
+.awards__item {
+  @media (--tablet) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--spacing-base) * 1.5);
+
+    > span {
+      margin-left: auto;
+    }
+  }
+}

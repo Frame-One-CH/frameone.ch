@@ -1,15 +1,15 @@
 import { Dots } from './components/dots';
 
 import './components/frame';
-import './components/nav';
+import './components/scroll';
+import './components/scroll-hint';
 import './components/intro';
+import './components/nav';
 import './components/section';
 import './components/services';
 import './components/media-grid';
 import './components/marquee';
 import './components/reveal';
-import './components/scroll-hint';
-import './components/scroll';
 
 document.documentElement.classList.add('is-loaded');
 

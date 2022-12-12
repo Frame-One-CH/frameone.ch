@@ -1,0 +1,40 @@
+<div class="media-grid__wrapper">
+  <figure class="media-grid__item {{
+    large
+      ? 'media-grid__item--large'
+      : 'media-grid__item--small'
+    }}">
+    {% if videoUrl %}
+      <div class="media media--video">
+        <video class="media__object"
+          src="{{ videoUrl }}#t=0.1"
+          preload="metadata"
+          playsinline
+          muted></video>
+
+        {# <div class="progress">
+          <div class="progress__bar"
+            role="progressbar"
+            aria-label="Video progress"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"></div>
+        </div> #}
+      </div>
+    {% endif %}
+
+    {% if imageUrl %}
+      <div class="media media--image">
+        <img src="{{ imageUrl }}"
+          alt="{{ alt }}"
+          width="{{ large ? '1200' : '640' }}"
+          height="{{ large ? '720' : '640' }}"
+          loading="lazy" />
+      </div>
+    {% endif %}
+
+    <figcaption class="media-grid__caption js-scroll-reveal">
+      {{ description }}
+    </figcaption>
+  </figure>
+</div>

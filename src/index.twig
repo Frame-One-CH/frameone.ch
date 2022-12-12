@@ -1,0 +1,288 @@
+{% extends './templates/layouts/base.twig' %}
+
+{% block content %}
+  <nav class="nav">
+    <ul class="nav__list">
+      <li>
+        <a href="#intro" class="link nav__link js-scroll">
+          <span>Frame <span class="text-serif">One</span></span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <section id="intro"
+      class="section section--vh section--centered section--intro"
+      data-color="light">
+      <div class="section__fixed section__fixed--centered">
+        <div class="container">
+          <h1 class="intro-title js-scroll-reveal" data-start="true">
+            <span class="intro-title__top js-scroll-out-top">Frame</span>
+            <span class="intro-title__bottom text-serif text-serif--offset js-scroll-out-bottom">
+              One
+            </span>
+          </h1>
+        </div>
+      </div>
+
+      <h2 class="sr-only">
+        About
+      </h2>
+      <div class="section__sticky section__sticky--hidden js-scroll-about">
+        <div class="container container--narrow">
+          <p class="lead lead--narrow">
+            Creative development studio based in Zurich.<br class="br-desktop" />
+            I unify technology and design to deliver polished and lasting web experiences
+            for my clients.
+          </p>
+          <p>
+            <a href="#services" class="link js-scroll">
+              <span>Discover Services</span>
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="scroll-hint js-scroll-hint">
+        <a href="#services" class="scroll-hint__link" aria-label="Scroll">
+          <svg viewBox="0 0 100 100"
+            class="scroll-hint__icon"
+            aria-hidden="true">
+            <defs>
+              <path id="circle"
+                d="
+                M 50, 50
+                m -37, 0
+                a 37,37 0 1,1 74,0
+                a 37,37 0 1,1 -74,0"></path>
+            </defs>
+            <text class="scroll-hint__text">
+              <textPath xlink:href="#circle">
+                Scroll · Scroll · Scroll · Scroll · Scroll ·
+              </textPath>
+            </text>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <section id="services"
+      class="section section--vh section--centered section--services"
+      data-color="light">
+      <div class="container">
+        <h2 class="js-scroll-reveal">
+          Services
+        </h2>
+
+        <p class="lead lead--narrow js-scroll-reveal">
+          Smooth Animations, Styles, JavaScript, React, API’s, PageSpeed… I got
+          you. The important thing is us working together to find the right
+          solution for your challenge.
+        </p>
+
+        <div class="services">
+          <ul class="services__list js-scroll-reveal">
+            <li class="services__item"><span>Websites</span></li>
+            <li class="services__item"><span>Microsites</span></li>
+            <li class="services__item"><span>E-Commerce</span></li>
+            <li class="services__item"><span>User Interfaces</span></li>
+          </ul>
+
+          <ul class="services__list js-scroll-reveal">
+            <li class="services__item"><span>Design Systems</span></li>
+            <li class="services__item"><span>Interaction Design</span></li>
+            <li class="services__item"><span>Web Animations</span></li>
+            <li class="services__item"><span>Scroll Experiences</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="works"
+      class="section section--centered section--work"
+      data-color="dark">
+      <div class="container">
+        <h2 class="js-scroll-reveal">
+          Selected<br />
+          <span class="text-serif text-serif--offset">Works</span>
+        </h2>
+
+        <div class="media-grid">
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/marc-hanslin.mp4',
+            description: 'Marc Hanslin ⏤ <a href="https://www.marchanslin.com" target="_blank" rel="noopener noreferrer">Website</a><br />
+              Made with Favorit Studio',
+            large: true
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/nft-art-day.mp4',
+            description: 'NFT ART DAY ⏤ <a href="https://www.nftartday.com" target="_blank" rel="noopener noreferrer">Interactive Intro</a><br />
+              Made with Favorit Studio'
+          } %}
+
+          {# {% include 'templates/partials/media.twig' with {
+            imageUrl: 'assets/cases/099.jpg',
+            alt: '099',
+            description: '099 ⏤ Digital Goods Online Shop<br />Coming Soon'
+          } %} #}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/frigg-eco.mp4',
+            description: 'Frigg.eco ⏤ <a href="https://www.frigg.eco" target="_blank" rel="noopener noreferrer">Web App</a><br />
+              Made with Favorit Studio'
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/favorit-studio.mp4',
+            description: 'Favorit Studio ⏤ <a href="https://favorit.studio" target="_blank" rel="noopener noreferrer">Website</a><br />
+              Awwwards Site of the Day and Dev Award',
+            large: true
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/newhome.mp4',
+            description: 'newhome ⏤ <a href="https://www.newhome.ch" target="_blank" rel="noopener noreferrer">Website</a><br />
+              Further Development with Zeix',
+            large: true
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/favorit-co.mp4',
+            description: 'Favorit & Co ⏤ <a href="https://favoritco.com" target="_blank" rel="noopener noreferrer">Animated Intro</a><br />
+              Made with Favorit Studio',
+            large: true
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/frigg-page-transition.mp4',
+            description: 'Frigg.eco ⏤ <a href="https://www.frigg.eco/universe" target="_blank" rel="noopener noreferrer">Page Transitions</a><br />
+              Made with Favorit Studio',
+            large: true
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/data-fabric.mp4',
+            description: 'Netapp x Fujitsu ⏤ Animated Campaign<br />
+              Made with Agentur Koch',
+            large: true
+          } %}
+        </div>
+      </div>
+    </section>
+
+    {# <section id="awards" class="section section--centered section--work">
+      <div class="container">
+        <h2 class="js-scroll-reveal">
+          Awards<br />
+          <span class="text-serif text-serif--offset">& Fame</span>
+        </h2>
+
+        <ul class="awards">
+          <li class="awards__item">
+            <span>Awwwards</span>
+            <ul>
+              <li>2x Site of the day</li>
+              <li>1x Dev Awards</li>
+            </ul>
+          </li>
+          <li class="awards__item">
+            <span>Mindsparkle Mag</span>
+            <ul>
+              <li>1x Site of the Day</li>
+            </ul>
+          </li>
+          <li class="awards__item">
+            <span>Best of Swiss Web</span>
+            <ul>
+              <li>1x Bronze</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section> #}
+
+    <section class="section section--half-vh section--centered"
+      data-color="light">
+      <div class="marquee">
+        <h2 class="marquee__item">
+          Frame <span class="text-serif">One</span>
+        </h2>
+      </div>
+
+      <div class="container container--narrow">
+        <p class="lead js-scroll-reveal">
+          One Frame could be enough to tell your story, or maybe<br />
+          Frame One is the start of an exciting journey.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact"
+      class="section section--vh section--centered section--contact"
+      data-color="light">
+      <h2 class="sr-only">
+        Contact
+      </h2>
+
+      <div class="outro container">
+        <div class="outro__center js-scroll-reveal">
+          <a href="mailto:sergio@frameone.ch"
+            class="button button--contact heading heading--h2">
+            <span class="button__label">Contact</span>
+            <span class="button__border" aria-hidden="true"></span>
+          </a>
+
+          <p class="lead outro__lead">
+            Let’s Build Together – Frame by Frame.
+          </p>
+        </div>
+
+        <div class="line-grid">
+          <div class="line-grid__item line-grid__item--flex">
+            <div class="avatar">
+              <img class="avatar__image"
+                src="img/sergio.jpg"
+                alt="Sergio Lavanga"
+                width="200"
+                height="200" />
+            </div>
+            <ul class="outro__list">
+              <li>
+                Frame <span class="text-serif">One</span><br />
+                by Lavanga
+              </li>
+              <li>CHE-285.538.728</li>
+            </ul>
+          </div>
+
+          <div class="line-grid__item">
+            <ul class="outro__list">
+              <li>
+                <a href="mailto:sergio@frameone.ch"><span>E-Mail</span></a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/sergio-lavanga/"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <span>LinkedIn</span>
+                  <img src="img/icons/arrow-external.svg" class="icon" />
+                </a>
+              </li>
+              <li>
+                Partner of
+                <a href="https://favorit.studio"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <span>Favorit Studio</span>
+                  <img src="img/icons/arrow-external.svg" class="icon" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
