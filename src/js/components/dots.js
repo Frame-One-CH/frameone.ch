@@ -196,9 +196,6 @@ export class Dots {
           targetOpacity = OPACITY_DEFAULT;
 
           if (currentOpacity <= OPACITY_DEFAULT) {
-            delete dot.currentOpacity;
-            delete dot.targetOpacity;
-
             currentOpacity = OPACITY_DEFAULT;
           }
         } else {
