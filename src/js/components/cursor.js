@@ -76,8 +76,8 @@ export class Cursor {
     this.mousemoveHandler = this.mousemove.bind(this);
     this.mousedownHandler = this.mousedown.bind(this);
     this.mouseupHandler = this.mouseup.bind(this);
-    this.mouseenterHandler = this.activate.bind(this);
-    this.mouseleaveHandler = this.deactivate.bind(this);
+    this.mouseoverHandler = this.activate.bind(this);
+    this.mouseoutHandler = this.deactivate.bind(this);
 
     this.setClassHandler = this.setClass.bind(this);
     this.removeClassHandler = this.removeClass.bind(this);
@@ -85,8 +85,8 @@ export class Cursor {
     this.removeLabelHandler = this.removeLabel.bind(this);
 
     document.addEventListener('mousemove', this.mousemoveHandler);
-    document.addEventListener('mouseenter', this.mouseenterHandler);
-    document.addEventListener('mouseleave', this.mouseleaveHandler);
+    document.addEventListener('mouseover', this.mouseoverHandler);
+    document.addEventListener('mouseout', this.mouseoutHandler);
     document.addEventListener('mousedown', this.mousedownHandler);
     document.addEventListener('mouseup', this.mouseupHandler);
 
@@ -103,8 +103,8 @@ export class Cursor {
 
   removeEvents() {
     document.removeEventListener('mousemove', this.mousemoveHandler);
-    document.removeEventListener('mouseenter', this.mouseenterHandler);
-    document.removeEventListener('mouseleave', this.mouseleaveHandler);
+    document.removeEventListener('mouseover', this.mouseoverHandler);
+    document.removeEventListener('mouseout', this.mouseoutHandler);
     document.removeEventListener('mousedown', this.mousedownHandler);
     document.removeEventListener('mouseup', this.mouseupHandler);
 
