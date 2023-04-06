@@ -16,23 +16,22 @@
   "license": "MIT",
   "homepage": "https://www.frameone.ch",
   "dependencies": {
-    "@studio-freight/lenis": "^0.2.28",
-    "gsap": "^3.11.4",
-    "lodash": "^4.17.21",
-    "normalize.css": "^8.0.1",
-    "split-type": "^0.3.3"
+    "@studio-freight/lenis": "1.0.6",
+    "gsap": "3.11.4",
+    "lodash": "4.17.21",
+    "normalize.css": "8.0.1",
+    "split-type": "0.3.3"
   },
   "devDependencies": {
-    "@christian-beckmann/parcel-transformer-twig": "^0.1.1",
-    "@parcel/resolver-glob": "^2.8.3",
-    "@parcel/transformer-sass": "^2.8.3",
-    "parcel": "^2.8.3",
-    "parcel-reporter-static-files-copy": "^1.5.0",
-    "prettier": "^2.8.4",
-    "prettier-plugin-twig-melody": "^0.4.6",
-    "stylelint": "^14.16.0",
-    "stylelint-config-prettier": "^9.0.4",
-    "stylelint-config-standard-scss": "^6.1.0"
+    "@christian-beckmann/parcel-transformer-twig": "0.1.1",
+    "@parcel/resolver-glob": "2.8.3",
+    "@parcel/transformer-sass": "2.8.3",
+    "parcel": "2.8.3",
+    "parcel-reporter-static-files-copy": "1.5.0",
+    "prettier": "2.8.7",
+    "prettier-plugin-twig-melody": "0.4.6",
+    "stylelint": "15.4.0",
+    "stylelint-config-standard-scss": "7.0.1"
   },
   "browserslist": "> 1%, last 2 versions, not dead",
   "@parcel/transformer-css": {
