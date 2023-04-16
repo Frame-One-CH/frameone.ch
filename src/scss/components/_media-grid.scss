@@ -153,6 +153,10 @@
   height: 100%;
   object-fit: cover;
   border-radius: 0.2rem;
+
+  @media (--tablet) {
+    max-height: 420px;
+  }
 }
 
 .media-grid__caption {

@@ -14,7 +14,7 @@ $clamp-max-breakpoint: 1600px;
   --theme-background: var(--color-blue);
   --theme-dark: var(--color-black);
   --theme-light: var(--color-blue);
-  --theme-transparent: rgba(255, 255, 255, 0.3);
+  --theme-transparent: rgba(255, 255, 255, 0.4);
   --font-family-base: 'Haffer', sans-serif;
   --font-family-serif: 'Teodor', serif;
   --font-size-base: #{clamp-calc(16px, 20px)};
