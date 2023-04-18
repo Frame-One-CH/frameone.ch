@@ -26,7 +26,7 @@
     {% if imageUrl %}
       <div class="media media--image">
         <img src="{{ imageUrl }}"
-          alt="{{ alt }}"
+          alt="{{ name }}"
           width="{{ large ? '1200' : '640' }}"
           height="{{ large ? '720' : '640' }}"
           loading="lazy" />
@@ -34,7 +34,17 @@
     {% endif %}
 
     <figcaption class="media-grid__caption js-scroll-reveal">
-      {{ description }}
+      {{ name }} ⏤{% if link %}
+        <a href="{{ link }}" target="_blank" rel="noopener noreferrer">
+          <span>{{ label }}</span>
+          <img src="img/icons/arrow-external.svg" alt="" class="icon" />
+        </a>
+      {% else %}
+        {{ label }}
+      {% endif %}
+      {% if description %}
+        <br />{{ description }}
+      {% endif %}
     </figcaption>
   </figure>
 </div>
