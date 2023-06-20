@@ -16,21 +16,21 @@
   "license": "MIT",
   "homepage": "https://www.frameone.ch",
   "dependencies": {
-    "@studio-freight/lenis": "1.0.13",
-    "gsap": "3.11.4",
+    "@studio-freight/lenis": "1.0.16",
+    "gsap": "3.12.1",
     "lodash": "4.17.21",
     "normalize.css": "8.0.1",
     "split-type": "0.3.3"
   },
   "devDependencies": {
     "@christian-beckmann/parcel-transformer-twig": "0.1.1",
-    "@parcel/resolver-glob": "2.9.0",
-    "@parcel/transformer-sass": "2.9.0",
-    "parcel": "2.9.0",
+    "@parcel/resolver-glob": "2.9.2",
+    "@parcel/transformer-sass": "2.9.2",
+    "parcel": "2.9.2",
     "parcel-reporter-static-files-copy": "1.5.0",
     "prettier": "2.8.8",
     "prettier-plugin-twig-melody": "0.4.6",
-    "stylelint": "15.6.2",
+    "stylelint": "15.8.0",
     "stylelint-config-standard-scss": "9.0.0"
   },
   "browserslist": "> 1%, last 2 versions, not dead",
