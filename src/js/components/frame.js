@@ -16,6 +16,6 @@ gsap.registerPlugin(ScrollTrigger);
       scrollTrigger: {
         scrub: 0.5,
       },
-    }
+    },
   );
 })();

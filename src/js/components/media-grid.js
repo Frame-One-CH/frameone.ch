@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger);
     },
     {
       threshold: 1.0,
-    }
+    },
   );
 
   media.forEach((el, i) => {

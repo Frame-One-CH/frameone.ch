@@ -15,14 +15,14 @@ gsap.registerPlugin(ScrollTrigger);
       {
         y: '-50vh',
       },
-      'title'
+      'title',
     )
     .to(
       '.js-scroll-out-bottom',
       {
         y: '50vh',
       },
-      'title'
+      'title',
     )
     .to(
       '.intro-title',
@@ -30,7 +30,7 @@ gsap.registerPlugin(ScrollTrigger);
         scale: 5,
         autoAlpha: 0,
       },
-      'title'
+      'title',
     )
     .to(
       '.js-scroll-about',
@@ -38,7 +38,7 @@ gsap.registerPlugin(ScrollTrigger);
         autoAlpha: 1,
         duration: 0.2,
       },
-      '>-0.5'
+      '>-0.5',
     );
 
   ScrollTrigger.create({

@@ -22,6 +22,6 @@ gsap.registerPlugin(ScrollTrigger);
         end: 'bottom center+=20%',
         scrub: 1,
       },
-    }
+    },
   );
 })();

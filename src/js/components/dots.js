@@ -34,7 +34,7 @@ export class Dots {
     window.addEventListener('mousemove', this.onMousemove.bind(this));
     document.addEventListener(
       'visibilitychange',
-      this.onVisibilityChange.bind(this)
+      this.onVisibilityChange.bind(this),
     );
   }
 
