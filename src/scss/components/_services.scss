@@ -48,7 +48,6 @@
     mask-image: linear-gradient(to right, var(--theme-foreground) 50%, #0000);
     transform: scaleX(var(--line-progress));
     transform-origin: top left;
-    transition: transform 0.3s var(--ease-custom-line);
   }
 
   &::before {

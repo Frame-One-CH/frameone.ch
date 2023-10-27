@@ -18,7 +18,7 @@
     top: 0;
     width: calc(var(--progress) * 50%);
     border-top: 1px solid var(--theme-transparent);
-    transition: width 2s var(--ease-custom-line);
+    transition: width 2s var(--ease-out-circ);
   }
 
   &::before {
@@ -55,7 +55,7 @@
       height: calc(var(--progress) * 100% - 1px);
       border-left: 1px solid var(--theme-transparent);
       mask-image: linear-gradient(to bottom, #fff 50%, #0000);
-      transition: height 2s var(--ease-custom-line);
+      transition: height 2s var(--ease-out-circ);
     }
   }
 }
