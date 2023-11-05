@@ -18,7 +18,7 @@ $clamp-max-breakpoint: 1600px;
   --font-family-base: 'Haffer', sans-serif;
   --font-family-serif: 'Teodor', serif;
   --font-size-base: #{clamp-calc(16px, 20px)};
-  --font-size-lead: #{clamp-calc(20px, 28px)};
+  --font-size-lead: #{clamp-calc(16px, 28px)};
   --font-size-h1: #{clamp-calc(64px, 252px)};
   --font-size-h2: #{clamp-calc(42px, 120px)};
   --spacing-frame-width: #{clamp-calc(10px, 20px)};
