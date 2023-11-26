@@ -12,6 +12,16 @@
   }
 }
 
+.frame--top,
+.frame--bottom {
+  transform: scaleX(0);
+}
+
+.frame--left,
+.frame--right {
+  transform: scaleY(0);
+}
+
 .frame--bottom {
   left: calc(var(--spacing-frame-width) - 1px);
   right: calc(var(--spacing-frame-width) - 1px);
@@ -30,7 +40,6 @@
   left: 0;
   width: 100%;
   border-top: var(--spacing-frame-width) solid var(--theme-foreground);
-  transform: scaleX(0);
   transform-origin: top right;
 }
 
@@ -39,7 +48,6 @@
   right: 0;
   height: 100%;
   border-right: var(--spacing-frame-width) solid var(--theme-foreground);
-  transform: scaleY(0);
   transform-origin: bottom right;
 }
 
@@ -48,6 +56,5 @@
   left: 0;
   height: 100%;
   border-left: var(--spacing-frame-width) solid var(--theme-foreground);
-  transform: scaleY(0);
   transform-origin: top left;
 }
