@@ -107,29 +107,54 @@
 
         <div class="media-grid">
           {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/frigg-website.mp4',
+            name: 'Frigg',
+            link: 'https://www.frigg.eco',
+            label: 'Website',
+            description: 'Website for Fintech Startup',
+            large: true
+          } %}
+
+           {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/cloudscale.mp4',
+            name: 'Cloudscale',
+            link: 'https://www.cloudscale.ch/en',
+            label: 'Website',
+            description: 'Website for IaaS Cloud Provider',
+            large: true
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
             videoUrl: 'assets/cases/ff-identity.mp4',
-            name: 'FF Identity',
+            name: 'The Brand Identity',
             link: 'https://the-brandidentity.com/store/product/ff-identity-framer-template-ff-grotesk-typeface-bundle',
-            label: 'Framer Template',
+            label: 'Exclusive Framer Template',
             description: 'Awwwards Site of the Day & Dev Award',
             large: true
           } %}
 
           {% include 'templates/partials/media.twig' with {
-            videoUrl: 'assets/cases/frigg-eco.mp4',
-            name: 'Frigg.eco',
-            link: 'https://www.frigg.eco',
-            label: 'Web Platform',
-            description: 'Ongoing with the Frigg team'
+            imageUrl: 'assets/cases/favorit-frame.jpg',
+            name: 'Favorit × Frame',
+            link: 'https://www.favoritframe.com/',
+            label: 'Framer Templates',
+            description: 'Collab with Favorit Studio'
           } %}
 
           {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/frigg-webapp.mp4',
+            name: 'Frigg',
+            label: 'Web Platform',
+            description: 'Ongoing with the Frigg Team'
+          } %}
+
+          {# {% include 'templates/partials/media.twig' with {
             videoUrl: 'assets/cases/nft-art-day.mp4',
-            name: 'NFTARTDAY.com',
+            name: 'NFT ART DAY',
             link: 'https://www.nftartday.com',
             label: 'Interactive Intro',
             description: 'Made with Favorit Studio'
-          } %}
+          } %} #}
 
           {# {% include 'templates/partials/media.twig' with {
             videoUrl: 'assets/cases/favorit-co.mp4',
@@ -142,37 +167,10 @@
 
           {% include 'templates/partials/media.twig' with {
             videoUrl: 'assets/cases/099.mp4',
-            name: '099 SPLY',
+            name: '099 Supply',
             link: 'https://099.supply',
             label: 'Online Store',
-            description: 'Modern and minimal mockups',
-            large: true
-          } %}
-
-          {% include 'templates/partials/media.twig' with {
-            videoUrl: 'assets/cases/marc-hanslin.mp4',
-            name: 'Marc Hanslin',
-            link: 'https://www.marchanslin.com',
-            label: 'Website',
-            description: 'Made with Favorit Studio',
-            large: true
-          } %}
-
-          {% include 'templates/partials/media.twig' with {
-            videoUrl: 'assets/cases/favorit-studio.mp4',
-            name: 'Favorit Studio',
-            link: 'https://favorit.studio',
-            label: 'Website',
-            description: 'Awwwards Site of the Day & Dev Award',
-            large: true
-          } %}
-
-          {% include 'templates/partials/media.twig' with {
-            videoUrl: 'assets/cases/newhome.mp4',
-            name: 'newhome',
-            link: 'https://www.newhome.ch',
-            label: 'Website',
-            description: 'Further Development with Zeix',
+            description: 'Digital Mockups and Tools for Creatives',
             large: true
           } %}
 
@@ -185,13 +183,40 @@
             large: true
           } %} #}
 
-           {% include 'templates/partials/media.twig' with {
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/marc-hanslin.mp4',
+            name: 'Marc Hanslin',
+            link: 'https://www.marchanslin.com',
+            label: 'Website',
+            description: 'Personal Scroll Experience',
+            large: true
+          } %}
+
+          {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/favorit-studio.mp4',
+            name: 'Favorit Studio',
+            link: 'https://favorit.studio',
+            label: 'Website',
+            description: 'Awwwards Site of the Day & Dev Award',
+            large: true
+          } %}
+
+          {# {% include 'templates/partials/media.twig' with {
+            videoUrl: 'assets/cases/newhome.mp4',
+            name: 'newhome',
+            link: 'https://www.newhome.ch',
+            label: 'Website',
+            description: 'Further Development with Zeix',
+            large: true
+          } %} #}
+
+           {# {% include 'templates/partials/media.twig' with {
             videoUrl: 'assets/cases/data-fabric.mp4',
             name: 'Netapp x Fujitsu',
             label: 'Animated Campaign',
             description: 'Made with Agentur Koch',
             large: true
-          } %}
+          } %} #}
         </div>
       </div>
     </section>
