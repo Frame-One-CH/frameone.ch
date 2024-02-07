@@ -21,8 +21,8 @@ gsap.registerPlugin(ScrollTrigger);
 
       ScrollTrigger.create({
         trigger: el,
-        start: 'top top',
-        end: 'bottom top',
+        start: 'top center',
+        end: 'bottom center',
         onEnter: () => onSectionColorChange(color),
         onLeave: () => onSectionColorChange(color),
         onLeaveBack: () => onSectionColorChange(color),
