@@ -64,7 +64,7 @@ dl {
 }
 
 .container--intro {
-  max-width: 27em;
+  max-width: clamp-calc(300px, 480px);
 }
 
 .content {
