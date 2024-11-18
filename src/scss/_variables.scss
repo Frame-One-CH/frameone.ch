@@ -1,10 +1,9 @@
+@use 'mixins/clamp-calc' as *;
+
 @custom-media --desktop (min-width: 59.99em);
 @custom-media --below-desktop (max-width: 60em);
 @custom-media --tablet (min-width: 40em);
 @custom-media --below-tablet (max-width: 39.99em);
-
-$clamp-min-breakpoint: 320px;
-$clamp-max-breakpoint: 1600px;
 
 :root {
   --color-white: #fff;

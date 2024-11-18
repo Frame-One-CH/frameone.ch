@@ -1,30 +1,29 @@
-@import '../../node_modules/normalize.css/normalize.css';
+@use '../../node_modules/normalize.css/normalize.css' as *;
 
-@import 'mixins/unit';
-@import 'mixins/clamp-calc';
-@import 'variables';
+@use 'mixins/clamp-calc' as *;
+@use 'variables' as *;
 
-@import 'global/fonts';
-@import 'global/base';
+@use 'global/fonts' as *;
+@use 'global/base' as *;
 
-@import 'components/frame';
-@import 'components/heading';
-@import 'components/typography';
-@import 'components/button';
-@import 'components/link';
-@import 'components/list';
-@import 'components/section';
-@import 'components/intro';
-@import 'components/outro';
-@import 'components/services';
-@import 'components/media-grid';
-@import 'components/awards';
-@import 'components/scroll-hint';
-@import 'components/line-grid';
-@import 'components/avatar';
-@import 'components/marquee';
-@import 'components/nav';
-@import 'components/cursor';
+@use 'components/frame' as *;
+@use 'components/heading' as *;
+@use 'components/typography' as *;
+@use 'components/button' as *;
+@use 'components/link' as *;
+@use 'components/list' as *;
+@use 'components/section' as *;
+@use 'components/intro' as *;
+@use 'components/outro' as *;
+@use 'components/services' as *;
+@use 'components/media-grid' as *;
+@use 'components/awards' as *;
+@use 'components/scroll-hint' as *;
+@use 'components/line-grid' as *;
+@use 'components/avatar' as *;
+@use 'components/marquee' as *;
+@use 'components/nav' as *;
+@use 'components/cursor' as *;
 
 ::selection {
   color: var(--theme-background);

@@ -6,12 +6,13 @@ and linearly scales between the two between $min-breakpoint and $max-breakpoint
 */
 
 @use 'sass:math';
+@use '../mixins/unit' as *;
 
 @function clamp-calc(
   $min-size,
   $max-size,
-  $min-breakpoint: $clamp-min-breakpoint,
-  $max-breakpoint: $clamp-max-breakpoint
+  $min-breakpoint: 320px,
+  $max-breakpoint: 1600px
 ) {
   $slope: math.div(
     to-rem($max-size) - to-rem($min-size),
