@@ -1,4 +1,4 @@
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import { gsap, Expo } from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 
