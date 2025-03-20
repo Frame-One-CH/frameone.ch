@@ -22,8 +22,10 @@
 
   &:hover,
   &:focus-visible {
-    background-color: rgba(255, 255, 255, 0.02);
-    color: var(--theme-foreground);
+    .button__border {
+      background-color: rgba(255, 255, 255, 0.02);
+      color: var(--theme-foreground);
+    }
   }
 }
 
@@ -46,6 +48,6 @@
   .button:hover & {
     transform: scale3d(1.02, 1.02, 1);
     backdrop-filter: blur(2px);
-    border-color: #fff;
+    border-color: var(--theme-foreground);
   }
 }
