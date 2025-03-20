@@ -5,12 +5,6 @@
   margin: auto;
   margin-top: var(--spacing-section);
 
-  @media (--tablet) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
   &::before,
   &::after {
     content: '';
@@ -27,8 +21,18 @@
   }
 
   &::after {
-    right: -1px;
+    right: 0;
     mask-image: linear-gradient(to right, #fff 50%, #0000);
+  }
+
+  @media (--tablet) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &::after {
+      right: -1px;
+    }
   }
 }
 
