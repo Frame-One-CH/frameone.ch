@@ -17,7 +17,7 @@
     position: absolute;
     top: 0;
     width: calc(var(--progress) * 50%);
-    border-top: 1px solid var(--theme-transparent);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     transition: width 2s var(--ease-out-circ);
   }
 
@@ -52,8 +52,8 @@
       position: absolute;
       bottom: 0;
       left: 50%;
-      border-left: 1px solid var(--theme-transparent);
       height: calc(var(--progress) * 100%);
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
       mask-image: linear-gradient(to bottom, #fff 50%, #0000);
       transition: height 2s var(--ease-out-circ);
     }
