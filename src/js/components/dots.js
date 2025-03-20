@@ -71,7 +71,7 @@ export class Dots {
     if (this.canvas.width > 640) {
       this.SPREAD = 22;
     } else {
-      this.SPREAD = 18;
+      this.SPREAD = 16;
     }
   }
 
@@ -123,9 +123,20 @@ export class Dots {
 
   createDots() {
     this.dots = [];
+    const margin = this.SPREAD / 2;
+    const offsetX = (this.canvas.width % this.SPREAD) / 2;
+    const offsetY = (this.canvas.height % this.SPREAD) / 2;
 
-    for (let x = this.SPREAD; x < this.canvas.width; x += this.SPREAD) {
-      for (let y = this.SPREAD; y < this.canvas.height; y += this.SPREAD) {
+    for (
+      let x = margin + offsetX;
+      x < this.canvas.width - margin;
+      x += this.SPREAD
+    ) {
+      for (
+        let y = margin + offsetY;
+        y < this.canvas.height - margin;
+        y += this.SPREAD
+      ) {
         this.dots.push({
           x,
           y,
