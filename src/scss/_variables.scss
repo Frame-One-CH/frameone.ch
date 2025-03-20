@@ -21,9 +21,9 @@
   --font-size-h1: #{clamp-calc(64px, 252px)};
   --font-size-h2: #{clamp-calc(42px, 120px)};
   --spacing-frame-width: #{clamp-calc(10px, 20px)};
-  --spacing-base: #{clamp-calc(16px, 32px)};
-  --spacing-section: #{clamp-calc(32px, 64px)};
   --font-size-small: 0.8em;
+  --spacing-base: #{clamp-calc(15px, 30px)};
+  --spacing-section: #{clamp-calc(30px, 60px)};
   --ease-out-circ: cubic-bezier(0, 0.55, 0.45, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
