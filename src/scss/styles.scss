@@ -1,4 +1,5 @@
 @use '../../node_modules/normalize.css/normalize.css' as *;
+@use '../../node_modules/lenis/dist/lenis.css' as *;
 
 @use 'mixins/clamp-calc' as *;
 @use 'variables' as *;
