@@ -43,7 +43,7 @@ gsap.registerPlugin(ScrollTrigger);
 
   ScrollTrigger.create({
     animation: introTimeline,
-    trigger: document.querySelector('.section--intro'),
+    trigger: '.section--intro',
     start: 'top top',
     end: 'bottom center',
     scrub: 1,

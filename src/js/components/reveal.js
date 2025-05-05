@@ -1,26 +1,24 @@
-import { gsap, Power3 } from 'gsap';
-import SplitType from 'split-type';
+import { gsap, Power3, Power4 } from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 (() => {
-  document.querySelectorAll('.js-scroll-reveal').forEach((el, i) => {
-    const start = el.getAttribute('data-start') || false;
-    const textLines = new SplitType(el, {
-      types: 'lines',
-    });
+  document.fonts.ready.then(() => {
+    document.querySelectorAll('.js-scroll-reveal').forEach((el, i) => {
+      const start = el.getAttribute('data-start') || false;
 
-    if (textLines.lines) {
-      textLines.lines.map((line) => {
-        const wrapEl = document.createElement('div');
-        wrapEl.classList.add('line-wrapper');
-        wrapEl.style.overflow = 'hidden';
-        line.parentNode.appendChild(wrapEl);
-        wrapEl.appendChild(line);
+      const splitText = SplitText.create(el, {
+        type: 'lines',
+        mask: 'lines',
       });
 
-      gsap.from(textLines.lines, {
+      gsap.from(splitText.lines, {
         yPercent: 100,
         duration: 1.5,
-        ease: Power3.easeInOut,
+        ease: start ? Power3.easeInOut : Power4.easeOut,
         stagger: {
           each: 0.1,
         },
@@ -32,12 +30,14 @@ import SplitType from 'split-type';
         },
         onComplete: () => {
           if (start) {
-            textLines.lines.forEach((line) => {
-              line.parentNode.style.overflow = 'visible';
+            splitText.lines.forEach((line) => {
+              if (line.parentNode) {
+                line.parentNode.style.overflow = 'visible';
+              }
             });
           }
         },
       });
-    }
+    });
   });
 })();
