@@ -38,7 +38,7 @@ gsap.registerPlugin(ScrollTrigger);
       start: 'top bottom',
       end: progressEnd,
       onUpdate: (self) => {
-        gsap.to(el, {
+        gsap.to('.line-grid', {
           '--progress': self.progress,
         });
       },
