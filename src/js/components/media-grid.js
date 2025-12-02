@@ -46,8 +46,16 @@ gsap.registerPlugin(ScrollTrigger);
 
   videos.forEach((video) => {
     const videoWrapper = video.parentNode;
+    const playButton = videoWrapper.querySelector('.media__play');
 
-    video.addEventListener('click', () => {
+    const updateButtonState = (isPlaying) => {
+      playButton.setAttribute(
+        'aria-label',
+        isPlaying ? 'Pause video' : 'Play video',
+      );
+    };
+
+    playButton.addEventListener('click', () => {
       video.paused ? video.play() : video.pause();
     });
 
@@ -55,18 +63,21 @@ gsap.registerPlugin(ScrollTrigger);
       videoWrapper.classList.add('is-playing');
       videoWrapper.classList.remove('is-paused');
       videoWrapper.classList.remove('is-hinting');
+      updateButtonState(true);
     });
 
     video.addEventListener('pause', () => {
       videoWrapper.classList.add('is-paused');
       videoWrapper.classList.remove('is-playing');
+      updateButtonState(false);
     });
 
     video.addEventListener('ended', () => {
+      videoWrapper.classList.add('is-paused');
       videoWrapper.classList.remove('is-playing');
-      videoWrapper.classList.remove('is-paused');
       video.currentTime = 0;
       video.pause();
+      updateButtonState(false);
     });
 
     /*
@@ -86,12 +97,6 @@ gsap.registerPlugin(ScrollTrigger);
 
     if (isTouchDevice) {
       videoObserver.observe(video);
-    } else {
-      video.addEventListener('mouseenter', () => {
-        if (!videoWrapper.classList.contains('is-paused')) {
-          video.play();
-        }
-      });
     }
   });
 })();

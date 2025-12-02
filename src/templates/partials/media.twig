@@ -1,16 +1,9 @@
 <div class="media-grid__wrapper">
-  <figure class="media-grid__item {{
-    large
-      ? 'media-grid__item--large'
-      : 'media-grid__item--small'
-    }}">
+  <figure class="media-grid__item {{ large ? 'media-grid__item--large' : 'media-grid__item--small' }}">
     {% if videoUrl %}
       <div class="media media--video">
-        <video class="media__object"
-          src="{{ videoUrl }}#t=0.1"
-          preload="metadata"
-          playsinline
-          muted></video>
+        <video class="media__object" src="{{ videoUrl }}#t=0.1" preload="metadata" playsinline muted></video>
+        <button type="button" class="media__play" aria-label="Play video"></button>
 
         {# <div class="progress">
           <div class="progress__bar"
@@ -25,11 +18,7 @@
 
     {% if imageUrl %}
       <div class="media media--image">
-        <img src="{{ imageUrl }}"
-          alt="{{ name }}"
-          width="{{ large ? '1200' : '320' }}"
-          height="{{ large ? '750' : '320' }}"
-          loading="lazy" />
+        <img src="{{ imageUrl }}" alt="{{ name }}" width="{{ large ? '1200' : '320' }}" height="{{ large ? '750' : '320' }}" loading="lazy" />
       </div>
     {% endif %}
 

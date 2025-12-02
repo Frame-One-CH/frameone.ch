@@ -57,94 +57,53 @@
   }
 }
 
-.media--video {
-  cursor: pointer;
+.media__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
 
   &::before {
     content: '';
     opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 4em;
-    height: 4em;
-    margin-top: -2em;
-    margin-left: -2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transform: scale(0.8);
+    width: 3em;
+    height: 3em;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.5);
     background-image: url('../img/icons/play.svg');
-    background-position: center center;
+    background-position: 52% center;
     background-repeat: no-repeat;
     background-size: 50% 50%;
-    pointer-events: none;
-    transition: opacity 0.15s linear;
+    transition: 0.3s var(--ease-out-quart);
+    transition-property: opacity, transform;
+  }
+
+  .media--video.is-playing &::before {
+    background-image: url('../img/icons/pause.svg');
+    background-position: center center;
   }
 
   @media (pointer: fine) {
-    &:not(.is-playing, .is-paused):hover::before {
-      transform: scale(1);
+    &:hover::before,
+    &:focus-visible::before {
       opacity: 1;
+      transform: scale(1);
     }
   }
 
-  &.is-playing::before,
-  &.is-hinting::before {
-    background-image: url('../img/icons/play.svg');
-    animation: pop-in-play 1s var(--ease-out-quart);
-  }
-
-  &.is-hinting::before {
-    animation: hint-play 1s var(--ease-out-quart);
-  }
-
-  &.is-playing::before {
-    animation: pop-in-play 1s var(--ease-out-quart);
-  }
-
-  &.is-paused::before {
-    background-image: url('../img/icons/pause.svg');
-    animation: pop-in-pause 1s var(--ease-out-quart);
-  }
-}
-
-@keyframes hint-play {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes pop-in-play {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(1.2);
-    opacity: 0;
-  }
-}
-
-@keyframes pop-in-pause {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(1.2);
-    opacity: 0;
+  @media (pointer: coarse) {
+    .media--video.is-hinting &::before,
+    .media--video.is-paused &::before {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
