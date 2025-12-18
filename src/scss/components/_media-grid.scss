@@ -47,10 +47,7 @@
   &::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.2rem;
     pointer-events: none;
@@ -63,48 +60,60 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  padding: 0;
   background: none;
   border: none;
 
-  &::before {
-    content: '';
-    opacity: 0;
-    transform: scale(0.8);
-    width: 3em;
-    height: 3em;
-    border-radius: 50%;
-    backdrop-filter: blur(3px);
-    background-color: rgba(0, 0, 0, 0.5);
-    background-image: url('../img/icons/play.svg');
-    background-position: 52% center;
-    background-repeat: no-repeat;
-    background-size: 50% 50%;
-    transition: 0.3s var(--ease-out-quart);
-    transition-property: opacity, transform;
+  &:hover .media__play-icon,
+  &:focus-visible .media__play-icon {
+    @media (pointer: fine) {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
-  .media--video.is-playing &::before {
+  .media--video.is-hinting &,
+  .media--video.is-paused & {
+    @media (pointer: coarse) {
+      .media__play-icon {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.media__play-icon {
+  position: relative;
+  width: 3em;
+  height: 3em;
+  opacity: 0;
+  transform: scale(0.8);
+  border-radius: 50%;
+  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.5) url('../img/icons/play.svg') 52% center / 50%
+    no-repeat;
+  transition: 0.3s var(--ease-out-quart);
+  transition-property: opacity, transform;
+
+  .media--video.is-playing & {
     background-image: url('../img/icons/pause.svg');
-    background-position: center center;
+    background-position: center;
   }
+}
 
-  @media (pointer: fine) {
-    &:hover::before,
-    &:focus-visible::before {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+.media__progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
 
-  @media (pointer: coarse) {
-    .media--video.is-hinting &::before,
-    .media--video.is-paused &::before {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+.media__progress-circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 2;
 }
 
 .media__object {
@@ -122,30 +131,3 @@
   margin-top: 0.8em;
   font-size: var(--font-size-small);
 }
-
-/*
-.progress {
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0.4rem;
-  transition: opacity 0.15s linear;
-  mix-blend-mode: exclusion;
-  pointer-events: none;
-
-  .media--video:hover & {
-    opacity: 1;
-  }
-}
-
-.progress__bar {
-  height: 0.2rem;
-  border-radius: 2em;
-  background-color: var(--theme-foreground);
-
-  width: 0;
-  transition: width 0.3s linear;
-}
-*/
