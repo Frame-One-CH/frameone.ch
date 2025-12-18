@@ -19,12 +19,10 @@ export class Dots {
     this.toggleOn = new Audio(
       new URL('../../assets/sounds/celebration.mp3', import.meta.url),
     );
-    this.toggleOn.volume = 0.5;
 
     this.toggleOff = new Audio(
       new URL('../../assets/sounds/toggle-off.mp3', import.meta.url),
     );
-    this.toggleOff.volume = 0.5;
 
     this.init();
   }
@@ -107,14 +105,20 @@ export class Dots {
 
     if (this.impact === IMPACT_MAX) {
       if (this.cursor) {
-        this.toggleOff.cloneNode().play().catch(() => {});
+        const sound = this.toggleOff.cloneNode();
+        sound.volume = 0.2;
+        sound.play().catch(() => {});
+
         this.cursor.destory();
         this.cursor = null;
       } else {
+        const sound = this.toggleOn.cloneNode();
+        sound.volume = 0.2;
+        sound.play().catch(() => {});
+
         this.cursor = new Cursor();
         this.cursor.setPosition(this.mouseX, this.mouseY);
         this.cursor.activate();
-        this.toggleOn.cloneNode().play().catch(() => {});
       }
     }
   }
