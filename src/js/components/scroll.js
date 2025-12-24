@@ -1,18 +1,10 @@
 import Lenis from 'lenis';
-import { gsap, Expo } from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollToPlugin);
 gsap.registerPlugin(ScrollTrigger);
-
-export function scrollTo(y) {
-  gsap.to(window, {
-    scrollTo: { y },
-    duration: 1,
-    ease: Expo.easeInOut,
-  });
-}
 
 (() => {
   const lenis = new Lenis({ autoRaf: true });
@@ -32,7 +24,7 @@ export function scrollTo(y) {
   document.querySelectorAll('.js-scroll').forEach((el) => {
     el.addEventListener('click', (e) => {
       e.preventDefault();
-      scrollTo(e.currentTarget.hash);
+      lenis.scrollTo(e.currentTarget.hash);
     });
   });
 })();
