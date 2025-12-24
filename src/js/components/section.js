@@ -20,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
           : gsap.getProperty('html', '--theme-light');
 
       ScrollTrigger.create({
-        trigger: el,
+        trigger: el.querySelector('.container'),
         start: 'top center',
         end: 'bottom center',
         onEnter: () => onSectionColorChange(color),

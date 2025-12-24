@@ -18,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
       gsap.to(scrollHint, {
         autoAlpha: 1,
         duration: 1,
+        ease: Expo.easeOut,
       });
     }
 
@@ -26,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
       duration: 1,
       ease: Expo.easeOut,
     });
-  }, 3000);
+  }, 2500);
 
   scrollHint.addEventListener('mouseenter', () => {
     gsap.to(scrollHint, {
