@@ -16,7 +16,6 @@
   font-family: var(--font-family-base);
   font-size: var(--font-size-h1);
   letter-spacing: -0.02em;
-  opacity: 0;
 }
 
 .intro-title__top,
@@ -30,4 +29,9 @@
 
 .intro-title__bottom {
   font-weight: 400;
+}
+
+.intro-title,
+.intro__about {
+  opacity: 0;
 }

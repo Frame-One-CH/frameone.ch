@@ -10,8 +10,10 @@ import { SplitText } from 'gsap/SplitText';
 
     const tl = gsap.timeline();
 
+    tl.set('.js-scroll-about', { autoAlpha: 0, filter: 'blur(3px)' });
+
     if (document.documentElement.scrollTop === 0) {
-      tl.set('.js-intro-title', { opacity: 1 });
+      tl.set('.js-intro-title', { autoAlpha: 1 });
 
       tl.from(splitText.lines, {
         yPercent: 100,
@@ -61,11 +63,11 @@ import { SplitText } from 'gsap/SplitText';
         '<',
       );
 
-      tl.from(
+      tl.to(
         '.js-scroll-about',
         {
-          autoAlpha: 0,
-          filter: 'blur(3px)',
+          filter: 'none',
+          autoAlpha: 1,
           duration: 0.6,
           ease: Power3.easeInOut,
         },
