@@ -5,19 +5,6 @@
   padding-bottom: var(--spacing-section);
 }
 
-.section__sticky {
-  position: sticky;
-  z-index: 1;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-}
-
-.section__sticky--hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
 .section__fixed {
   position: fixed;
   z-index: 1;
@@ -46,4 +33,14 @@
 .section--half-vh {
   min-height: 50vh;
   min-height: 50svh;
+}
+
+.section--work {
+  margin-top: -15vh;
+  margin-top: -15svh;
+
+  @media (--tablet) {
+    margin-top: -25vh;
+    margin-top: -25svh;
+  }
 }

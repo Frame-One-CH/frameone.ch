@@ -1,6 +1,5 @@
-import { gsap } from 'gsap';
+import { gsap, Expo } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { scrollTo } from './scroll';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,21 +13,20 @@ gsap.registerPlugin(ScrollTrigger);
     ease: 'linear',
   });
 
-  let scrollHintHide;
-
   window.setTimeout(() => {
     if (document.documentElement.scrollTop === 0) {
-      scrollHintHide = gsap.to(scrollHint, {
+      gsap.to(scrollHint, {
         autoAlpha: 1,
-        duration: 0.5,
+        duration: 1,
       });
     }
-  }, 2000);
 
-  scrollHint.addEventListener('click', (e) => {
-    e.preventDefault();
-    scrollTo(window.innerHeight / 6);
-  });
+    gsap.to(document.querySelectorAll('.nav__link'), {
+      y: 0,
+      duration: 1,
+      ease: Expo.easeOut,
+    });
+  }, 3000);
 
   scrollHint.addEventListener('mouseenter', () => {
     gsap.to(scrollHint, {
@@ -44,12 +42,10 @@ gsap.registerPlugin(ScrollTrigger);
 
   ScrollTrigger.create({
     onUpdate: (self) => {
-      if (scrollHintHide) {
-        if (self.progress > 0) {
-          scrollHintHide.reverse();
-        } else {
-          scrollHintHide.play();
-        }
+      if (self.progress > 0) {
+        gsap.to(scrollHint, { autoAlpha: 0 });
+      } else {
+        gsap.to(scrollHint, { autoAlpha: 1, duration: 1 });
       }
     },
   });
