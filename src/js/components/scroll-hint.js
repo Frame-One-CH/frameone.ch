@@ -18,15 +18,8 @@ gsap.registerPlugin(ScrollTrigger);
       gsap.to(scrollHint, {
         autoAlpha: 1,
         duration: 1,
-        ease: Expo.easeOut,
       });
     }
-
-    gsap.to(document.querySelectorAll('.nav__link'), {
-      y: 0,
-      duration: 1,
-      ease: Expo.easeOut,
-    });
   }, 2500);
 
   scrollHint.addEventListener('mouseenter', () => {

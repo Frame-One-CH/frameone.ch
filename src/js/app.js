@@ -4,6 +4,7 @@ import './components/frame';
 import './components/scroll';
 import './components/scroll-hint';
 import './components/intro';
+import './components/nav';
 import './components/section';
 import './components/services';
 import './components/media-grid';
