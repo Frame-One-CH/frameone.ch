@@ -23,7 +23,8 @@
   --font-size-small: #{clamp-calc(12px, 16px)};
   --spacing-frame-width: #{clamp-calc(10px, 22px)};
   --spacing-base: #{clamp-calc(15px, 30px)};
-  --spacing-section: #{clamp-calc(30px, 60px)};
+  --spacing-content: #{clamp-calc(30px, 60px)};
+  --spacing-section: #{clamp-calc(30px, 100px)};
   --ease-out-circ: cubic-bezier(0, 0.55, 0.45, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);

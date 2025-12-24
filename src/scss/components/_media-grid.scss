@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: calc(var(--spacing-base) * 1.5);
-  margin-top: var(--spacing-section);
+  margin-top: var(--spacing-content);
 
   @media (--tablet) {
     grid-template-columns: 1fr 1fr;
