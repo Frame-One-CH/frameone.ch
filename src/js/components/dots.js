@@ -105,17 +105,11 @@ export class Dots {
 
     if (this.impact === IMPACT_MAX) {
       if (this.cursor) {
-        const sound = this.toggleOff.cloneNode();
-        sound.volume = 0.2;
-        sound.play().catch(() => {});
-
+        this.playSound(this.toggleOff);
         this.cursor.destory();
         this.cursor = null;
       } else {
-        const sound = this.toggleOn.cloneNode();
-        sound.volume = 0.2;
-        sound.play().catch(() => {});
-
+        this.playSound(this.toggleOn);
         this.cursor = new Cursor();
         this.cursor.setPosition(this.mouseX, this.mouseY);
         this.cursor.activate();
@@ -239,6 +233,23 @@ export class Dots {
 
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  playSound(baseSound) {
+    const cleanup = () => {
+      sound.pause();
+      sound.currentTime = 0;
+      sound.src = '';
+      sound.removeEventListener('ended', cleanup);
+    };
+
+    const sound = baseSound.cloneNode();
+
+    sound.addEventListener('ended', cleanup);
+    sound.volume = 0.2;
+    sound.play().catch(() => {});
+
+    return sound;
   }
 
   tick(now) {
