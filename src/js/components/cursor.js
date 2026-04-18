@@ -18,7 +18,7 @@ export class Cursor {
     return this;
   }
 
-  destory() {
+  destroy() {
     this.removeEvents();
     this.deactivate();
     document.body.removeChild(this.el);

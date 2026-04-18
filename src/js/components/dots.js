@@ -106,7 +106,7 @@ export class Dots {
     if (this.impact === IMPACT_MAX) {
       if (this.cursor) {
         this.playSound(this.toggleOff);
-        this.cursor.destory();
+        this.cursor.destroy();
         this.cursor = null;
       } else {
         this.playSound(this.toggleOn);
