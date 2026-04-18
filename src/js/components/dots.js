@@ -44,6 +44,7 @@ export class Dots {
   }
 
   init() {
+    this.setCanvasVisible(true);
     this.setCanvasSize();
     this.bindEvents();
     this.createDots();
@@ -51,8 +52,13 @@ export class Dots {
   }
 
   bindEvents() {
-    this.debouncedResize = debounce(this.onResize.bind(this), 300);
-    window.addEventListener('resize', this.debouncedResize);
+    this.onResizeStart = () => {
+      this.setCanvasVisible(false);
+      this.debouncedResize();
+    };
+    this.debouncedResize = debounce(this.onResize.bind(this), 100);
+
+    window.addEventListener('resize', this.onResizeStart);
     window.addEventListener('mousedown', this.onMousedown.bind(this));
     window.addEventListener('mouseup', this.onMouseup.bind(this));
     window.addEventListener('mousemove', this.onMousemove.bind(this));
@@ -98,6 +104,10 @@ export class Dots {
     this.context.setTransform(this.pixelRatio, 0, 0, this.pixelRatio, 0, 0);
   }
 
+  setCanvasVisible(isVisible) {
+    this.canvas.style.opacity = isVisible ? '1' : '0';
+  }
+
   onMousemove(e) {
     this.mouseX = e.x;
     this.mouseY = e.y;
@@ -138,6 +148,7 @@ export class Dots {
     this.setCanvasSize();
     this.createDots();
     this.render();
+    this.setCanvasVisible(true);
   }
 
   onVisibilityChange() {
