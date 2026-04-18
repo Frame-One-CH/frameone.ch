@@ -1,11 +1,17 @@
 import { Cursor } from './cursor';
 import debounce from 'lodash/debounce';
 
-const DOT_RADIUS = 2;
+const SPREAD = 20;
+const DOT_RADIUS = 10;
 
 const OPACITY_DEFAULT = 0.1;
 const OPACITY_TARGET = 1;
 const OPACITY_STEP = 0.1;
+const IMPACT_DISTANCE_SCALE = 1.8;
+const CURSOR_REPEL_RADIUS_MULTIPLIER = 10;
+const CURSOR_REPEL_RETURN_EASING = 0.18;
+const CURSOR_REPEL_SNAP_EPSILON = 0.01;
+const CLICK_EXPLOSION_STRENGTH = 0.4;
 
 const IMPACT_DEFAULT = 80;
 const IMPACT_MIN = 150;
@@ -15,6 +21,16 @@ export class Dots {
   constructor(el) {
     this.canvas = el;
     this.context = this.canvas.getContext('2d');
+    this.dotImage = new Image();
+
+    this.dotImage.onload = () => {
+      this.resetRendering();
+    };
+
+    this.dotImage.src = new URL(
+      '../../assets/canvas-dot.png',
+      import.meta.url,
+    ).href;
 
     this.toggleOn = new Audio(
       new URL('../../assets/sounds/celebration.mp3', import.meta.url),
@@ -73,14 +89,13 @@ export class Dots {
   }
 
   setCanvasSize() {
-    this.canvas.width = this.canvas.offsetWidth;
-    this.canvas.height = this.canvas.offsetHeight;
+    this.width = this.canvas.offsetWidth;
+    this.height = this.canvas.offsetHeight;
+    this.pixelRatio = window.devicePixelRatio || 1;
 
-    if (this.canvas.width > 640) {
-      this.SPREAD = 22;
-    } else {
-      this.SPREAD = 16;
-    }
+    this.canvas.width = Math.round(this.width * this.pixelRatio);
+    this.canvas.height = Math.round(this.height * this.pixelRatio);
+    this.context.setTransform(this.pixelRatio, 0, 0, this.pixelRatio, 0, 0);
   }
 
   onMousemove(e) {
@@ -102,6 +117,8 @@ export class Dots {
 
     this.clickTime = new Date() - this.mouseStart;
     this.impact = this.clamp(this.clickTime, IMPACT_MIN, IMPACT_MAX);
+    this.explosionStrength = CLICK_EXPLOSION_STRENGTH;
+    this.resetRendering();
 
     if (this.impact === IMPACT_MAX) {
       if (this.cursor) {
@@ -132,39 +149,44 @@ export class Dots {
   }
 
   createDots() {
-    this.dots = [];
-    const margin = this.SPREAD / 2;
-    const offsetX = (this.canvas.width % this.SPREAD) / 2;
-    const offsetY = (this.canvas.height % this.SPREAD) / 2;
+    const width = this.width;
+    const height = this.height;
 
-    for (
-      let x = margin + offsetX;
-      x < this.canvas.width - margin;
-      x += this.SPREAD
-    ) {
-      for (
-        let y = margin + offsetY;
-        y < this.canvas.height - margin;
-        y += this.SPREAD
-      ) {
-        this.dots.push({
-          x,
-          y,
-        });
+    if (SPREAD <= 0) {
+      this.dots = [];
+      this.dotCount = 0;
+      return;
+    }
+
+    const cols = Math.floor(width / SPREAD);
+    const rows = Math.floor(height / SPREAD);
+    const padX = (width - cols * SPREAD) / 2;
+    const padY = (height - rows * SPREAD) / 2;
+    const halfSpread = SPREAD / 2;
+    const dots = new Array(rows * cols);
+    let idx = 0;
+
+    for (let col = 0; col < cols; col++) {
+      const x = padX + col * SPREAD + halfSpread;
+
+      for (let row = 0; row < rows; row++) {
+        const y = padY + row * SPREAD + halfSpread;
+        dots[idx++] = { x, y, offsetX: 0, offsetY: 0 };
       }
     }
 
-    this.dotCount = this.dots.length;
+    this.dots = dots;
+    this.dotCount = idx;
   }
 
   clamp(input, min, max) {
     return input < min ? min : input > max ? max : input;
   }
 
-  drawDot(dot, opacity = OPACITY_DEFAULT) {
-    this.context.beginPath();
-    this.context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-    this.context.fillRect(dot.x, dot.y, DOT_RADIUS, DOT_RADIUS);
+  drawDot(x, y, opacity = OPACITY_DEFAULT) {
+    this.context.globalAlpha = opacity;
+    this.context.drawImage(this.dotImage, x, y, DOT_RADIUS, DOT_RADIUS);
+    this.context.globalAlpha = 1;
   }
 
   render() {
@@ -175,35 +197,73 @@ export class Dots {
     this.dots[random].currentOpacity = OPACITY_DEFAULT;
     */
 
-    for (let i = 0; i < this.dotCount; i++) {
-      let dot = this.dots[i];
+    const dots = this.dots;
+    const dotCount = this.dotCount;
+    const mouseX = this.mouseX;
+    const mouseY = this.mouseY;
+
+    const hasInteraction = this.clicked || this.moved;
+    const explosionStrength = this.explosionStrength || 0;
+    const hasExplosion = explosionStrength > 0;
+    const hasMotionEffect = hasInteraction || hasExplosion;
+
+    const impact = this.clickTime ? this.impact : IMPACT_DEFAULT;
+    const impactThreshold = impact / IMPACT_DISTANCE_SCALE;
+    const impactThresholdSquared = impactThreshold * impactThreshold;
+
+    const repulsionRadius = SPREAD * CURSOR_REPEL_RADIUS_MULTIPLIER;
+    const repulsionRadiusSquared = repulsionRadius * repulsionRadius;
+    const repulsionMaxOffset = SPREAD;
+
+    for (let i = 0; i < dotCount; i++) {
+      const dot = dots[i];
       let step = OPACITY_STEP;
+      let repelTargetX = 0;
+      let repelTargetY = 0;
 
-      if (this.clicked || this.moved) {
-        const dx = this.mouseX - dot.x;
-        const dy = this.mouseY - dot.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const roundedDistance = Math.round(distance * 1.8);
+      if (hasMotionEffect) {
+        const dx = mouseX - dot.x;
+        const dy = mouseY - dot.y;
+        const distanceSquared = dx * dx + dy * dy;
+        const isInRadius =
+          distanceSquared > 0 && distanceSquared < repulsionRadiusSquared;
+        const isInImpactRadius =
+          hasInteraction &&
+          distanceSquared > 0 &&
+          distanceSquared < impactThresholdSquared;
+        const needsDistance = isInRadius || isInImpactRadius;
 
-        this.impact = this.clickTime ? this.impact : IMPACT_DEFAULT;
+        let distance = 0;
+        let invDistance = 0;
 
-        if (roundedDistance < this.impact) {
-          step = roundedDistance / this.impact;
+        if (needsDistance) {
+          distance = Math.sqrt(distanceSquared);
+          invDistance = 1 / distance;
+        }
+
+        if (isInRadius) {
+          const proximity = 1 - distance / repulsionRadius;
+          const repelOffset = proximity * proximity * repulsionMaxOffset;
+
+          repelTargetX = -dx * invDistance * repelOffset;
+          repelTargetY = -dy * invDistance * repelOffset;
+        }
+
+        if (hasExplosion && isInRadius) {
+          const proximity = 1 - distance / repulsionRadius;
+          const explosionOffset =
+            proximity * proximity * this.impact * explosionStrength;
+
+          repelTargetX += -dx * invDistance * explosionOffset;
+          repelTargetY += -dy * invDistance * explosionOffset;
+        }
+
+        // Skip sqrt for dots that are definitely outside impact range.
+        if (isInImpactRadius) {
+          step = (distance * IMPACT_DISTANCE_SCALE) / impact;
 
           dot.currentOpacity = OPACITY_DEFAULT;
           dot.targetOpacity = OPACITY_TARGET;
-        }
-
-        if (i === this.dotCount - 1) {
-          this.clicked = false;
-          this.clickTime = 0;
-          this.moved = false;
-
-          if (!this.stopInterval) {
-            this.stopInterval = window.setTimeout(() => {
-              this.stopRendering();
-            }, 2000);
-          }
         }
       }
 
@@ -227,12 +287,36 @@ export class Dots {
         dot.targetOpacity = targetOpacity;
       }
 
-      this.drawDot(dot, currentOpacity);
+      const offsetX =
+        dot.offsetX + (repelTargetX - dot.offsetX) * CURSOR_REPEL_RETURN_EASING;
+      const offsetY =
+        dot.offsetY + (repelTargetY - dot.offsetY) * CURSOR_REPEL_RETURN_EASING;
+
+      dot.offsetX = Math.abs(offsetX) < CURSOR_REPEL_SNAP_EPSILON ? 0 : offsetX;
+      dot.offsetY = Math.abs(offsetY) < CURSOR_REPEL_SNAP_EPSILON ? 0 : offsetY;
+
+      this.drawDot(dot.x + dot.offsetX, dot.y + dot.offsetY, currentOpacity);
+    }
+
+    if (hasExplosion) {
+      this.explosionStrength = Math.max(0, explosionStrength - OPACITY_STEP);
+    }
+
+    if (hasInteraction) {
+      this.clicked = false;
+      this.clickTime = 0;
+      this.moved = false;
+
+      if (!this.stopInterval) {
+        this.stopInterval = window.setTimeout(() => {
+          this.stopRendering();
+        }, 2000);
+      }
     }
   }
 
   clear() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.clearRect(0, 0, this.width, this.height);
   }
 
   playSound(baseSound) {
