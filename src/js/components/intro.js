@@ -3,16 +3,17 @@ import { SplitText } from 'gsap/SplitText';
 
 (() => {
   document.fonts.ready.then(() => {
-    const splitText = SplitText.create('.js-intro-title', {
-      type: 'lines',
-      mask: 'lines',
-    });
-
     const tl = gsap.timeline();
+    const isAtTop =
+      window.scrollY === 0 && document.documentElement.scrollTop === 0;
 
-    tl.set('.js-scroll-about', { autoAlpha: 0, filter: 'blur(3px)' });
+    if (isAtTop) {
+      const splitText = SplitText.create('.js-intro-title', {
+        type: 'lines',
+        mask: 'lines',
+      });
 
-    if (document.documentElement.scrollTop === 0) {
+      tl.set('.js-scroll-about', { autoAlpha: 0, filter: 'blur(3px)' });
       tl.set('.js-intro-title', { autoAlpha: 1 });
 
       tl.from(splitText.lines, {
@@ -73,6 +74,9 @@ import { SplitText } from 'gsap/SplitText';
         },
         '-=0.8',
       );
+    } else {
+      tl.set('.js-intro-title', { autoAlpha: 0 });
+      tl.set('.js-scroll-about', { autoAlpha: 1, filter: 'none' });
     }
   });
 })();
