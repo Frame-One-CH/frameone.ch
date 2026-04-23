@@ -90,14 +90,42 @@
   transform: scale(0.9);
   border-radius: 50%;
   backdrop-filter: blur(3px);
-  background: rgba(0, 0, 0, 0.5) url('../img/icons/play.svg') 52% center / 50%
-    no-repeat;
+  background: rgba(0, 0, 0, 0.5);
   transition: 0.3s var(--ease-out-quart);
   transition-property: opacity, transform;
+}
+
+.media__play-icon-glyph {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  transition: 0.15s ease-in;
+  transition-property: opacity, transform, filter;
+}
+
+.media__play-icon-glyph--play {
+  background-image: url('../img/icons/play.svg');
+  background-position: 52% center;
 
   .media--video.is-playing & {
-    background-image: url('../img/icons/pause.svg');
-    background-position: center;
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(3px);
+  }
+}
+
+.media__play-icon-glyph--pause {
+  background-image: url('../img/icons/pause.svg');
+  background-position: center;
+  opacity: 0;
+  transform: scale(0.8);
+  filter: blur(3px);
+
+  .media--video.is-playing & {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
 
