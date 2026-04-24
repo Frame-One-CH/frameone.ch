@@ -4,9 +4,26 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 (() => {
-  function onSectionColorChange(color) {
-    gsap.to('.content', { backgroundColor: color });
+  function getThemeColor(variant) {
+    const prop = variant === 'dark' ? '--theme-dark' : '--theme-light';
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(prop)
+      .trim();
   }
+
+  let activeVariant = null;
+
+  function onSectionColorChange(variant) {
+    activeVariant = variant;
+    gsap.to('.content', { backgroundColor: getThemeColor(variant) });
+  }
+
+  const darkSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  darkSchemeQuery.addEventListener('change', () => {
+    if (activeVariant) {
+      gsap.set('.content', { backgroundColor: getThemeColor(activeVariant) });
+    }
+  });
 
   const sections = document.querySelectorAll('.section');
 
@@ -14,19 +31,14 @@ gsap.registerPlugin(ScrollTrigger);
     const colorAttr = el.getAttribute('data-color');
 
     if (colorAttr) {
-      const color =
-        colorAttr === 'dark'
-          ? gsap.getProperty('html', '--theme-dark')
-          : gsap.getProperty('html', '--theme-light');
-
       ScrollTrigger.create({
         trigger: el.querySelector('.container'),
         start: 'top center',
         end: 'bottom center',
-        onEnter: () => onSectionColorChange(color),
-        onLeave: () => onSectionColorChange(color),
-        onLeaveBack: () => onSectionColorChange(color),
-        onEnterBack: () => onSectionColorChange(color),
+        onEnter: () => onSectionColorChange(colorAttr),
+        onLeave: () => onSectionColorChange(colorAttr),
+        onLeaveBack: () => onSectionColorChange(colorAttr),
+        onEnterBack: () => onSectionColorChange(colorAttr),
       });
     }
 
