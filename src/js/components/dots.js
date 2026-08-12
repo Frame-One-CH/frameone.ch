@@ -341,7 +341,7 @@ export class Dots {
     const sound = baseSound.cloneNode();
 
     sound.addEventListener('ended', cleanup);
-    sound.volume = 0.2;
+    sound.volume = 1;
     sound.play().catch(() => {});
 
     return sound;
