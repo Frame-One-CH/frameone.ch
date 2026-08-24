@@ -21,10 +21,11 @@ export class Dots {
   constructor(el) {
     this.canvas = el;
     this.context = this.canvas.getContext('2d');
+    this.isInteractive = this.canvas.dataset.interactive !== 'false';
     this.dotImage = new Image();
 
     this.dotImage.onload = () => {
-      this.resetRendering();
+      this.isInteractive ? this.resetRendering() : this.render();
     };
 
     this.dotImage.src = new URL(
@@ -32,13 +33,15 @@ export class Dots {
       import.meta.url,
     ).href;
 
-    this.toggleOn = new Audio(
-      new URL('../../assets/sounds/celebration.mp3', import.meta.url),
-    );
+    if (this.isInteractive) {
+      this.toggleOn = new Audio(
+        new URL('../../assets/sounds/celebration.mp3', import.meta.url),
+      );
 
-    this.toggleOff = new Audio(
-      new URL('../../assets/sounds/toggle-off.mp3', import.meta.url),
-    );
+      this.toggleOff = new Audio(
+        new URL('../../assets/sounds/toggle-off.mp3', import.meta.url),
+      );
+    }
 
     this.init();
   }
@@ -59,6 +62,11 @@ export class Dots {
     this.debouncedResize = debounce(this.onResize.bind(this), 100);
 
     window.addEventListener('resize', this.onResizeStart);
+
+    if (!this.isInteractive) {
+      return;
+    }
+
     window.addEventListener('mousedown', this.onMousedown.bind(this));
     window.addEventListener('mouseup', this.onMouseup.bind(this));
     window.addEventListener('mousemove', this.onMousemove.bind(this));
