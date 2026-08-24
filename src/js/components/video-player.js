@@ -30,6 +30,11 @@ export class VideoPlayer {
     this.video.addEventListener('play', this.onPlay);
     this.video.addEventListener('pause', this.onPause);
     this.video.addEventListener('loadedmetadata', this.onLoadedMetadata);
+
+    // Adopt whatever state the video is in rather than assuming it starts paused
+    if (!this.video.paused) {
+      this.play();
+    }
   }
 
   toggle() {
@@ -46,7 +51,9 @@ export class VideoPlayer {
   }
 
   loadedMetadata() {
-    this.video.currentTime = 0;
+    if (this.video.paused) {
+      this.video.currentTime = 0;
+    }
   }
 
   setPlaybackState(isPlaying) {
