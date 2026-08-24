@@ -2,6 +2,11 @@
 // view: a toggle button whose ring fills with the video's progress. The
 // wrapper carries the state classes the styles hook into, so both callers
 // only have to supply the same markup around their own video element.
+
+// Safari needs a #t fragment to paint a first frame without a poster, so
+// seeks back to the start land here rather than on zero.
+export const POSTER_TIME = 0.1;
+
 export class VideoPlayer {
   constructor(video) {
     this.video = video;
@@ -21,27 +26,47 @@ export class VideoPlayer {
     this.circle.style.strokeDasharray = `${this.circumference}`;
     this.circle.style.strokeDashoffset = `${this.circumference}`;
 
+    this.isEnded = false;
+
     this.onClick = this.toggle.bind(this);
     this.onPlay = this.play.bind(this);
     this.onPause = this.pause.bind(this);
+    this.onEnded = this.ended.bind(this);
     this.onLoadedMetadata = this.loadedMetadata.bind(this);
 
     this.button.addEventListener('click', this.onClick);
     this.video.addEventListener('play', this.onPlay);
     this.video.addEventListener('pause', this.onPause);
+    this.video.addEventListener('ended', this.onEnded);
     this.video.addEventListener('loadedmetadata', this.onLoadedMetadata);
 
-    // Adopt whatever state the video is in rather than assuming it starts paused
+    // Adopt whatever state the video is in rather than assuming it starts
+    // paused.
     if (!this.video.paused) {
       this.play();
+    } else {
+      this.isEnded = this.video.ended;
     }
   }
 
   toggle() {
-    this.video.paused ? this.video.play() : this.video.pause();
+    if (!this.video.paused) {
+      this.video.pause();
+      return;
+    }
+
+    // Play on a finished video would resume from the end and stop dead, so
+    // a replay starts it over. The rewind may already have done this, which
+    // is why the flag rather than currentTime decides.
+    if (this.isEnded) {
+      this.video.currentTime = POSTER_TIME;
+    }
+
+    this.video.play();
   }
 
   play() {
+    this.isEnded = false;
     this.updateProgress();
     this.setPlaybackState(true);
   }
@@ -50,9 +75,20 @@ export class VideoPlayer {
     this.setPlaybackState(false);
   }
 
+  // A video that runs out fires ended rather than pause, so the finished
+  // state is recorded here instead of being read back off the element:
+  // rewinding clears video.ended, and the flag has to outlive that. The
+  // rewind is the player's own job so every caller settles back to a still
+  // the same way.
+  ended() {
+    this.isEnded = true;
+    this.setPlaybackState(false);
+    this.video.currentTime = POSTER_TIME;
+  }
+
   loadedMetadata() {
     if (this.video.paused) {
-      this.video.currentTime = 0;
+      this.video.currentTime = POSTER_TIME;
     }
   }
 
@@ -63,7 +99,7 @@ export class VideoPlayer {
     } else {
       this.wrapper.classList.remove('is-playing');
 
-      if (this.video.ended) {
+      if (this.isEnded) {
         this.wrapper.classList.add('is-ended');
       } else {
         this.wrapper.classList.add('is-paused');
@@ -86,7 +122,7 @@ export class VideoPlayer {
     if (this.video.paused) {
       this.offset = target;
 
-      if (this.video.ended) {
+      if (this.isEnded) {
         this.offset = this.circumference;
         cancelAnimationFrame(this.raf);
       }
@@ -110,6 +146,7 @@ export class VideoPlayer {
     this.button.removeEventListener('click', this.onClick);
     this.video.removeEventListener('play', this.onPlay);
     this.video.removeEventListener('pause', this.onPause);
+    this.video.removeEventListener('ended', this.onEnded);
     this.video.removeEventListener('loadedmetadata', this.onLoadedMetadata);
 
     this.wrapper.classList.remove('is-playing', 'is-paused', 'is-ended');
