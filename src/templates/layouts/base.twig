@@ -1,17 +1,24 @@
+{% set pageTitle = pageTitle|default('Frame One – Creative Web Development') %}
+{% set pageDescription = pageDescription|default('Creative web development partner for agencies and designers—Transforming visions into exceptional experiences.') %}
+{% set pageCanonical = pageCanonical|default('https://www.frameone.ch') %}
+{% set showFrames = showFrames ?? true %}
+{% set dotsInteractive = dotsInteractive ?? true %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="scss/styles.scss" />
+    {% block stylesheet %}
+      <link rel="stylesheet" type="text/css" href="scss/styles.scss" />
+    {% endblock %}
 
-    <title>Frame One – Creative Web Development</title>
+    <title>{{ pageTitle }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Creative web development partner for agencies and designers—Transforming visions into exceptional experiences." />
+    <meta name="description" content="{{ pageDescription }}" />
     <meta name="author" content="Sergio Lavanga" />
     <meta name="theme-color" content="#ffffff" />
 
-    <meta property="og:title" content="Frame One – Creative Web Development" />
-    <meta property="og:description" content="Creative web development partner for agencies and designers—Transforming visions into exceptional experiences." />
+    <meta property="og:title" content="{{ pageTitle }}" />
+    <meta property="og:description" content="{{ pageDescription }}" />
     <meta property="og:image" content="./og-image.jpg" />
 
     <meta name="twitter:image" content="./og-image.jpg" />
@@ -26,23 +33,27 @@
     <link rel="preload" as="font" href="fonts/teodor/Teodor-Light.woff2" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" href="fonts/teodor/Teodor-Regular.woff2" type="font/woff2" crossorigin="anonymous" />
 
-    <link rel="canonical" href="https://www.frameone.ch" />
+    <link rel="canonical" href="{{ pageCanonical }}" />
   </head>
   <body>
     {% block content %}
 
     {% endblock %}
 
-    <div class="frames" aria-hidden="true">
-      <div class="frame frame--onload frame--top"></div>
-      <div class="frame frame--onload frame--left"></div>
-      <div class="frame frame--onload frame--right"></div>
-      <div class="frame frame--bottom"></div>
-    </div>
+    {% if showFrames %}
+      <div class="frames" aria-hidden="true">
+        <div class="frame frame--onload frame--top"></div>
+        <div class="frame frame--onload frame--left"></div>
+        <div class="frame frame--onload frame--right"></div>
+        <div class="frame frame--bottom"></div>
+      </div>
+    {% endif %}
 
-    <canvas id="js-bg-canvas" class="bg-canvas"></canvas>
+    <canvas id="js-bg-canvas" class="bg-canvas" data-interactive="{{ dotsInteractive ? 'true' : 'false' }}"></canvas>
 
-    <script type="module" src="js/app.js"></script>
+    {% block scripts %}
+      <script type="module" src="js/app.js"></script>
+    {% endblock %}
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XZSQR3MHQ4"></script>
