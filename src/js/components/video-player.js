@@ -7,6 +7,12 @@
 // seeks back to the start land here rather than on zero.
 export const POSTER_TIME = 0.1;
 
+// Holding the video down runs it fast, the way the video apps on a phone do.
+// Long enough that a deliberate hold is unambiguous, short enough that it
+// still feels like a direct response to the finger.
+const FAST_RATE = 2;
+const HOLD_DELAY = 300;
+
 export class VideoPlayer {
   constructor(video) {
     this.video = video;
@@ -27,14 +33,25 @@ export class VideoPlayer {
     this.circle.style.strokeDashoffset = `${this.circumference}`;
 
     this.isEnded = false;
+    this.holdTimer = null;
+    this.isFast = false;
+    this.wasFast = false;
 
     this.onClick = this.toggle.bind(this);
+    this.onPointerDown = this.pointerDown.bind(this);
+    this.onPointerUp = this.pointerUp.bind(this);
+    this.onContextMenu = this.contextMenu.bind(this);
     this.onPlay = this.play.bind(this);
     this.onPause = this.pause.bind(this);
     this.onEnded = this.ended.bind(this);
     this.onLoadedMetadata = this.loadedMetadata.bind(this);
 
     this.button.addEventListener('click', this.onClick);
+    this.button.addEventListener('pointerdown', this.onPointerDown);
+    this.button.addEventListener('pointerup', this.onPointerUp);
+    this.button.addEventListener('pointercancel', this.onPointerUp);
+    this.button.addEventListener('pointerleave', this.onPointerUp);
+    this.button.addEventListener('contextmenu', this.onContextMenu);
     this.video.addEventListener('play', this.onPlay);
     this.video.addEventListener('pause', this.onPause);
     this.video.addEventListener('ended', this.onEnded);
@@ -50,6 +67,13 @@ export class VideoPlayer {
   }
 
   toggle() {
+    // A hold ends in a click too, but that press was asking for fast-forward,
+    // not for the play state to flip.
+    if (this.wasFast) {
+      this.wasFast = false;
+      return;
+    }
+
     if (!this.video.paused) {
       this.video.pause();
       return;
@@ -65,6 +89,50 @@ export class VideoPlayer {
     this.video.play();
   }
 
+  // Only a primary press arms the hold; a paused video is left alone so the
+  // press stays a plain play tap rather than starting the video off at speed.
+  pointerDown(event) {
+    if (event.button !== 0 || this.video.paused) {
+      return;
+    }
+
+    this.holdTimer = setTimeout(() => this.startFast(), HOLD_DELAY);
+  }
+
+  pointerUp() {
+    clearTimeout(this.holdTimer);
+    this.stopFast();
+  }
+
+  // Anything that stops the video mid-hold also cancels the pending hold, so
+  // no stale suppression is left to eat the following click.
+  endFast() {
+    clearTimeout(this.holdTimer);
+    this.stopFast();
+    this.wasFast = false;
+  }
+
+  // Long-pressing a video on touch otherwise raises the save/share menu,
+  // which would swallow the pointerup that ends the fast-forward.
+  contextMenu(event) {
+    event.preventDefault();
+  }
+
+  startFast() {
+    this.isFast = true;
+    this.wasFast = true;
+    this.video.playbackRate = FAST_RATE;
+  }
+
+  stopFast() {
+    if (!this.isFast) {
+      return;
+    }
+
+    this.isFast = false;
+    this.video.playbackRate = 1;
+  }
+
   play() {
     this.isEnded = false;
     this.updateProgress();
@@ -72,6 +140,7 @@ export class VideoPlayer {
   }
 
   pause() {
+    this.endFast();
     this.setPlaybackState(false);
   }
 
@@ -81,6 +150,7 @@ export class VideoPlayer {
   // rewind is the player's own job so every caller settles back to a still
   // the same way.
   ended() {
+    this.endFast();
     this.isEnded = true;
     this.setPlaybackState(false);
     this.video.currentTime = POSTER_TIME;
@@ -142,8 +212,14 @@ export class VideoPlayer {
     }
 
     cancelAnimationFrame(this.raf);
+    clearTimeout(this.holdTimer);
 
     this.button.removeEventListener('click', this.onClick);
+    this.button.removeEventListener('pointerdown', this.onPointerDown);
+    this.button.removeEventListener('pointerup', this.onPointerUp);
+    this.button.removeEventListener('pointercancel', this.onPointerUp);
+    this.button.removeEventListener('pointerleave', this.onPointerUp);
+    this.button.removeEventListener('contextmenu', this.onContextMenu);
     this.video.removeEventListener('play', this.onPlay);
     this.video.removeEventListener('pause', this.onPause);
     this.video.removeEventListener('ended', this.onEnded);
