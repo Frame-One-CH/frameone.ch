@@ -18,10 +18,16 @@ const IMPACT_MIN = 150;
 const IMPACT_MAX = 250;
 
 export class Dots {
-  constructor(el) {
+  constructor(el, options = {}) {
     this.canvas = el;
     this.context = this.canvas.getContext('2d');
-    this.isInteractive = this.canvas.dataset.interactive !== 'false';
+    // The attribute is the page's default; a caller placing its own field
+    // passes it in instead.
+    this.isInteractive =
+      options.interactive ?? this.canvas.dataset.interactive !== 'false';
+    // The resize hide writes inline opacity, which beats any stylesheet rule.
+    // A field whose visibility a stylesheet owns opts out of it instead.
+    this.ownsVisibility = options.ownsVisibility ?? true;
     this.dotImage = new Image();
 
     this.dotImage.onload = () => {
@@ -94,8 +100,8 @@ export class Dots {
   }
 
   resetRendering() {
-    window.clearInterval(this.stopInterval);
-    this.stopInterval = null;
+    window.clearTimeout(this.stopTimeout);
+    this.stopTimeout = null;
 
     if (!this.isRendering) {
       this.initRendering();
@@ -113,6 +119,10 @@ export class Dots {
   }
 
   setCanvasVisible(isVisible) {
+    if (!this.ownsVisibility) {
+      return;
+    }
+
     this.canvas.style.opacity = isVisible ? '1' : '0';
   }
 
@@ -326,8 +336,8 @@ export class Dots {
       this.clickTime = 0;
       this.moved = false;
 
-      if (!this.stopInterval) {
-        this.stopInterval = window.setTimeout(() => {
+      if (!this.stopTimeout) {
+        this.stopTimeout = window.setTimeout(() => {
           this.stopRendering();
         }, 2000);
       }
@@ -374,5 +384,11 @@ export class Dots {
       this.clear();
       this.render();
     }
+  }
+
+  destroy() {
+    window.removeEventListener('resize', this.onResizeStart);
+    this.debouncedResize.cancel();
+    this.stopRendering();
   }
 }
