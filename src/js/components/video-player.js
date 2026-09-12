@@ -14,9 +14,12 @@ const FAST_RATE = 2;
 const HOLD_DELAY = 300;
 
 export class VideoPlayer {
-  constructor(video) {
+  // The wrapper is where the state classes land and where the control is
+  // looked up. It defaults to the video's own parent, which is what the grid
+  // wants; a caller whose control sits outside the media passes its own.
+  constructor(video, wrapper = video.parentNode) {
     this.video = video;
-    this.wrapper = video.parentNode;
+    this.wrapper = wrapper;
 
     this.button = this.wrapper.querySelector('.media__play');
     this.circle = this.wrapper.querySelector('.media__progress-circle');

@@ -1,5 +1,6 @@
 // The play/pause control shared by the media grid and the canvas detail
-// view. Positioned against whichever .media wrapper it sits in.
+// view. It overlays its .media wrapper by default, which is what the grid
+// wants; the detail view lifts it out into its own corner row instead.
 .media__play {
   position: absolute;
   inset: 0;
