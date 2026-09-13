@@ -1,6 +1,5 @@
 // The play/pause control shared by the media grid and the canvas detail
-// view. It overlays its .media wrapper by default, which is what the grid
-// wants; the detail view lifts it out into its own corner row instead.
+// view. Positioned against whichever .media wrapper it sits in.
 .media__play {
   position: absolute;
   inset: 0;
@@ -16,6 +15,17 @@
       opacity: 1;
       transform: scale(1);
     }
+  }
+
+  // A playing video whose input has gone still puts its control away, the way
+  // a video player's chrome does — over hover and over keyboard focus alike,
+  // which is why this sits after both. Nothing is stranded: focus stays on
+  // the button, so Space still toggles and any key brings the control back.
+  // It fades without shrinking: the scale stays where it was so the control
+  // simply dissolves rather than retreating.
+  .media--video.is-idle & .media__play-icon {
+    opacity: 0;
+    transform: scale(1);
   }
 
   .media--video.is-hinting &,

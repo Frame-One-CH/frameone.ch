@@ -13,13 +13,15 @@ export const POSTER_TIME = 0.1;
 const FAST_RATE = 2;
 const HOLD_DELAY = 300;
 
+// How long the pointer must hold still over a playing video before the
+// control gets out of the way, the way a video player's chrome does. Only
+// long enough that it never flickers during ordinary mouse drift.
+const IDLE_DELAY = 2000;
+
 export class VideoPlayer {
-  // The wrapper is where the state classes land and where the control is
-  // looked up. It defaults to the video's own parent, which is what the grid
-  // wants; a caller whose control sits outside the media passes its own.
-  constructor(video, wrapper = video.parentNode) {
+  constructor(video) {
     this.video = video;
-    this.wrapper = wrapper;
+    this.wrapper = video.parentNode;
 
     this.button = this.wrapper.querySelector('.media__play');
     this.circle = this.wrapper.querySelector('.media__progress-circle');
@@ -37,10 +39,12 @@ export class VideoPlayer {
 
     this.isEnded = false;
     this.holdTimer = null;
+    this.idleTimer = null;
     this.isFast = false;
     this.wasFast = false;
 
     this.onClick = this.toggle.bind(this);
+    this.onActivity = this.activity.bind(this);
     this.onPointerDown = this.pointerDown.bind(this);
     this.onPointerUp = this.pointerUp.bind(this);
     this.onContextMenu = this.contextMenu.bind(this);
@@ -55,6 +59,17 @@ export class VideoPlayer {
     this.button.addEventListener('pointercancel', this.onPointerUp);
     this.button.addEventListener('pointerleave', this.onPointerUp);
     this.button.addEventListener('contextmenu', this.onContextMenu);
+    // On the wrapper rather than the button: the pointer only has to be over
+    // the media for the control to come back, not over the control itself,
+    // which is what it is hiding.
+    this.wrapper.addEventListener('pointermove', this.onActivity);
+    this.wrapper.addEventListener('pointerleave', this.onActivity);
+    this.wrapper.addEventListener('pointerdown', this.onActivity);
+    // A control driven from the keyboard hides on the same timer, so a key
+    // press has to wake it the way a mouse move does. Focus counts too: the
+    // control must be visible the moment it is tabbed to.
+    this.button.addEventListener('keydown', this.onActivity);
+    this.button.addEventListener('focus', this.onActivity);
     this.video.addEventListener('play', this.onPlay);
     this.video.addEventListener('pause', this.onPause);
     this.video.addEventListener('ended', this.onEnded);
@@ -136,14 +151,46 @@ export class VideoPlayer {
     this.video.playbackRate = 1;
   }
 
+  // Any input — pointer over the media, or a key on the focused control —
+  // wakes the control and restarts the countdown. A pointer that has left
+  // counts too: the control is hidden by hover elsewhere, so there is nothing
+  // left to hide.
+  activity() {
+    this.wrapper.classList.remove('is-idle');
+    this.startIdleTimer();
+  }
+
+  // Only a playing video hides its control. Paused, the control is the only
+  // way back and has to stay put.
+  startIdleTimer() {
+    clearTimeout(this.idleTimer);
+
+    if (this.video.paused) {
+      return;
+    }
+
+    this.idleTimer = setTimeout(() => {
+      this.wrapper.classList.add('is-idle');
+    }, IDLE_DELAY);
+  }
+
+  clearIdle() {
+    clearTimeout(this.idleTimer);
+    this.wrapper.classList.remove('is-idle');
+  }
+
   play() {
     this.isEnded = false;
     this.updateProgress();
     this.setPlaybackState(true);
+    // The video may start under a pointer that is already still, so the
+    // countdown starts with playback rather than waiting for a first move.
+    this.startIdleTimer();
   }
 
   pause() {
     this.endFast();
+    this.clearIdle();
     this.setPlaybackState(false);
   }
 
@@ -154,6 +201,7 @@ export class VideoPlayer {
   // the same way.
   ended() {
     this.endFast();
+    this.clearIdle();
     this.isEnded = true;
     this.setPlaybackState(false);
     this.video.currentTime = POSTER_TIME;
@@ -216,6 +264,7 @@ export class VideoPlayer {
 
     cancelAnimationFrame(this.raf);
     clearTimeout(this.holdTimer);
+    clearTimeout(this.idleTimer);
 
     this.button.removeEventListener('click', this.onClick);
     this.button.removeEventListener('pointerdown', this.onPointerDown);
@@ -223,11 +272,21 @@ export class VideoPlayer {
     this.button.removeEventListener('pointercancel', this.onPointerUp);
     this.button.removeEventListener('pointerleave', this.onPointerUp);
     this.button.removeEventListener('contextmenu', this.onContextMenu);
+    this.wrapper.removeEventListener('pointermove', this.onActivity);
+    this.wrapper.removeEventListener('pointerleave', this.onActivity);
+    this.wrapper.removeEventListener('pointerdown', this.onActivity);
+    this.button.removeEventListener('keydown', this.onActivity);
+    this.button.removeEventListener('focus', this.onActivity);
     this.video.removeEventListener('play', this.onPlay);
     this.video.removeEventListener('pause', this.onPause);
     this.video.removeEventListener('ended', this.onEnded);
     this.video.removeEventListener('loadedmetadata', this.onLoadedMetadata);
 
-    this.wrapper.classList.remove('is-playing', 'is-paused', 'is-ended');
+    this.wrapper.classList.remove(
+      'is-playing',
+      'is-paused',
+      'is-ended',
+      'is-idle',
+    );
   }
 }
