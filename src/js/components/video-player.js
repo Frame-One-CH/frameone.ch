@@ -8,9 +8,9 @@
 export const POSTER_TIME = 0.1;
 
 // Holding the video down runs it fast, the way the video apps on a phone do.
+const FAST_RATE = 2;
 // Long enough that a deliberate hold is unambiguous, short enough that it
 // still feels like a direct response to the finger.
-const FAST_RATE = 2;
 const HOLD_DELAY = 300;
 
 // How long the pointer must hold still over a playing video before the
@@ -75,8 +75,8 @@ export class VideoPlayer {
     this.video.addEventListener('ended', this.onEnded);
     this.video.addEventListener('loadedmetadata', this.onLoadedMetadata);
 
-    // Adopt whatever state the video is in rather than assuming it starts
-    // paused.
+    // The canvas opens a detail on an already-playing video, so the control
+    // adopts the current state rather than assuming a paused start.
     if (!this.video.paused) {
       this.play();
     } else {
@@ -267,20 +267,22 @@ export class VideoPlayer {
     clearTimeout(this.idleTimer);
 
     this.button.removeEventListener('click', this.onClick);
-    this.button.removeEventListener('pointerdown', this.onPointerDown);
-    this.button.removeEventListener('pointerup', this.onPointerUp);
-    this.button.removeEventListener('pointercancel', this.onPointerUp);
-    this.button.removeEventListener('pointerleave', this.onPointerUp);
     this.button.removeEventListener('contextmenu', this.onContextMenu);
-    this.wrapper.removeEventListener('pointermove', this.onActivity);
-    this.wrapper.removeEventListener('pointerleave', this.onActivity);
-    this.wrapper.removeEventListener('pointerdown', this.onActivity);
-    this.button.removeEventListener('keydown', this.onActivity);
     this.button.removeEventListener('focus', this.onActivity);
-    this.video.removeEventListener('play', this.onPlay);
-    this.video.removeEventListener('pause', this.onPause);
+    this.button.removeEventListener('keydown', this.onActivity);
+    this.button.removeEventListener('pointercancel', this.onPointerUp);
+    this.button.removeEventListener('pointerdown', this.onPointerDown);
+    this.button.removeEventListener('pointerleave', this.onPointerUp);
+    this.button.removeEventListener('pointerup', this.onPointerUp);
+
+    this.wrapper.removeEventListener('pointerdown', this.onActivity);
+    this.wrapper.removeEventListener('pointerleave', this.onActivity);
+    this.wrapper.removeEventListener('pointermove', this.onActivity);
+
     this.video.removeEventListener('ended', this.onEnded);
     this.video.removeEventListener('loadedmetadata', this.onLoadedMetadata);
+    this.video.removeEventListener('pause', this.onPause);
+    this.video.removeEventListener('play', this.onPlay);
 
     this.wrapper.classList.remove(
       'is-playing',

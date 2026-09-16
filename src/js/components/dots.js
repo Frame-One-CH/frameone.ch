@@ -219,13 +219,6 @@ export class Dots {
   }
 
   render() {
-    // set random opacity
-    /*
-    const random = Math.floor(Math.random() * this.dots.length);
-    this.dots[random].targetOpacity = OPACITY_TARGET;
-    this.dots[random].currentOpacity = OPACITY_DEFAULT;
-    */
-
     const dots = this.dots;
     const dotCount = this.dotCount;
     const mouseX = this.mouseX;
@@ -265,6 +258,8 @@ export class Dots {
         let distance = 0;
         let invDistance = 0;
 
+        // Distances are compared squared, so the sqrt is paid for only by
+        // dots close enough to be moved or lit.
         if (needsDistance) {
           distance = Math.sqrt(distanceSquared);
           invDistance = 1 / distance;
@@ -287,7 +282,6 @@ export class Dots {
           repelTargetY += -dy * invDistance * explosionOffset;
         }
 
-        // Skip sqrt for dots that are definitely outside impact range.
         if (isInImpactRadius) {
           step = (distance * IMPACT_DISTANCE_SCALE) / impact;
 
@@ -372,13 +366,11 @@ export class Dots {
 
     requestAnimationFrame(this.tick.bind(this));
 
-    // calc elapsed time since last loop
     this.elapsed = now - this.then;
 
-    // if enough time has elapsed, draw the next frame
     if (this.elapsed > this.fpsInterval) {
-      // Get ready for next frame by setting then=now, but...
-      // Also, adjust for fpsInterval not being multiple of 16.67
+      // Carry the remainder so a frame interval that is not a multiple of the
+      // display's does not drift.
       this.then = now - (this.elapsed % this.fpsInterval);
 
       this.clear();
