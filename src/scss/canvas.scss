@@ -1,0 +1,42 @@
+@use 'components/video-player' as *;
+@use 'components/canvas-grid' as *;
+
+body {
+  overflow: hidden;
+  background: var(--theme-background);
+  color: var(--theme-foreground);
+}
+
+.bg-canvas {
+  animation: canvas-dots-reveal 1s ease-in-out 0.3s both;
+}
+
+@keyframes canvas-dots-reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.canvas-nav {
+  position: fixed;
+  // Above the detail layer, so the way back out stays reachable.
+  z-index: 110;
+  top: var(--spacing-base);
+  font-size: var(--font-size-small);
+
+  .link {
+    display: block;
+    padding: 0.5em 1.2em;
+    border-radius: 2em;
+    backdrop-filter: saturate(120%) blur(20px);
+    background: rgb(0, 0, 0, 0.35);
+  }
+}
+
+.canvas-nav--start {
+  left: var(--spacing-base);
+}
