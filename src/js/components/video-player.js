@@ -16,7 +16,7 @@ const HOLD_DELAY = 300;
 // How long the pointer must hold still over a playing video before the
 // control gets out of the way, the way a video player's chrome does. Only
 // long enough that it never flickers during ordinary mouse drift.
-const IDLE_DELAY = 2000;
+const IDLE_DELAY = 3000;
 
 export class VideoPlayer {
   constructor(video) {
