@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 (() => {
   const scrollHint = document.querySelector('.js-scroll-hint');
 
-  gsap.to(scrollHint, {
+  const rotateTween = gsap.to(scrollHint, {
     rotate: 360,
     duration: 20,
     repeat: -1,
@@ -34,11 +34,23 @@ gsap.registerPlugin(ScrollTrigger);
     });
   });
 
+  let hidden = false;
+
   ScrollTrigger.create({
     onUpdate: (self) => {
       if (self.progress > 0) {
-        gsap.to(scrollHint, { autoAlpha: 0 });
+        if (hidden) return;
+        hidden = true;
+
+        gsap.to(scrollHint, {
+          autoAlpha: 0,
+          onComplete: () => rotateTween.pause(),
+        });
       } else {
+        if (!hidden) return;
+        hidden = false;
+
+        rotateTween.play();
         gsap.to(scrollHint, { autoAlpha: 1, duration: 1 });
       }
     },
