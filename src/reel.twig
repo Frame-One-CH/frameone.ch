@@ -1,0 +1,69 @@
+{% extends './templates/layouts/base.twig' %}
+
+{% set pageTitle = 'Reel – Frame One' %}
+{% set pageDescription = 'Endless, draggable canvas presenting the work of Frame One' %}
+{% set pageCanonical = 'https://www.frameone.ch/reel.html' %}
+{% set showFrames = false %}
+{% set dotsInteractive = false %}
+
+{% set media = [
+  { type: 'video', src: 'assets/cases/moser-olea.mp4', label: 'Moser Olea', description: 'Brand and website for an olive oil producer.', width: 1200, height: 750 },
+  { type: 'video', src: 'assets/cases/marc-hanslin.mp4', label: 'Marc Hanslin', width: 1124, height: 750 },
+  { type: 'image', src: 'assets/cases/frigg-webapp.jpg', label: 'Frigg Webapp', description: 'Design system and interface for the Frigg platform.', width: 800, height: 800 },
+  { type: 'video', src: 'assets/cases/favorit-shop.mp4', label: 'Favorit Shop', width: 1200, height: 750 },
+  { type: 'video', src: 'assets/cases/cloudscale.mp4', label: 'Cloudscale', width: 1200, height: 750 },
+  { type: 'image', src: 'assets/cases/favorit-frame.jpg', label: 'Favorit Frame', width: 1333, height: 1333 },
+  { type: 'video', src: 'assets/cases/ff-identity.mp4', label: 'FF Identity', width: 1200, height: 750 },
+  { type: 'video', src: 'assets/cases/favorit-studio.mp4', label: 'Favorit Studio', width: 918, height: 656 },
+  { type: 'video', src: 'assets/cases/archive/bkpzh.mp4', label: 'BKP Zürich', width: 1200, height: 750 },
+  { type: 'video', src: 'assets/cases/archive/data-fabric.mp4', label: 'Data Fabric', width: 600, height: 375 },
+  { type: 'video', src: 'assets/cases/archive/newhome.mp4', label: 'Newhome', width: 1200, height: 750 },
+  { type: 'video', src: 'assets/cases/archive/nft-art-day.mp4', label: 'NFT Art Day', width: 720, height: 720 },
+  { type: 'video', src: 'assets/cases/archive/frigg-website.mp4', label: 'Frigg Website', width: 1200, height: 750 },
+  { type: 'video', src: 'assets/cases/archive/favorit-co.mp4', label: 'Favorit Co', width: 1200, height: 750 }
+] %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="scss/styles.scss" />
+  <link rel="stylesheet" type="text/css" href="scss/canvas.scss" />
+{% endblock %}
+
+{% block content %}
+  <nav class="canvas-nav canvas-nav--start">
+    <a href="/" class="link">
+      <span>Frame <span class="text-serif">One</span></span>
+    </a>
+  </nav>
+
+  <div class="canvas-grid" tabindex="-1" role="group" aria-label="Tab between projects or use the arrow keys to pan the canvas, Enter to open a project.">
+    <div class="canvas-grid__container"></div>
+
+    <div class="canvas-grid__sources">
+      {% for item in media %}
+        {% if item.type == 'video' %}
+          <video data-canvas-media="video" data-label="{{ item.label }}"{% if item.description %} data-description="{{ item.description }}"{% endif %} data-width="{{ item.width }}" data-height="{{ item.height }}" src="{{ item.src }}" preload="none" muted playsinline></video>
+        {% else %}
+          <img data-canvas-media="image" data-label="{{ item.label }}"{% if item.description %} data-description="{{ item.description }}"{% endif %} data-width="{{ item.width }}" data-height="{{ item.height }}" src="{{ item.src }}" width="{{ item.width }}" height="{{ item.height }}" alt="" />
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="canvas-grid__detail">
+      <canvas class="canvas-grid__detail-dots" data-canvas-detail-dots aria-hidden="true"></canvas>
+
+      <figure class="canvas-grid__detail-figure">
+        <div class="media canvas-grid__detail-media">
+          {% include 'templates/partials/video-player.twig' %}
+        </div>
+
+        <figcaption class="canvas-grid__detail-description" hidden></figcaption>
+      </figure>
+
+      <button type="button" class="canvas-grid__detail-close">Close</button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="module" src="js/canvas.js"></script>
+{% endblock %}
