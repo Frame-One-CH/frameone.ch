@@ -1,0 +1,264 @@
+@mixin canvas-idle-hover {
+  @media (hover: hover) and (pointer: fine) {
+    .canvas-grid:not(
+        .is-detail-open,
+        .is-transitioning,
+        .is-intro,
+        .is-dragging,
+        .is-pressed
+      )
+      .canvas-grid__item:hover
+      & {
+      @content;
+    }
+  }
+}
+
+.canvas-grid {
+  overflow: hidden;
+  overscroll-behavior: none;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  color: var(--theme-foreground);
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+
+  &.is-pressed {
+    cursor: grabbing;
+  }
+
+  &.is-detail-open {
+    cursor: default;
+  }
+}
+
+.canvas-grid__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas-grid__sources {
+  display: none;
+}
+
+.canvas-grid__item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme-foreground);
+    outline-offset: 4px;
+  }
+
+  .canvas-grid:not(.canvas-grid--static, .is-revealed) & {
+    opacity: 0;
+  }
+
+  .canvas-grid:not(.is-animating-media) & .canvas-grid__media {
+    transition: transform 0.2s var(--ease-out-cubic);
+  }
+
+  .canvas-grid.is-pressed-canvas & .canvas-grid__media {
+    transform: scale(0.95);
+  }
+}
+
+.canvas-grid__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+  outline: 1px solid rgb(255, 255, 255, 0.1);
+  outline-offset: -1px;
+
+  @include canvas-idle-hover {
+    transform: scale(1.03);
+  }
+}
+
+.canvas-grid__media--detail {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 75vh;
+  pointer-events: auto;
+  outline: 1px solid rgb(255, 255, 255, 0.1);
+  outline-offset: -1px;
+}
+
+.canvas-grid__detail-media {
+  display: flex;
+  flex: 0 0 auto;
+
+  &:not(.media--video) .media__play {
+    display: none;
+  }
+}
+
+.canvas-grid__detail-figure {
+  position: relative;
+  // Over the dot backdrop. The media is Flipped in and out of here, so the
+  // whole figure is lifted rather than the media alone: mid-Flip the media
+  // carries GSAP's own transforms and is no longer this element's to stack.
+  z-index: 1;
+  margin: 0;
+  width: min-content;
+}
+
+.canvas-grid__caption {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: max-content;
+  margin: auto;
+  padding-top: 1em;
+  font-size: var(--font-size-small);
+  opacity: 0;
+  transform: translateY(0.2em);
+  transition: 0.2s var(--ease-out-cubic);
+  transition-property: opacity, transform;
+
+  @include canvas-idle-hover {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.canvas-grid__detail {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-content);
+  pointer-events: none;
+  background-color: transparent;
+  transition: background var(--canvas-detail-duration, 1s) ease;
+
+  .canvas-grid.is-detail-open & {
+    pointer-events: auto;
+    background-color: var(--theme-dark);
+  }
+}
+
+.canvas-grid__detail-dots {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--canvas-detail-duration, 1s) ease;
+
+  .canvas-grid.is-detail-open & {
+    opacity: 1;
+  }
+}
+
+.canvas-grid__detail-description {
+  margin: 0;
+  margin-top: 0.8em;
+  flex: 0 0 auto;
+  user-select: text;
+  text-align: center;
+  text-wrap: pretty;
+  font-size: var(--font-size-small);
+  opacity: 0;
+  transform: translateY(-1em);
+  transition: 0.6s var(--ease-out-expo);
+  transition-property: opacity, transform;
+
+  .canvas-grid.is-detail-settled & {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.canvas-grid__detail-close {
+  opacity: 0;
+  position: absolute;
+  // Above the dot backdrop and the figure, so the way out stays clickable
+  // whatever the media's size.
+  z-index: 2;
+  top: var(--spacing-base);
+  right: var(--spacing-base);
+  padding: 0.5em 1.2em;
+  border: 1px solid var(--theme-transparent);
+  border-radius: 2em;
+  font-size: var(--font-size-small);
+  backdrop-filter: blur(2px);
+  background: transparent;
+  color: var(--theme-foreground);
+  pointer-events: none;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease-in-out,
+    opacity 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--theme-foreground);
+  }
+
+  .canvas-grid.is-detail-open & {
+    pointer-events: auto;
+  }
+
+  .canvas-grid.is-detail-settled & {
+    opacity: 1;
+  }
+}
+
+.canvas-grid--static {
+  overflow: auto;
+  cursor: default;
+  touch-action: auto;
+
+  .canvas-grid__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--spacing-base);
+    height: auto;
+    padding: var(--spacing-base);
+  }
+
+  .canvas-grid__item {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: auto !important;
+    height: auto !important;
+    transform: none !important;
+    cursor: default;
+  }
+
+  .canvas-grid__media {
+    height: auto;
+  }
+
+  .canvas-grid__caption {
+    position: static;
+    text-align: left;
+    opacity: 1;
+    transform: none;
+  }
+}
