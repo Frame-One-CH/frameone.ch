@@ -19,9 +19,7 @@ const DEFAULTS = {
 };
 
 // How far a thrown tile travels, as a share of the longest viewport edge.
-const PUSH_DISTANCE = 0.8;
-
-const PUSH_ROTATION = 40;
+const PUSH_DISTANCE = 1;
 
 // Which way a tile is thrown when a detail opens over it: the first edge it
 // sits clear of decides.
@@ -253,7 +251,6 @@ export class CanvasDetail {
           {
             x: x + offset.x,
             y: y + offset.y,
-            rotation: gsap.utils.random(-PUSH_ROTATION, PUSH_ROTATION),
             ...this.tween,
           },
           0,
