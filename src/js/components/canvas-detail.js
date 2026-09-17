@@ -8,7 +8,6 @@
 import { gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
 
-import { Dots } from './dots';
 import { VideoPlayer } from './video-player';
 
 gsap.registerPlugin(Flip);
@@ -52,7 +51,6 @@ export class CanvasDetail {
     this.description = el.querySelector('.canvas-grid__detail-description');
     this.closeButton = el.querySelector('.canvas-grid__detail-close');
     this.container = el.querySelector('.canvas-grid__container');
-    this.dotsCanvas = el.querySelector('[data-canvas-detail-dots]');
 
     this.state = 'idle'; // 'idle' | 'opening' | 'open' | 'closing'
 
@@ -62,23 +60,13 @@ export class CanvasDetail {
     this.onClosed = null;
 
     // The backdrop fades on the same clock as the Flip, so the stylesheet
-    // reads the duration from here instead of repeating it.
-    el.style.setProperty(
+    // reads the duration from here instead of repeating it. It goes on the
+    // root because the page's dot field times against it too, and that canvas
+    // sits outside the grid.
+    document.documentElement.style.setProperty(
       '--canvas-detail-duration',
       `${this.options.detailDuration}s`,
     );
-
-    // The backdrop is a dot field rather than flat black. It stays inert like
-    // the page's own field on this page, so it costs nothing while the grid
-    // is up and needs no teardown between opens.
-    this.dots =
-      this.dotsCanvas &&
-      new Dots(this.dotsCanvas, {
-        interactive: false,
-        // The stylesheet fades this field with the backdrop, so the resize
-        // hide must not leave inline opacity behind to override it.
-        ownsVisibility: false,
-      });
 
     this.layer.addEventListener('click', (e) => {
       if (e.target === this.layer && !this.isAnimating) {
@@ -294,6 +282,5 @@ export class CanvasDetail {
   destroy() {
     this.timeline?.kill();
     this.player?.destroy();
-    this.dots?.destroy();
   }
 }
