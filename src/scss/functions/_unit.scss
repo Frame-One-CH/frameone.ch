@@ -10,7 +10,7 @@
 /// @param {Number} $number - Number to remove unit from
 /// @return {Number} - Unitless number
 @function strip-unit($number) {
-  @if (meta.type-of($number) == 'number' and not math.is-unitless($number)) {
+  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
     $number: math.div($number, ($number * 0 + 1));
   }
 
@@ -27,15 +27,15 @@
 /// }
 /// @return {Number} - Rem value
 @function to-rem($value, $base: 16px) {
-  @if (math.unit($value) == 'em') {
+  @if math.unit($value) == 'em' {
     $value: strip-unit($value) * 1rem;
   }
 
-  @if (math.unit($value) != 'rem') {
+  @if math.unit($value) != 'rem' {
     $value: math.div(strip-unit($value), strip-unit($base)) * 1rem;
   }
 
-  @if (strip-unit($value) == 0) {
+  @if strip-unit($value) == 0 {
     $value: 0;
   }
 
