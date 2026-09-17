@@ -6,6 +6,10 @@ gsap.registerPlugin(ScrollTrigger);
 (() => {
   const scrollHint = document.querySelector('.js-scroll-hint');
 
+  if (!scrollHint) {
+    return;
+  }
+
   gsap.to(scrollHint, {
     rotate: 360,
     duration: 20,
