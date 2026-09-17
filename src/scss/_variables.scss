@@ -1,4 +1,4 @@
-@use 'mixins/clamp-calc' as *;
+@use 'functions/clamp-calc' as *;
 
 @custom-media --desktop (min-width: 59.99em);
 @custom-media --below-desktop (max-width: 60em);

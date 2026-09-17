@@ -6,7 +6,7 @@ and linearly scales between the two between $min-breakpoint and $max-breakpoint
 */
 
 @use 'sass:math';
-@use '../mixins/unit' as *;
+@use '../functions/unit' as *;
 
 @function clamp-calc(
   $min-size,
