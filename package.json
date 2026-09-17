@@ -6,7 +6,8 @@
     "build": "parcel build src/*.twig --no-source-maps --public-url /",
     "clean": "rm -rf dist",
     "prettier": "prettier --write --ignore-path .gitignore .",
-    "stylelint": "stylelint --fix **/*.scss"
+    "stylelint": "stylelint --fix **/*.scss",
+    "lint": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -23,8 +24,11 @@
   },
   "devDependencies": {
     "@christian-beckmann/parcel-transformer-twig": "0.1.1",
+    "@eslint/js": "10.0.1",
     "@parcel/resolver-glob": "2.16.4",
     "@parcel/transformer-sass": "2.16.4",
+    "eslint": "10.10.0",
+    "eslint-config-prettier": "10.1.8",
     "parcel": "2.16.4",
     "parcel-reporter-static-files-copy": "1.5.3",
     "prettier": "3.9.6",

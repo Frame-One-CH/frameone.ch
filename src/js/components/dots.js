@@ -133,7 +133,7 @@ export class Dots {
     this.resetRendering();
   }
 
-  onMousedown(e) {
+  onMousedown() {
     this.mouseStart = new Date();
     this.resetRendering();
   }

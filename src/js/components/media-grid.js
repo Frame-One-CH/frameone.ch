@@ -28,7 +28,7 @@ gsap.registerPlugin(ScrollTrigger);
     },
   );
 
-  media.forEach((el, i) => {
+  media.forEach((el) => {
     gsap.set(el, {
       'clip-path': 'polygon(0% 100%, 100% 80%, 100% 100%, 0% 100%)',
     });

@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 (() => {
   document.fonts.ready.then(() => {
-    document.querySelectorAll('.js-scroll-reveal').forEach((el, i) => {
+    document.querySelectorAll('.js-scroll-reveal').forEach((el) => {
       const splitText = SplitText.create(el, {
         type: 'lines',
         mask: 'lines',
