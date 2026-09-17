@@ -1,0 +1,30 @@
+{% extends './templates/layouts/base.twig' %}
+
+{% set pageTitle = 'Page Not Found – Frame One' %}
+{% set pageDescription = 'This page could not be found.' %}
+{% set pageCanonical = 'https://www.frameone.ch/404.html' %}
+{% set showFrames = false %}
+
+{% block content %}
+  <main class="content">
+    <section class="section section--vh section--centered" data-color="light">
+      <div class="container text-center">
+        <h1 class="lead lead--error text-sans js-scroll-reveal">Page not found</h1>
+
+        <p class="lead js-scroll-reveal">
+          This frame hasn’t been painted yet.
+        </p>
+
+        <p>
+          <a href="/" class="button heading heading--h3">
+            <span class="button__label">Back Home</span>
+            <span class="button__border" aria-hidden="true"></span>
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+{% endblock %}
+
+{# Only the layout's global script is needed here. #}
+{% block scripts %}{% endblock %}
