@@ -33,6 +33,10 @@
 
 .button--contact {
   margin: 2px !important; // make room for the border hover scale
+
+  .button__border {
+    border-width: 2px;
+  }
 }
 
 .button__border {
@@ -43,7 +47,7 @@
   width: 100%;
   height: 100%;
   backdrop-filter: blur(2px);
-  border: 2px solid var(--theme-transparent);
+  border: 1px solid var(--theme-transparent);
   border-radius: inherit;
   padding: inherit;
   transition: inherit;
