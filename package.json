@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "parcel src/*.twig --open",
-    "build": "parcel build src/*.twig --no-source-maps --public-url ./",
+    "build": "parcel build src/*.twig --no-source-maps --public-url /",
     "clean": "rm -rf dist",
     "prettier": "prettier --write --ignore-path .gitignore .",
     "stylelint": "stylelint --fix **/*.scss"
