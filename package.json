@@ -6,8 +6,10 @@
     "build": "parcel build src/*.twig --no-source-maps --public-url /",
     "clean": "rm -rf dist",
     "prettier": "prettier --write --ignore-path .gitignore .",
-    "stylelint": "stylelint --fix **/*.scss",
-    "lint": "eslint --fix ."
+    "stylelint": "stylelint --fix \"**/*.scss\"",
+    "stylelint:check": "stylelint \"**/*.scss\"",
+    "lint": "eslint --fix .",
+    "lint:check": "eslint ."
   },
   "repository": {
     "type": "git",
