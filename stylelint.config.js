@@ -7,6 +7,5 @@ module.exports = {
     'selector-class-pattern': null,
     'scss/at-rule-conditional-no-parentheses': null,
     'scss/double-slash-comment-empty-line-before': null,
-    'scss/operator-no-newline-after': null,
   },
 };
