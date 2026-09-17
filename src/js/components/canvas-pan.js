@@ -1,28 +1,20 @@
 // The endless pan behind the canvas grid: an eased position, a per-item lag,
 // and a wrap that repeats the lattice in both axes without reflowing the DOM.
-//
-// It knows an item only as { x, y, width, height } to read and
-// { extraX, extraY, lagX, lagY } to own, so the grid can hand over a fresh
-// list on every rebuild.
 
 const DEFAULTS = {
   ease: 0.05,
-  // The share of its ease the furthest downstream tile keeps: 1 is no stagger,
-  // lower drags the tail further behind. Tiles the pan heads towards trail the
-  // ones it leaves, so a throw runs through the grid like a whip.
+  // 1 is no stagger; lower drags the tail further behind.
   staggerFalloff: 0.25,
-  // Pixels of outstanding pan before the stagger reaches full strength. Small
-  // moves stay in lockstep, so the grid at rest is never smeared.
+  // Pixels of outstanding pan before the stagger reaches full strength, so
+  // small moves stay in lockstep.
   staggerEngage: 200,
 };
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 // How far outside the viewport a tile is kept before the wrap recycles it.
-// The stagger draws a tile at x - lag, so a tile the wrap has just placed can
-// still be rendered short of its slot; recycling this much early means the
-// slot is filled before it can show. One margin for every tile, so the
-// lattice still folds in lockstep.
+// The stagger draws a tile at x - lag, so recycling this early means its slot
+// is filled before the gap can show.
 const WRAP_MARGIN = 300;
 
 export class CanvasPan {
@@ -32,8 +24,7 @@ export class CanvasPan {
 
     this.current = { x: 0, y: 0 };
     this.target = { x: 0, y: 0 };
-    // Where the pan sat last frame: the stagger reads direction and speed
-    // off the difference.
+    // Last frame's position; the stagger reads direction and speed off it.
     this.last = { x: 0, y: 0 };
 
     this.items = [];
@@ -49,7 +40,7 @@ export class CanvasPan {
     this.step = step;
   }
 
-  // Both axes move together: a half-applied origin tears the wrap next frame.
+  // Both axes together: a half-applied origin tears the wrap next frame.
   moveTo(x, y) {
     this.current.x = this.target.x = this.last.x = x;
     this.current.y = this.target.y = this.last.y = y;
@@ -100,11 +91,9 @@ export class CanvasPan {
     return this.drag.active;
   }
 
-  // Finish an in-flight ease at once, landing where it was headed instead of
-  // wherever the glide had reached. Whatever is about to measure the layout
-  // gets the position that was asked for: tabbing to an off-screen tile
-  // starts a glide, and Enter arrives long before 0.05-per-frame easing has
-  // carried it there.
+  // Jump an in-flight ease to its target, so anything about to measure the
+  // layout sees the position that was asked for. Tabbing to an off-screen tile
+  // starts a glide that Enter would otherwise interrupt mid-flight.
   settle() {
     this.current.x = this.last.x = this.target.x;
     this.current.y = this.last.y = this.target.y;
@@ -117,10 +106,8 @@ export class CanvasPan {
     this.render();
   }
 
-  // Hold the pan still while something else owns the screen. Outstanding lag
-  // and ease are settled here, and the redraw commits that to the layout:
-  // whatever takes over measures from the DOM, which until now still carried
-  // the lagged transforms of a pan that was mid-flight.
+  // Hold the pan still while something else owns the screen. The redraw
+  // commits the cleared lag, which whatever takes over measures against.
   freeze() {
     this.isFrozen = true;
 
@@ -172,8 +159,7 @@ export class CanvasPan {
   }
 
   // Let every tile fall behind the shared pan by an amount that grows with how
-  // far downstream it sits. Lag is a position easing back to zero: a tile takes
-  // on a share of each frame's movement, then sheds what it carries, so it
+  // far downstream it sits. Lag is a position easing back to zero, so a tile
   // trails during a throw and is flush again once the pan stops.
   trackStagger() {
     const { staggerFalloff, staggerEngage, ease } = this.options;
@@ -195,8 +181,7 @@ export class CanvasPan {
 
     const speed = Math.hypot(movedX, movedY);
 
-    // The unit vector "downstream" is measured against. Below a pixel a frame
-    // the direction is noise, so the grid is left to settle.
+    // Below a pixel a frame the direction is noise, so the grid settles.
     const dirX = speed > 1 ? movedX / speed : 0;
     const dirY = speed > 1 ? movedY / speed : 0;
 
@@ -209,10 +194,8 @@ export class CanvasPan {
       if (engagement && reach) {
         const { x, y } = this.positionOf(item);
 
-        // Where the tile sits along the direction of travel, -1 at the
-        // trailing edge to 1 at the leading one. The pan moves the grid
-        // opposite the content, so the sign flips: tiles being moved towards
-        // are the ones that wait.
+        // Where the tile sits along the direction of travel, -1 trailing to 1
+        // leading. The pan moves opposite the content, hence the flipped sign.
         const alongX = x + item.width / 2 - width / 2;
         const alongY = y + item.height / 2 - height / 2;
         const along = -(alongX * dirX + alongY * dirY) / reach;
@@ -222,17 +205,15 @@ export class CanvasPan {
         share = downstream * engagement * (1 - staggerFalloff);
       }
 
-      // Take on this frame's share as lag, then shed what is carried at the
-      // grid's easing rate. The two balance during a throw; the second wins
-      // once it stops.
+      // Take on this frame's share, then shed what is carried. The two balance
+      // during a throw; the second wins once it stops.
       item.lagX += movedX * share - item.lagX * ease;
       item.lagY += movedY * share - item.lagY * ease;
     });
   }
 
   // Wrap each item around the viewport by whole tiles. Lag reaches the
-  // transform only, never the wrap maths: folding it in would let tiles fold
-  // over at different moments and tear the lattice.
+  // transform only: in the wrap maths it would tear the lattice.
   render() {
     const { width, height } = this.viewport;
 
