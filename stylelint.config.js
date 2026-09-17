@@ -9,6 +9,7 @@ module.exports = {
         ignoreShorthands: ['/grid/'],
       },
     ],
+    'at-rule-empty-line-before': null,
     'selector-class-pattern': null,
     'no-descending-specificity': null,
     'scss/at-rule-conditional-no-parentheses': null,
