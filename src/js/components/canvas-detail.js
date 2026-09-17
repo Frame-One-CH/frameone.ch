@@ -8,6 +8,7 @@
 import { gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
 
+import { WRAP_MARGIN } from './canvas-pan';
 import { VideoPlayer } from './video-player';
 
 gsap.registerPlugin(Flip);
@@ -23,8 +24,7 @@ const PUSH_DISTANCE = 0.8;
 const PUSH_ROTATION = 40;
 
 // Which way a tile is thrown when a detail opens over it: the first edge it
-// sits clear of decides. A tile overlapping the target on both axes matches
-// nothing and stays put.
+// sits clear of decides.
 const PUSH_OFFSETS = [
   { clear: (rect, target) => rect.bottom < target.top, x: 0, y: -1 },
   { clear: (rect, target) => rect.top > target.bottom, x: 0, y: 1 },
@@ -32,10 +32,29 @@ const PUSH_OFFSETS = [
   { clear: (rect, target) => rect.left > target.right, x: 1, y: 0 },
 ];
 
+// A tile overlapping the target on both axes sits clear of no edge, so it is
+// thrown along whichever axis it is furthest off-centre on: it has to leave
+// either way, and that is the shorter way out. Two tiles sharing a centre are
+// the one case with no direction to read, so they go up.
+const overlapOffset = (rect, target, distance) => {
+  const awayX = (rect.left + rect.right - target.left - target.right) / 2;
+  const awayY = (rect.top + rect.bottom - target.top - target.bottom) / 2;
+
+  if (Math.abs(awayX) > Math.abs(awayY)) {
+    return { x: Math.sign(awayX) * distance, y: 0 };
+  }
+
+  return { x: 0, y: (Math.sign(awayY) || -1) * distance };
+};
+
 const pushOffset = (rect, target, distance) => {
   const push = PUSH_OFFSETS.find((candidate) => candidate.clear(rect, target));
 
-  return push && { x: push.x * distance, y: push.y * distance };
+  if (!push) {
+    return overlapOffset(rect, target, distance);
+  }
+
+  return { x: push.x * distance, y: push.y * distance };
 };
 
 export class CanvasDetail {
@@ -210,8 +229,12 @@ export class CanvasDetail {
     const { width, height } = this.pan.viewport;
     const distance = Math.max(width, height) * PUSH_DISTANCE;
 
+    // Every tile the wrap still keeps alive, not just the ones fully inside the
+    // edges: a tile straddling an edge is on screen and must be thrown too.
+    // Fast keyboard nav lands tiles here, because the settle before an open
+    // jumps the pan far enough to bring a whole row in from the margin.
     this.pan
-      .visibleItems()
+      .visibleItems(WRAP_MARGIN)
       .filter((other) => other !== item)
       .forEach((other) => {
         const offset = pushOffset(
@@ -219,10 +242,6 @@ export class CanvasDetail {
           targetRect,
           distance,
         );
-
-        if (!offset) {
-          return;
-        }
 
         const { x, y } = this.pan.positionOf(other);
 

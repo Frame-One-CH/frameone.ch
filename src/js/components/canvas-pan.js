@@ -15,7 +15,7 @@ const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 // How far outside the viewport a tile is kept before the wrap recycles it.
 // The stagger draws a tile at x - lag, so recycling this early means its slot
 // is filled before the gap can show.
-const WRAP_MARGIN = 300;
+export const WRAP_MARGIN = 300;
 
 export class CanvasPan {
   constructor(viewport, options = {}) {
@@ -133,13 +133,21 @@ export class CanvasPan {
     };
   }
 
-  visibleItems() {
+  // Tiles on screen, optionally widened by a margin. The wrap keeps a tile
+  // alive until it is WRAP_MARGIN clear of an edge, so anything measuring
+  // against what the viewer can actually see has to ask for that margin too.
+  visibleItems(margin = 0) {
     const { width, height } = this.viewport;
 
     return this.items.filter((item) => {
       const { x, y } = this.positionOf(item);
 
-      return x > -item.width && x < width && y > -item.height && y < height;
+      return (
+        x > -item.width - margin &&
+        x < width + margin &&
+        y > -item.height - margin &&
+        y < height + margin
+      );
     });
   }
 
