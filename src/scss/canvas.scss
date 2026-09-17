@@ -9,6 +9,17 @@ body {
 
 .bg-canvas {
   animation: canvas-dots-reveal 1s ease-in-out 0.3s both;
+  transition-property: opacity, z-index;
+  transition-duration: 0.15s, var(--canvas-detail-duration, 1s);
+  transition-timing-function: ease-in-out, step-end;
+  transition-behavior: allow-discrete;
+}
+
+.is-canvas-detail-open .bg-canvas {
+  z-index: 98;
+  // Going up must be immediate: the backdrop is fading in from transparent,
+  // so a field still below it would be visibly covered on the way.
+  transition-duration: 0.15s, 0s;
 }
 
 @keyframes canvas-dots-reveal {

@@ -18,7 +18,6 @@
   overflow: hidden;
   overscroll-behavior: none;
   position: relative;
-  z-index: 1;
   width: 100%;
   height: 100vh;
   height: 100dvh;
@@ -50,6 +49,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 99;
   margin: 0;
   padding: 0;
   border: 0;
@@ -113,10 +113,6 @@
 
 .canvas-grid__detail-figure {
   position: relative;
-  // Over the dot backdrop. The media is Flipped in and out of here, so the
-  // whole figure is lifted rather than the media alone: mid-Flip the media
-  // carries GSAP's own transforms and is no longer this element's to stack.
-  z-index: 1;
   margin: 0;
   width: min-content;
 }
@@ -141,6 +137,20 @@
   }
 }
 
+.canvas-grid__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 97;
+  pointer-events: none;
+  background-color: var(--theme-dark);
+  opacity: 0;
+  transition: opacity var(--canvas-detail-duration, 1s) ease;
+
+  .canvas-grid.is-detail-open & {
+    opacity: 1;
+  }
+}
+
 .canvas-grid__detail {
   position: fixed;
   inset: 0;
@@ -150,27 +160,9 @@
   justify-content: center;
   padding: var(--spacing-content);
   pointer-events: none;
-  background-color: transparent;
-  transition: background var(--canvas-detail-duration, 1s) ease;
 
   .canvas-grid.is-detail-open & {
     pointer-events: auto;
-    background-color: var(--theme-dark);
-  }
-}
-
-.canvas-grid__detail-dots {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--canvas-detail-duration, 1s) ease;
-
-  .canvas-grid.is-detail-open & {
-    opacity: 1;
   }
 }
 
