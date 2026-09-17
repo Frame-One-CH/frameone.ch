@@ -50,7 +50,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 3px;
-  outline: 1px solid rgb(255, 255, 255, 0.1);
+  outline: 1px solid rgb(255 255 255 / 10%);
   outline-offset: -1px;
 
   @media (--tablet) {
