@@ -287,10 +287,13 @@ export class CanvasGrid {
     });
   }
 
-  // The intro holds the same transforms the Flip is about to measure, so it
-  // is cut short first.
+  // The intro and an in-flight pan both hold the transforms the Flip is about
+  // to measure, so each is cut short first. The pan matters for the keyboard:
+  // focusing an off-screen tile glides it into view, and Enter follows long
+  // before that glide has arrived.
   openDetail(item) {
     this.finishIntro();
+    this.pan.settle();
     this.detail.toggle(item);
   }
 

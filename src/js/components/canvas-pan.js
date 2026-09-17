@@ -100,10 +100,27 @@ export class CanvasPan {
     return this.drag.active;
   }
 
+  // Finish an in-flight ease at once, landing where it was headed instead of
+  // wherever the glide had reached. Whatever is about to measure the layout
+  // gets the position that was asked for: tabbing to an off-screen tile
+  // starts a glide, and Enter arrives long before 0.05-per-frame easing has
+  // carried it there.
+  settle() {
+    this.current.x = this.last.x = this.target.x;
+    this.current.y = this.last.y = this.target.y;
+
+    this.items.forEach((item) => {
+      item.lagX = 0;
+      item.lagY = 0;
+    });
+
+    this.render();
+  }
+
   // Hold the pan still while something else owns the screen. Outstanding lag
-  // and ease are settled here, while nothing draws from them: whatever takes
-  // over measures from the layout, and the render after the thaw would
-  // otherwise resume the decay and slide every tile as it landed.
+  // and ease are settled here, and the redraw commits that to the layout:
+  // whatever takes over measures from the DOM, which until now still carried
+  // the lagged transforms of a pan that was mid-flight.
   freeze() {
     this.isFrozen = true;
 
@@ -114,6 +131,8 @@ export class CanvasPan {
       item.lagX = 0;
       item.lagY = 0;
     });
+
+    this.render();
   }
 
   thaw() {
