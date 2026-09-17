@@ -84,7 +84,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 3px;
-  outline: 1px solid rgb(255, 255, 255, 0.1);
+  outline: 1px solid rgb(255 255 255 / 10%);
   outline-offset: -1px;
 
   @include canvas-idle-hover {
@@ -98,7 +98,7 @@
   max-width: 90vw;
   max-height: 75vh;
   pointer-events: auto;
-  outline: 1px solid rgb(255, 255, 255, 0.1);
+  outline: 1px solid rgb(255 255 255 / 10%);
   outline-offset: -1px;
 }
 
@@ -188,6 +188,7 @@
 .canvas-grid__detail-close {
   opacity: 0;
   position: absolute;
+
   // Above the dot backdrop and the figure, so the way out stays clickable
   // whatever the media's size.
   z-index: 2;

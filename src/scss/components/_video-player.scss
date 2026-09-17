@@ -47,7 +47,7 @@
   transform: scale(0.9);
   border-radius: 50%;
   backdrop-filter: blur(3px);
-  background: rgb(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
   transition: 0.3s var(--ease-out-quart);
   transition-property: opacity, transform;
 }
@@ -97,6 +97,6 @@
 
 .media__progress-circle {
   fill: none;
-  stroke: rgb(255, 255, 255, 0.8);
+  stroke: rgb(255 255 255 / 80%);
   stroke-width: 2;
 }
