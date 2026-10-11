@@ -4,7 +4,7 @@
 
 .services__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   gap: calc(var(--spacing-base) * 1.5);
 }
 
@@ -45,4 +45,17 @@
   padding: 0.2em 0.8em;
   border: 1px solid var(--theme-transparent);
   border-radius: 1em;
+}
+
+.services__pill--framer {
+  color: #fff;
+  text-decoration: none;
+
+  svg {
+    width: 0.5em;
+    height: 0.75em;
+    margin-right: 0.15em;
+    vertical-align: -0.02em;
+    fill: currentcolor;
+  }
 }
