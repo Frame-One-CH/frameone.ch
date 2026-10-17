@@ -56,7 +56,8 @@
     {% endblock %}
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XZSQR3MHQ4"></script>
+    <!-- Queued right away, but the library itself loads after the window
+      load event so it doesn't compete with the page's own resources. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -64,6 +65,13 @@
       }
       gtag('js', new Date());
       gtag('config', 'G-XZSQR3MHQ4');
+
+      window.addEventListener('load', function () {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XZSQR3MHQ4';
+        document.head.appendChild(script);
+      });
     </script>
   </body>
 </html>
