@@ -42,6 +42,7 @@ export class VideoPlayer {
     this.idleTimer = null;
     this.isFast = false;
     this.wasFast = false;
+    this.pointerType = null;
 
     this.onClick = this.toggle.bind(this);
     this.onActivity = this.activity.bind(this);
@@ -110,6 +111,10 @@ export class VideoPlayer {
   // Only a primary press arms the hold; a paused video is left alone so the
   // press stays a plain play tap rather than starting the video off at speed.
   pointerDown(event) {
+    // Recorded before the early return, since a right-click is exactly the
+    // press the context menu handler needs to recognise.
+    this.pointerType = event.pointerType;
+
     if (event.button !== 0 || this.video.paused) {
       return;
     }
@@ -131,9 +136,13 @@ export class VideoPlayer {
   }
 
   // Long-pressing a video on touch otherwise raises the save/share menu,
-  // which would swallow the pointerup that ends the fast-forward.
+  // which would swallow the pointerup that ends the fast-forward. A mouse
+  // right-click or the keyboard menu key is a deliberate request for the
+  // menu, so only touch and pen are held back.
   contextMenu(event) {
-    event.preventDefault();
+    if (this.pointerType === 'touch' || this.pointerType === 'pen') {
+      event.preventDefault();
+    }
   }
 
   startFast() {
