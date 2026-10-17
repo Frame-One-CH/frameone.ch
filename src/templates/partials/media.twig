@@ -2,7 +2,7 @@
   <figure class="media-grid__item {{ large ? 'media-grid__item--large' : 'media-grid__item--small' }}">
     {% if videoUrl %}
       <div class="media media--video">
-        <video class="media__object" src="{{ videoUrl }}#t=0.1" preload="metadata" playsinline muted></video>
+        <video class="media__object" src="{{ videoUrl }}#t=0.1" width="{{ width }}" height="{{ height }}" preload="none" playsinline muted></video>
         {% include './video-player.twig' %}
       </div>
     {% endif %}
