@@ -32,8 +32,11 @@ export class Dots {
 
     // A still field only needs one paint; the render loop starts on the
     // first interaction, so an untouched page is not redrawn at 30fps.
+    // A cached image may already have been drawn by init(), so the canvas
+    // is cleared first or the translucent dots would stack.
     this.dotImage.onload = () => {
       if (!this.isRendering) {
+        this.clear();
         this.render();
       }
     };
