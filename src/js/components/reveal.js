@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
       const splitText = SplitText.create(el, {
         type: 'lines',
         mask: 'lines',
+        aria: 'none',
       });
 
       gsap.from(splitText.lines, {

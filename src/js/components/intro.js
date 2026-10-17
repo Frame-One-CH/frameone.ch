@@ -11,6 +11,7 @@ import { SplitText } from 'gsap/SplitText';
       const splitText = SplitText.create('.js-intro-title', {
         type: 'lines',
         mask: 'lines',
+        aria: 'none',
       });
 
       tl.set('.js-scroll-about', { autoAlpha: 0, filter: 'blur(3px)' });
