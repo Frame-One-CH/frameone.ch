@@ -30,8 +30,12 @@ export class Dots {
     this.ownsVisibility = options.ownsVisibility ?? true;
     this.dotImage = new Image();
 
+    // A still field only needs one paint; the render loop starts on the
+    // first interaction, so an untouched page is not redrawn at 30fps.
     this.dotImage.onload = () => {
-      this.isInteractive ? this.resetRendering() : this.render();
+      if (!this.isRendering) {
+        this.render();
+      }
     };
 
     this.dotImage.src = new URL(
