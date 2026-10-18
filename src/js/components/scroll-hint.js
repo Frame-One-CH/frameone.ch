@@ -18,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
       gsap.to(scrollHint, {
         autoAlpha: 1,
         duration: 1,
+        overwrite: 'auto',
       });
     }
   }, 2500);
@@ -44,6 +45,7 @@ gsap.registerPlugin(ScrollTrigger);
 
         gsap.to(scrollHint, {
           autoAlpha: 0,
+          overwrite: 'auto',
           onComplete: () => rotateTween.pause(),
         });
       } else {
@@ -51,7 +53,7 @@ gsap.registerPlugin(ScrollTrigger);
         hidden = false;
 
         rotateTween.play();
-        gsap.to(scrollHint, { autoAlpha: 1, duration: 1 });
+        gsap.to(scrollHint, { autoAlpha: 1, duration: 1, overwrite: 'auto' });
       }
     },
   });
