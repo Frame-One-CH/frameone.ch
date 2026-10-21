@@ -23,8 +23,18 @@
   }
 }
 
+// Media loads lazily, so the figure can't shrink-wrap its intrinsic size
+// without shifting the layout once it arrives.
 .media-grid__item {
+  width: 100%;
   margin: 0;
+}
+
+// Cap videos to the width their max-height allows
+.media-grid__item--large {
+  @media (--tablet) {
+    max-width: calc(420px * var(--aspect-ratio));
+  }
 }
 
 .media-grid__item--small {
