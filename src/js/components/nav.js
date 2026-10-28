@@ -20,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
       y: 0,
       yPercent: shouldShow ? 0 : -100,
       duration: shouldShow ? 0.3 : 0.2,
-      ease: shouldShow ? 'expo.easeOut' : 'expo.easeIn',
+      ease: shouldShow ? 'expo.out' : 'expo.in',
       overwrite: true,
     });
   }
