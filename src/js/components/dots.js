@@ -17,6 +17,11 @@ const IMPACT_DEFAULT = 80;
 const IMPACT_MIN = 150;
 const IMPACT_MAX = 250;
 
+// The fade and easing constants above are per-frame amounts, tuned when the
+// field was drawn at 30fps. Each frame now advances them by the time it
+// actually covers, so the feel holds at any refresh rate.
+const TUNED_FRAME_DURATION = 1000 / 30;
+
 export class Dots {
   constructor(el, options = {}) {
     this.canvas = el;
@@ -31,7 +36,7 @@ export class Dots {
     this.dotImage = new Image();
 
     // A still field only needs one paint; the render loop starts on the
-    // first interaction, so an untouched page is not redrawn at 30fps.
+    // first interaction, so an untouched page is not redrawn every frame.
     // A cached image may already have been drawn by init(), so the canvas
     // is cleared first or the translucent dots would stack.
     this.dotImage.onload = () => {
@@ -89,11 +94,9 @@ export class Dots {
     );
   }
 
-  initRendering(fps = 30) {
-    this.prevTime = 0;
+  initRendering() {
     this.isRendering = true;
-    this.fpsInterval = 1000 / fps;
-    this.then = window.performance.now();
+    this.then = null;
 
     requestAnimationFrame(this.tick.bind(this));
   }
@@ -225,7 +228,7 @@ export class Dots {
     this.context.globalAlpha = 1;
   }
 
-  render() {
+  render(frameScale = 1) {
     const dots = this.dots;
     const dotCount = this.dotCount;
     const mouseX = this.mouseX;
@@ -243,6 +246,8 @@ export class Dots {
     const repulsionRadius = SPREAD * CURSOR_REPEL_RADIUS_MULTIPLIER;
     const repulsionRadiusSquared = repulsionRadius * repulsionRadius;
     const repulsionMaxOffset = SPREAD;
+    const repelEasing =
+      1 - Math.pow(1 - CURSOR_REPEL_RETURN_EASING, frameScale);
 
     for (let i = 0; i < dotCount; i++) {
       const dot = dots[i];
@@ -289,12 +294,19 @@ export class Dots {
           repelTargetY += -dy * invDistance * explosionOffset;
         }
 
+        // The relit dot's first step is a level, not a rate, so it stays
+        // unscaled: otherwise dots under a moving cursor would light dimmer
+        // the higher the refresh rate.
         if (isInImpactRadius) {
           step = (distance * IMPACT_DISTANCE_SCALE) / impact;
 
           dot.currentOpacity = OPACITY_DEFAULT;
           dot.targetOpacity = OPACITY_TARGET;
+        } else {
+          step *= frameScale;
         }
+      } else {
+        step *= frameScale;
       }
 
       let currentOpacity = dot.currentOpacity;
@@ -317,10 +329,8 @@ export class Dots {
         dot.targetOpacity = targetOpacity;
       }
 
-      const offsetX =
-        dot.offsetX + (repelTargetX - dot.offsetX) * CURSOR_REPEL_RETURN_EASING;
-      const offsetY =
-        dot.offsetY + (repelTargetY - dot.offsetY) * CURSOR_REPEL_RETURN_EASING;
+      const offsetX = dot.offsetX + (repelTargetX - dot.offsetX) * repelEasing;
+      const offsetY = dot.offsetY + (repelTargetY - dot.offsetY) * repelEasing;
 
       dot.offsetX = Math.abs(offsetX) < CURSOR_REPEL_SNAP_EPSILON ? 0 : offsetX;
       dot.offsetY = Math.abs(offsetY) < CURSOR_REPEL_SNAP_EPSILON ? 0 : offsetY;
@@ -329,7 +339,10 @@ export class Dots {
     }
 
     if (hasExplosion) {
-      this.explosionStrength = Math.max(0, explosionStrength - OPACITY_STEP);
+      this.explosionStrength = Math.max(
+        0,
+        explosionStrength - OPACITY_STEP * frameScale,
+      );
     }
 
     if (hasInteraction) {
@@ -373,16 +386,18 @@ export class Dots {
 
     requestAnimationFrame(this.tick.bind(this));
 
-    this.elapsed = now - this.then;
+    // Drawn every frame: the field follows the cursor, and anything slower
+    // than the display steps visibly next to it. The first frame has no
+    // previous one to measure against, so it counts as a tuned frame.
+    const frameScale =
+      this.then === null
+        ? 1
+        : Math.max(0, now - this.then) / TUNED_FRAME_DURATION;
 
-    if (this.elapsed > this.fpsInterval) {
-      // Carry the remainder so a frame interval that is not a multiple of the
-      // display's does not drift.
-      this.then = now - (this.elapsed % this.fpsInterval);
+    this.then = now;
 
-      this.clear();
-      this.render();
-    }
+    this.clear();
+    this.render(frameScale);
   }
 
   destroy() {
