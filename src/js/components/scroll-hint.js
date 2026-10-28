@@ -23,17 +23,24 @@ gsap.registerPlugin(ScrollTrigger);
     }
   }, 2500);
 
-  scrollHint.addEventListener('mouseenter', () => {
-    gsap.to(scrollHint, {
-      scale: 1.1,
+  // A tap fires mouseenter too, which would leave the hint stuck enlarged.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    scrollHint.addEventListener('mouseenter', () => {
+      gsap.to(scrollHint, {
+        scale: 1.1,
+        duration: 0.3,
+        ease: 'power3.out',
+      });
     });
-  });
 
-  scrollHint.addEventListener('mouseleave', () => {
-    gsap.to(scrollHint, {
-      scale: 1,
+    scrollHint.addEventListener('mouseleave', () => {
+      gsap.to(scrollHint, {
+        scale: 1,
+        duration: 0.3,
+        ease: 'power3.out',
+      });
     });
-  });
+  }
 
   let hidden = false;
 
