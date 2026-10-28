@@ -43,10 +43,12 @@ gsap.registerPlugin(ScrollTrigger);
         velo = -1;
       }
 
+      // The scroll kick lands first, then settles back to the scroll
+      // direction's cruising speed.
       gsap.to(marqueeTween, {
         timeScale: velo * -1,
         overwrite: true,
-        onUpdate() {
+        onComplete() {
           gsap.to(marqueeTween, {
             timeScale: self.direction * -1,
           });
