@@ -1,4 +1,4 @@
-import { gsap, Power3 } from 'gsap';
+import { gsap, Power3, Power4 } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 (() => {
@@ -14,7 +14,7 @@ import { SplitText } from 'gsap/SplitText';
         aria: 'none',
       });
 
-      tl.set('.js-scroll-about', { autoAlpha: 0, filter: 'blur(3px)' });
+      tl.set('.js-scroll-about', { autoAlpha: 0 });
       tl.set('.js-intro-title', { autoAlpha: 1 });
 
       tl.from(splitText.lines, {
@@ -38,9 +38,8 @@ import { SplitText } from 'gsap/SplitText';
         {
           autoAlpha: 0,
           scale: 1.5,
-          filter: 'blur(3px)',
-          duration: 1,
-          ease: Power3.easeInOut,
+          duration: 0.6,
+          ease: Power3.easeIn,
         },
         '-=0.2',
       );
@@ -49,8 +48,8 @@ import { SplitText } from 'gsap/SplitText';
         '.js-scroll-out-top',
         {
           yPercent: -150,
-          duration: 1,
-          ease: Power3.easeInOut,
+          duration: 0.6,
+          ease: Power3.easeIn,
         },
         '<',
       );
@@ -59,8 +58,8 @@ import { SplitText } from 'gsap/SplitText';
         '.js-scroll-out-bottom',
         {
           yPercent: 150,
-          duration: 1,
-          ease: Power3.easeInOut,
+          duration: 0.6,
+          ease: Power3.easeIn,
         },
         '<',
       );
@@ -68,16 +67,15 @@ import { SplitText } from 'gsap/SplitText';
       tl.to(
         '.js-scroll-about',
         {
-          filter: 'none',
           autoAlpha: 1,
           duration: 0.6,
-          ease: Power3.easeInOut,
+          ease: 'linear',
         },
-        '-=0.8',
+        '-=0.3',
       );
     } else {
       tl.set('.js-intro-title', { autoAlpha: 0 });
-      tl.set('.js-scroll-about', { autoAlpha: 1, filter: 'none' });
+      tl.set('.js-scroll-about', { autoAlpha: 1 });
     }
   });
 })();
