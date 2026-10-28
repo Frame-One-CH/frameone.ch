@@ -1,15 +1,29 @@
-import { gsap, Expo } from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 (() => {
-  const navTween = gsap.to(document.querySelectorAll('.nav__link'), {
-    y: 0,
-    duration: 0.6,
-    paused: true,
-    ease: Expo.easeOut,
-  });
+  const navLinks = document.querySelectorAll('.nav__link');
+  let isShown = false;
+
+  // Showing and hiding are separate tweens rather than one reversed: a
+  // reversed ease-out plays back as an ease-in, which drags on the way out.
+  function setShown(shouldShow) {
+    if (shouldShow === isShown) {
+      return;
+    }
+
+    isShown = shouldShow;
+
+    gsap.to(navLinks, {
+      y: 0,
+      yPercent: shouldShow ? 0 : -100,
+      duration: shouldShow ? 0.3 : 0.2,
+      ease: shouldShow ? 'expo.easeOut' : 'expo.easeIn',
+      overwrite: true,
+    });
+  }
 
   ScrollTrigger.create({
     onUpdate: (self) => {
@@ -19,11 +33,7 @@ gsap.registerPlugin(ScrollTrigger);
         document.documentElement.classList.remove('is-scrolled');
       }
 
-      if (self.direction > 0) {
-        navTween.play();
-      } else {
-        navTween.reverse();
-      }
+      setShown(self.direction > 0);
     },
   });
 })();
