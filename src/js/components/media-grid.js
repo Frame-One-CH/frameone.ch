@@ -46,19 +46,21 @@ gsap.registerPlugin(ScrollTrigger);
     },
   );
 
-  media.forEach((el, i) => {
+  // A one-pixel range turns the wipe into a switch at the media's middle
+  // reaching the fold, and the scrub turns that switch into a one-second
+  // catch-up.
+  media.forEach((el) => {
     gsap.set(el, {
       'clip-path': 'polygon(0% 100%, 100% 80%, 100% 100%, 0% 100%)',
     });
 
     gsap.to(el, {
       'clip-path': 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-      duration: 5,
       ease: 'none',
       scrollTrigger: {
         trigger: el,
         start: 'center bottom',
-        end: 'top bottom',
+        end: '+=1',
         scrub: 1,
       },
     });
