@@ -57,7 +57,7 @@
   inset: 0;
   background-repeat: no-repeat;
   background-size: 50%;
-  transition: 0.15s ease-in;
+  transition: 0.15s var(--ease-out-quart);
   transition-property: opacity, transform, filter;
 }
 
