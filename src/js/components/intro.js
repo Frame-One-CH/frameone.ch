@@ -1,4 +1,4 @@
-import { gsap, Power3, Power4 } from 'gsap';
+import { gsap, Power3 } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
 (() => {
