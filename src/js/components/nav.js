@@ -19,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
     gsap.to(navLinks, {
       y: 0,
       yPercent: shouldShow ? 0 : -100,
-      duration: shouldShow ? 0.3 : 0.2,
+      duration: shouldShow ? 0.6 : 0.3,
       ease: shouldShow ? 'expo.out' : 'expo.in',
       overwrite: true,
     });
