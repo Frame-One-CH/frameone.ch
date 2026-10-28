@@ -10,6 +10,7 @@ $cursor-size: 1.8rem;
       opacity: 1;
 
       &::after {
+        opacity: 1;
         transform: none;
       }
     }
@@ -24,10 +25,12 @@ $cursor-size: 1.8rem;
     transform: translate(var(--cursor-x), var(--cursor-y));
     mix-blend-mode: difference;
     pointer-events: none;
+    transition: opacity 0.3s var(--ease-out-quart);
 
     &::after {
       content: '';
-      transform: scale(0);
+      opacity: 0;
+      transform: scale(0.5);
       display: block;
       width: $cursor-size;
       height: $cursor-size;
@@ -35,7 +38,9 @@ $cursor-size: 1.8rem;
       margin-left: $cursor-size * -0.5;
       background-size: contain;
       background-image: url('../img/icons/cursor.svg');
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition:
+        transform 0.3s var(--ease-out-quart),
+        opacity 0.2s var(--ease-out-quart);
     }
 
     &.cursor--pressed::after {

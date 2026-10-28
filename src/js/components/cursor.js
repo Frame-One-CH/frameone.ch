@@ -18,17 +18,33 @@ export class Cursor {
     return this;
   }
 
+  // The element stays until its exit transition has played out. Reading the
+  // animations flushes the style change first, so a cursor that was already
+  // hidden has none and goes straight away.
   destroy() {
+    const el = this.el;
+
     this.removeEvents();
     this.deactivate();
-    document.body.removeChild(this.el);
+
+    Promise.all(
+      el
+        .getAnimations({ subtree: true })
+        .map((animation) => animation.finished),
+    )
+      .catch(() => {})
+      .then(() => el.remove());
   }
 
+  // The caller activates the cursor right after creating it. Without a style
+  // flush in between, the hidden state is never computed and the entrance
+  // has nothing to transition from.
   create() {
     this.el = document.createElement('div');
     this.el.setAttribute('aria-hidden', true);
     this.el.classList.add(this.options.classes.cursor);
     document.body.append(this.el);
+    this.el.getBoundingClientRect();
   }
 
   setPosition(x, y) {
