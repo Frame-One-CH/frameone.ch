@@ -27,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 
   const sections = document.querySelectorAll('.section');
 
-  sections.forEach((el, i) => {
+  sections.forEach((el) => {
     const colorAttr = el.getAttribute('data-color');
 
     if (colorAttr) {
@@ -41,20 +41,24 @@ gsap.registerPlugin(ScrollTrigger);
         onEnterBack: () => onSectionColorChange(colorAttr),
       });
     }
+  });
 
-    const progressEnd =
-      i === sections.length - 1 ? 'bottom bottom' : 'bottom top';
-
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top bottom',
-      end: progressEnd,
-      onUpdate: (self) => {
-        gsap.to('.line-grid', {
-          '--progress': self.progress,
-        });
+  // Each grid draws its lines with the scroll through its own section only;
+  // driven from every section, overlapping ranges fought over the value.
+  document.querySelectorAll('.line-grid').forEach((el) => {
+    gsap.fromTo(
+      el,
+      { '--progress': 0 },
+      {
+        '--progress': 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el.closest('.section'),
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: 0.5,
+        },
       },
-      scrub: 0.5,
-    });
+    );
   });
 })();
