@@ -17,9 +17,13 @@ a:not([class]),
     transition: background-size 0.3s var(--ease-out-quart);
   }
 
-  &:hover,
-  &:focus-visible {
-    > span {
+  &:focus-visible > span {
+    background-size: 0 1px;
+    background-position: right 100%;
+  }
+
+  @media (--can-hover) {
+    &:hover > span {
       background-size: 0 1px;
       background-position: right 100%;
     }
@@ -29,7 +33,7 @@ a:not([class]),
     .icon {
       opacity: 0;
       transform: translate(-20%, 20%);
-      transition: 0.6s var(--ease-out-expo) 0.1s;
+      transition: 0.25s var(--ease-out-quart);
       transition-property: opacity, transform;
     }
 
