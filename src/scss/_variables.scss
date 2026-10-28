@@ -4,6 +4,7 @@
 @custom-media --below-desktop (max-width: 60em);
 @custom-media --tablet (min-width: 40em);
 @custom-media --below-tablet (max-width: 39.99em);
+@custom-media --can-hover (hover: hover) and (pointer: fine);
 
 :root {
   --color-white: #fff;

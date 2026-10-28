@@ -1,3 +1,9 @@
+@mixin button-border-highlight {
+  transform: scale3d(1.02, 1.02, 1);
+  border-color: var(--theme-foreground);
+  background-color: rgb(255, 255, 255, 0.02);
+}
+
 .button {
   position: relative;
   display: inline-block;
@@ -10,7 +16,6 @@
   white-space: normal;
   background-color: transparent;
   color: var(--theme-foreground);
-  transition: all 0.3s var(--ease-out-circ);
   user-select: none;
   touch-action: manipulation;
 
@@ -20,14 +25,21 @@
     text-decoration: none;
   }
 
-  &:hover,
-  &:focus-visible {
-    .button__border {
-      transform: scale3d(1.02, 1.02, 1);
-      border-color: var(--theme-foreground);
-      background-color: rgb(255, 255, 255, 0.02);
-      color: var(--theme-foreground);
+  &:focus-visible .button__border {
+    @include button-border-highlight;
+  }
+
+  @media (--can-hover) {
+    &:hover .button__border {
+      @include button-border-highlight;
     }
+  }
+
+  // The press lands quickly and the release eases back on the slower base
+  // transition.
+  &:active .button__border {
+    transform: scale3d(0.97, 0.97, 1);
+    transition-duration: 0.15s;
   }
 }
 
@@ -46,5 +58,6 @@
   border: 2px solid var(--theme-transparent);
   border-radius: inherit;
   padding: inherit;
-  transition: inherit;
+  transition: 0.3s var(--ease-out-circ);
+  transition-property: transform, border-color, background-color;
 }
